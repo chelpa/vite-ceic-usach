@@ -1,8 +1,41 @@
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Circle, Info } from "lucide-react";
+import { CheckCircle2, Circle, Info, Maximize2, Minimize2 } from "lucide-react";
 import malla from "../data/malla.json";
 
 const STORE_KEY = "ceic-malla-avance-v1";
+const SIZE_STORE_KEY = "ceic-malla-tamano-v1";
+
+function loadTamano() {
+  try {
+    const raw = localStorage.getItem(SIZE_STORE_KEY);
+    if (raw === "chica" || raw === "grande") return raw;
+  } catch {
+    /* localStorage no disponible */
+  }
+  return "grande";
+}
+
+// Ramos propios de Economía agrupados por semestre real (no por tipo) — cruce
+// hecho contra la malla oficial publicada en fae.usach.cl/cice (vigente desde
+// 2023 y la anterior, hasta 2022, porque BuscaCursos trae secciones de ambas
+// mallas corriendo en paralelo este semestre). Ver bitácora, entrada c19.
+function economiaPorSemestre() {
+  const todos = [
+    ...malla.economia.obligatorios,
+    ...malla.economia.electivos_especialidad,
+    ...malla.economia.electivos_sociales,
+  ];
+  const porNivel = {};
+  todos.forEach((r) => {
+    const n = r.nivel;
+    if (!porNivel[n]) porNivel[n] = [];
+    porNivel[n].push(r);
+  });
+  return Object.keys(porNivel)
+    .map(Number)
+    .sort((a, b) => a - b)
+    .map((nivel) => ({ nivel, ramos: porNivel[nivel] }));
+}
 
 function hashHue(str) {
   let h = 0;
@@ -29,7 +62,34 @@ function loadAvance() {
   return {};
 }
 
-function RamoCard({ ramo, done, onToggle }) {
+function RamoCard({ ramo, done, onToggle, compact }) {
+  if (compact) {
+    return (
+      <button
+        type="button"
+        onClick={() => onToggle(ramo.codigo)}
+        title={ramo.nombre}
+        className={
+          "block-border flex w-full items-center gap-1.5 px-2 py-1.5 text-left transition-colors " +
+          (done ? "bg-primary/10" : "bg-card")
+        }
+      >
+        {done ? (
+          <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden="true" />
+        ) : (
+          <Circle className="h-3.5 w-3.5 shrink-0 text-muted-foreground/40" aria-hidden="true" />
+        )}
+        <p
+          className={
+            "truncate text-[11.5px] leading-snug " +
+            (done ? "text-muted-foreground line-through" : "")
+          }
+        >
+          {ramo.nombre}
+        </p>
+      </button>
+    );
+  }
   return (
     <button
       type="button"
@@ -65,6 +125,37 @@ function RamoCard({ ramo, done, onToggle }) {
   );
 }
 
+function SizeToggle({ tamano, onChange }) {
+  return (
+    <div className="block-border flex bg-card text-xs font-semibold uppercase" role="group" aria-label="Tamaño de la malla">
+      <button
+        type="button"
+        onClick={() => onChange("grande")}
+        aria-pressed={tamano === "grande"}
+        className={
+          "flex items-center gap-1.5 px-3 py-2 " +
+          (tamano === "grande" ? "bg-primary text-primary-foreground" : "")
+        }
+      >
+        <Maximize2 className="h-3.5 w-3.5" aria-hidden="true" />
+        Grande
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange("chica")}
+        aria-pressed={tamano === "chica"}
+        className={
+          "flex items-center gap-1.5 border-l border-foreground px-3 py-2 " +
+          (tamano === "chica" ? "bg-primary text-primary-foreground" : "")
+        }
+      >
+        <Minimize2 className="h-3.5 w-3.5" aria-hidden="true" />
+        Chica
+      </button>
+    </div>
+  );
+}
+
 function ProgressBar({ done, total }) {
   const pct = total ? Math.round((done / total) * 100) : 0;
   return (
@@ -82,6 +173,7 @@ function ProgressBar({ done, total }) {
 export default function MallaInteractiva() {
   const [mencion, setMencion] = useState("ingeco");
   const [avance, setAvance] = useState(loadAvance);
+  const [tamano, setTamano] = useState(loadTamano);
 
   useEffect(() => {
     try {
@@ -91,9 +183,19 @@ export default function MallaInteractiva() {
     }
   }, [avance]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem(SIZE_STORE_KEY, tamano);
+    } catch {
+      /* localStorage no disponible en este navegador */
+    }
+  }, [tamano]);
+
   function toggle(codigo) {
     setAvance((a) => ({ ...a, [codigo]: !a[codigo] }));
   }
+
+  const compact = tamano === "chica";
 
   const allIngecoCodes = useMemo(
     () => malla.ingeco.niveles.flatMap((n) => n.ramos.map((r) => r.codigo)),
@@ -108,6 +210,7 @@ export default function MallaInteractiva() {
       ].map((r) => r.codigo),
     []
   );
+  const economiaNiveles = useMemo(() => economiaPorSemestre(), []);
 
   const ingecoDone = allIngecoCodes.filter((c) => avance[c]).length;
   const economiaDone = economiaCodes.filter((c) => avance[c]).length;
@@ -123,32 +226,45 @@ export default function MallaInteractiva() {
       <div className="mt-4 flex items-start gap-3 border border-accent/40 bg-accent/10 p-3 text-sm">
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
         <p className="text-muted-foreground">
-          Esto lista los ramos reales y sus créditos (sacados de BuscaCursos), pero todavía{" "}
+          Esto lista los ramos reales, sus créditos (sacados de BuscaCursos) y ahora también el
+          semestre real de cada uno (cruzado contra la malla oficial de{" "}
+          <a
+            href="https://fae.usach.cl/cice/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-primary underline"
+          >
+            fae.usach.cl
+          </a>
+          ), pero todavía{" "}
           <strong className="text-foreground">no marca qué ramo es prerrequisito de cuál</strong>{" "}
           — esa información no está en ninguna fuente que tengamos consolidada, solo en el PDF de
           programa de cada asignatura por separado. Queda anotado como pendiente.
         </p>
       </div>
 
-      <div className="mt-8 flex gap-2">
-        <button
-          onClick={() => setMencion("ingeco")}
-          className={
-            "block-border px-4 py-2 text-sm font-semibold uppercase " +
-            (mencion === "ingeco" ? "bg-primary text-primary-foreground" : "bg-card")
-          }
-        >
-          Mención Administración
-        </button>
-        <button
-          onClick={() => setMencion("economia")}
-          className={
-            "block-border px-4 py-2 text-sm font-semibold uppercase " +
-            (mencion === "economia" ? "bg-primary text-primary-foreground" : "bg-card")
-          }
-        >
-          Mención Economía
-        </button>
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setMencion("ingeco")}
+            className={
+              "block-border px-4 py-2 text-sm font-semibold uppercase " +
+              (mencion === "ingeco" ? "bg-primary text-primary-foreground" : "bg-card")
+            }
+          >
+            Mención Administración
+          </button>
+          <button
+            onClick={() => setMencion("economia")}
+            className={
+              "block-border px-4 py-2 text-sm font-semibold uppercase " +
+              (mencion === "economia" ? "bg-primary text-primary-foreground" : "bg-card")
+            }
+          >
+            Mención Economía
+          </button>
+        </div>
+        <SizeToggle tamano={tamano} onChange={setTamano} />
       </div>
 
       {mencion === "ingeco" ? (
@@ -161,13 +277,18 @@ export default function MallaInteractiva() {
             <ProgressBar done={ingecoDone} total={allIngecoCodes.length} />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div
+            className={
+              "grid grid-cols-1 gap-4 sm:grid-cols-2 " +
+              (compact ? "lg:grid-cols-10" : "lg:grid-cols-5")
+            }
+          >
             {malla.ingeco.niveles.map((n) => (
               <div key={n.nivel}>
                 <h2 className="mb-2 flex items-baseline gap-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
-                  Semestre {n.nivel}
+                  Sem. {n.nivel}
                   <span className="font-mono text-[11px] font-normal text-muted-foreground">
-                    {n.ramos.length} ramos
+                    {n.ramos.length}
                   </span>
                 </h2>
                 <div className="flex flex-col gap-2">
@@ -177,6 +298,7 @@ export default function MallaInteractiva() {
                       ramo={r}
                       done={!!avance[r.codigo]}
                       onToggle={toggle}
+                      compact={compact}
                     />
                   ))}
                 </div>
@@ -203,42 +325,40 @@ export default function MallaInteractiva() {
             >
               Mención Administración
             </button>
-            . Desde el semestre 3 la malla se separa; lo que sigue abajo son los ramos propios de
-            Economía que trae BuscaCursos — todavía no tenemos confirmado en qué semestre exacto
-            va cada uno, así que se muestran agrupados por tipo en vez de por semestre.
+            . Desde el semestre 3 la malla se separa. Lo que sigue abajo son los ramos propios de
+            Economía que trae BuscaCursos, ya agrupados por su semestre real según la malla
+            oficial — este corte no trajo ningún ramo específico de Economía para el semestre 3
+            (probablemente porque ese semestre todavía comparte secciones con Administración este
+            período).
           </p>
 
-          <div className="mb-8">
-            <h2 className="mb-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
-              Obligatorios ({malla.economia.obligatorios.length})
-            </h2>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {malla.economia.obligatorios.map((r) => (
-                <RamoCard key={r.codigo} ramo={r} done={!!avance[r.codigo]} onToggle={toggle} />
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-8">
-            <h2 className="mb-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
-              Electivos de especialidad ({malla.economia.electivos_especialidad.length})
-            </h2>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {malla.economia.electivos_especialidad.map((r) => (
-                <RamoCard key={r.codigo} ramo={r} done={!!avance[r.codigo]} onToggle={toggle} />
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="mb-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
-              Electivos de ciencias sociales ({malla.economia.electivos_sociales.length})
-            </h2>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-              {malla.economia.electivos_sociales.map((r) => (
-                <RamoCard key={r.codigo} ramo={r} done={!!avance[r.codigo]} onToggle={toggle} />
-              ))}
-            </div>
+          <div
+            className={
+              "grid grid-cols-1 gap-4 sm:grid-cols-2 " +
+              (compact ? "lg:grid-cols-8" : "lg:grid-cols-4")
+            }
+          >
+            {economiaNiveles.map((n) => (
+              <div key={n.nivel}>
+                <h2 className="mb-2 flex items-baseline gap-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
+                  Sem. {n.nivel}
+                  <span className="font-mono text-[11px] font-normal text-muted-foreground">
+                    {n.ramos.length}
+                  </span>
+                </h2>
+                <div className="flex flex-col gap-2">
+                  {n.ramos.map((r, i) => (
+                    <RamoCard
+                      key={r.codigo + "-" + i}
+                      ramo={r}
+                      done={!!avance[r.codigo]}
+                      onToggle={toggle}
+                      compact={compact}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}

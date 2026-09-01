@@ -1,932 +1,932 @@
 {
- "ingeco": {
-  "label": "Ingeniería Comercial",
-  "semestre": "2026-2",
-  "niveles": [
-   {
-    "nivel": 1,
-    "ramos": [
-     {
-      "codigo": "352401",
-      "nombre": "Matemáticas para la Administración y Economía I",
-      "nivel": 1,
-      "area": "ECONOMIA",
-      "sct": 7,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352403",
-      "nombre": "Introducción a la Economía",
-      "nivel": 1,
-      "area": "ECONOMIA",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352404",
-      "nombre": "Introducción a la Administración",
-      "nivel": 1,
-      "area": "ADM",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 3
-     },
-     {
-      "codigo": "352406",
-      "nombre": "Contabilidad General",
-      "nivel": 1,
-      "area": "CONTABILIDAD",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     }
+  "ingeco": {
+    "label": "Ingeniería Comercial",
+    "semestre": "2026-2",
+    "niveles": [
+      {
+        "nivel": 1,
+        "ramos": [
+          {
+            "codigo": "352401",
+            "nombre": "Matemáticas para la Administración y Economía I",
+            "nivel": 1,
+            "area": "ECONOMIA",
+            "sct": 7,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352403",
+            "nombre": "Introducción a la Economía",
+            "nivel": 1,
+            "area": "ECONOMIA",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352404",
+            "nombre": "Introducción a la Administración",
+            "nivel": 1,
+            "area": "ADM",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 3
+          },
+          {
+            "codigo": "352406",
+            "nombre": "Contabilidad General",
+            "nivel": 1,
+            "area": "CONTABILIDAD",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          }
+        ]
+      },
+      {
+        "nivel": 2,
+        "ramos": [
+          {
+            "codigo": "352408",
+            "nombre": "Matemáticas para la Administración y Economía II",
+            "nivel": 2,
+            "area": "ECONOMIA",
+            "sct": 7,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 9
+          },
+          {
+            "codigo": "352409",
+            "nombre": "Álgebra Lineal",
+            "nivel": 2,
+            "area": "ECONOMIA",
+            "sct": 7,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 9
+          },
+          {
+            "codigo": "352410",
+            "nombre": "Principios de Microeconomía",
+            "nivel": 2,
+            "area": "ECONOMIA",
+            "sct": 7,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 9
+          },
+          {
+            "codigo": "352411",
+            "nombre": "Teoría Administrativa",
+            "nivel": 2,
+            "area": "ADM",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 8
+          },
+          {
+            "codigo": "352412",
+            "nombre": "Taller de Comunicaciones II",
+            "nivel": 2,
+            "area": "TALLERES",
+            "sct": 2,
+            "tel": 2,
+            "electividad": "0",
+            "secciones": 10
+          },
+          {
+            "codigo": "352413",
+            "nombre": "Inglés para la Administración y Economía I",
+            "nivel": 2,
+            "area": "INGLES",
+            "sct": 3,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 9
+          }
+        ]
+      },
+      {
+        "nivel": 3,
+        "ramos": [
+          {
+            "codigo": "352414",
+            "nombre": "Matemáticas para la Administración y Economía III",
+            "nivel": 3,
+            "area": "ECONOMIA",
+            "sct": 7,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352415",
+            "nombre": "Estadísticas para Administración y Economía I",
+            "nivel": 3,
+            "area": "ECONOMIA",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352416",
+            "nombre": "Principios de Macroeconomía",
+            "nivel": 3,
+            "area": "ECONOMIA",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352417",
+            "nombre": "Derecho y Empresa",
+            "nivel": 3,
+            "area": "ADM",
+            "sct": 3,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 5
+          },
+          {
+            "codigo": "352418",
+            "nombre": "Contabilidad Financiera y Toma de Decisiones",
+            "nivel": 3,
+            "area": "CONTABILIDAD",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 3
+          },
+          {
+            "codigo": "352419",
+            "nombre": "Inglés para la Administración y Economía II",
+            "nivel": 3,
+            "area": "INGLES",
+            "sct": 3,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 1
+          }
+        ]
+      },
+      {
+        "nivel": 4,
+        "ramos": [
+          {
+            "codigo": "352420",
+            "nombre": "Inferencia Estadística para Administración",
+            "nivel": 4,
+            "area": "MARKETING",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352421",
+            "nombre": "Organización Industrial",
+            "nivel": 4,
+            "area": "ORG INDUSTRIAL",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 7
+          },
+          {
+            "codigo": "352422",
+            "nombre": "Derecho y Empresa II",
+            "nivel": 4,
+            "area": "CONTABILIDAD",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 5
+          },
+          {
+            "codigo": "352423",
+            "nombre": "Sistema de Costos y Toma de Decisiones",
+            "nivel": 4,
+            "area": "CONTABILIDAD",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 5
+          },
+          {
+            "codigo": "352424",
+            "nombre": "Investigación de Operaciones",
+            "nivel": 4,
+            "area": "OPERACIÓN",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352425",
+            "nombre": "Habilidades para la Organización I",
+            "nivel": 4,
+            "area": "TALLERES",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 7
+          },
+          {
+            "codigo": "352426",
+            "nombre": "Comportamiento Organizacional",
+            "nivel": 4,
+            "area": "TALLERES",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          }
+        ]
+      },
+      {
+        "nivel": 5,
+        "ramos": [
+          {
+            "codigo": "352427",
+            "nombre": "Finanzas I",
+            "nivel": 5,
+            "area": "FIN",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352428",
+            "nombre": "Marketing I",
+            "nivel": 5,
+            "area": "MARKETING",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352429",
+            "nombre": "Gestión de Operaciones",
+            "nivel": 5,
+            "area": "OPERACIÓN",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 3
+          },
+          {
+            "codigo": "352430",
+            "nombre": "Habilidades para la Organización II",
+            "nivel": 5,
+            "area": "TALLERES",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 3
+          },
+          {
+            "codigo": "352431",
+            "nombre": "Inglés para la Administración y Economía III",
+            "nivel": 5,
+            "area": "INGLES",
+            "sct": 3,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 3
+          }
+        ]
+      },
+      {
+        "nivel": 6,
+        "ramos": [
+          {
+            "codigo": "352432",
+            "nombre": "Transformación Digital I",
+            "nivel": 6,
+            "area": "OPERACIÓN",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352433",
+            "nombre": "Gestión de Personas I",
+            "nivel": 6,
+            "area": "RRHH",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352434",
+            "nombre": "Finanzas II",
+            "nivel": 6,
+            "area": "FIN",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352435",
+            "nombre": "Marketing II",
+            "nivel": 6,
+            "area": "MARKETING",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 5
+          },
+          {
+            "codigo": "352436",
+            "nombre": "Comportamiento Social y Toma de Decisiones",
+            "nivel": 6,
+            "area": "OPERACIÓN",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352437",
+            "nombre": "Práctica I: Apresto Organizacional",
+            "nivel": 6,
+            "area": "DIRECCION",
+            "sct": 5,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 1
+          }
+        ]
+      },
+      {
+        "nivel": 7,
+        "ramos": [
+          {
+            "codigo": "352438",
+            "nombre": "Transformación Digital II",
+            "nivel": 7,
+            "area": "OPERACIÓN",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352439",
+            "nombre": "Negocios y Sostenibilidad",
+            "nivel": 7,
+            "area": "ESTRATEGIA",
+            "sct": 4,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352440",
+            "nombre": "Acción y Sostenibilidad",
+            "nivel": 7,
+            "area": "ESTRATEGIA",
+            "sct": 4,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352441",
+            "nombre": "Gestión de Personas II",
+            "nivel": 7,
+            "area": "RRHH",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 1
+          },
+          {
+            "codigo": "352442",
+            "nombre": "Finanzas III",
+            "nivel": 7,
+            "area": "FIN",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352443",
+            "nombre": "Marketing III",
+            "nivel": 7,
+            "area": "MARKETING",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 2
+          },
+          {
+            "codigo": "352444",
+            "nombre": "Inglés para la Administración y Economía IV",
+            "nivel": 7,
+            "area": "INGLES",
+            "sct": 3,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 2
+          }
+        ]
+      },
+      {
+        "nivel": 8,
+        "ramos": [
+          {
+            "codigo": "352445",
+            "nombre": "Transformación Digital III",
+            "nivel": 8,
+            "area": "OPERACIÓN",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352446",
+            "nombre": "Implementación y Control Estratégico",
+            "nivel": 8,
+            "area": "ESTRATEGIA",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352447",
+            "nombre": "Capacidad Emprendedora",
+            "nivel": 8,
+            "area": "ESTRATEGIA",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352448",
+            "nombre": "Estrategia de Negocios",
+            "nivel": 8,
+            "area": "ESTRATEGIA",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "0",
+            "secciones": 4
+          },
+          {
+            "codigo": "352449",
+            "nombre": "Habilidades para la Organización III",
+            "nivel": 8,
+            "area": "TALLERES",
+            "sct": 5,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 6
+          },
+          {
+            "codigo": "352450",
+            "nombre": "Examen de Grado",
+            "nivel": 8,
+            "area": "DIRECCION",
+            "sct": 4,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 6
+          },
+          {
+            "codigo": "352456",
+            "nombre": "Electivo Minor sostenibilidad: Marketing Sostenible",
+            "nivel": 8,
+            "area": "ESTRATEGIA",
+            "sct": 5,
+            "tel": 6,
+            "electividad": "9",
+            "secciones": 3
+          }
+        ]
+      },
+      {
+        "nivel": 9,
+        "ramos": [
+          {
+            "codigo": "352451",
+            "nombre": "Electivo Especialidad I: Simulación de Marketing y Negocios",
+            "nivel": 9,
+            "area": "MARKETING",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "4",
+            "secciones": 9
+          },
+          {
+            "codigo": "352452",
+            "nombre": "Electivo Especialidad II: Evaluación de Proyectos",
+            "nivel": 9,
+            "area": "FINANZAS",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "4",
+            "secciones": 7
+          },
+          {
+            "codigo": "352453",
+            "nombre": "Electivo Especialidad III: Gestión de la Seguridad y Bienestar Laboral",
+            "nivel": 9,
+            "area": "RRHH",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "3",
+            "secciones": 7
+          },
+          {
+            "codigo": "352454",
+            "nombre": "Electivo:  Power Bi Básico e Intermedio",
+            "nivel": 9,
+            "area": "OPERACIÓN",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "5",
+            "secciones": 6
+          },
+          {
+            "codigo": "352457",
+            "nombre": "Electivo Especialidad VII: Gestión Estratégica y Compliance Laboral",
+            "nivel": 9,
+            "area": "RRHH",
+            "sct": 6,
+            "tel": 6,
+            "electividad": "14",
+            "secciones": 1
+          }
+        ]
+      },
+      {
+        "nivel": 10,
+        "ramos": [
+          {
+            "codigo": "352458",
+            "nombre": "Práctica II: Profesional",
+            "nivel": 10,
+            "area": "DIRECCION",
+            "sct": 18,
+            "tel": 4,
+            "electividad": "0",
+            "secciones": 1
+          }
+        ]
+      }
     ]
-   },
-   {
-    "nivel": 2,
-    "ramos": [
-     {
-      "codigo": "352408",
-      "nombre": "Matemáticas para la Administración y Economía II",
-      "nivel": 2,
-      "area": "ECONOMIA",
-      "sct": 7,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 9
-     },
-     {
-      "codigo": "352409",
-      "nombre": "Álgebra Lineal",
-      "nivel": 2,
-      "area": "ECONOMIA",
-      "sct": 7,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 9
-     },
-     {
-      "codigo": "352410",
-      "nombre": "Principios de Microeconomía",
-      "nivel": 2,
-      "area": "ECONOMIA",
-      "sct": 7,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 9
-     },
-     {
-      "codigo": "352411",
-      "nombre": "Teoría Administrativa",
-      "nivel": 2,
-      "area": "ADM",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 8
-     },
-     {
-      "codigo": "352412",
-      "nombre": "Taller de Comunicaciones II",
-      "nivel": 2,
-      "area": "TALLERES",
-      "sct": 2,
-      "tel": 2,
-      "electividad": "0",
-      "secciones": 10
-     },
-     {
-      "codigo": "352413",
-      "nombre": "Inglés para la Administración y Economía I",
-      "nivel": 2,
-      "area": "INGLES",
-      "sct": 3,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 9
-     }
+  },
+  "economia": {
+    "label": "Ingeniería Comercial en Economía",
+    "semestre": "2026-2",
+    "comparte_niveles_con_ingeco": [
+      1,
+      2
+    ],
+    "obligatorios": [
+      {
+        "codigo": "351475",
+        "nombre": "Macroeconomía II",
+        "nivel": 6,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "351477",
+        "nombre": "Econometría II",
+        "nivel": 6,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "351478",
+        "nombre": "Economía Financiera",
+        "nivel": 7,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      },
+      {
+        "codigo": "351483",
+        "nombre": "Evaluación de Proyectos",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      },
+      {
+        "codigo": "351484",
+        "nombre": "Comercio Internacional",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      },
+      {
+        "codigo": "351485",
+        "nombre": "Finanzas Internacionales y Macroeconomía Abierta",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      },
+      {
+        "codigo": "351497",
+        "nombre": "Práctica Profesional",
+        "nivel": 9,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "351498",
+        "nombre": "Trabajo de Titulación",
+        "nivel": 10,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      },
+      {
+        "codigo": "352460",
+        "nombre": "Métodos Cuantitativos",
+        "nivel": 4,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "352461",
+        "nombre": "Estadística para la Economía II",
+        "nivel": 4,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "352462",
+        "nombre": "Microeconomía I",
+        "nivel": 4,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "352463",
+        "nombre": "Economía Financiera I",
+        "nivel": 4,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "352464",
+        "nombre": "Comunicación Efectiva",
+        "nivel": 4,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 3
+      },
+      {
+        "codigo": "352465",
+        "nombre": "Inglés para la Economía III",
+        "nivel": 4,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 3
+      },
+      {
+        "codigo": "352467",
+        "nombre": "Econometría I",
+        "nivel": 5,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      },
+      {
+        "codigo": "352468",
+        "nombre": "Microeconomía II",
+        "nivel": 5,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      },
+      {
+        "codigo": "352469",
+        "nombre": "Macroeconomía I",
+        "nivel": 5,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      },
+      {
+        "codigo": "352472",
+        "nombre": "Econometría II",
+        "nivel": 6,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "352473",
+        "nombre": "Historia Económica",
+        "nivel": 6,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "352474",
+        "nombre": "Macroeconomía II",
+        "nivel": 6,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 2
+      },
+      {
+        "codigo": "352477",
+        "nombre": "Taller de Comunicación para Economistas",
+        "nivel": 6,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 3
+      },
+      {
+        "codigo": "352489",
+        "nombre": "Taller Laboral",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 3
+      },
+      {
+        "codigo": "352490",
+        "nombre": "Práctica Profesional",
+        "nivel": 9,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "0",
+        "secciones": 1
+      }
+    ],
+    "electivos_especialidad": [
+      {
+        "codigo": "351495",
+        "nombre": "Electivo de Especialidad IV: Macroeconomía y Análisis de Coyuntura",
+        "nivel": 10,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "1",
+        "secciones": 2
+      },
+      {
+        "codigo": "352475",
+        "nombre": "Electivo I: Política Económica",
+        "nivel": 6,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "1",
+        "secciones": 3
+      },
+      {
+        "codigo": "352476",
+        "nombre": "Electivo II: Fundamentos de Análisis para Economía Dinámica",
+        "nivel": 6,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "1",
+        "secciones": 3
+      },
+      {
+        "codigo": "352484",
+        "nombre": "Electivo VIII: Evaluación de Proyectos",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "1",
+        "secciones": 4
+      },
+      {
+        "codigo": "352485",
+        "nombre": "Electivo IX: Comercio Internacional",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "1",
+        "secciones": 3
+      },
+      {
+        "codigo": "352486",
+        "nombre": "Electivo X: Macroeconomía abierta",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "1",
+        "secciones": 4
+      },
+      {
+        "codigo": "352487",
+        "nombre": "Electivo XI: Liderazgo y Trabajo en Equipo",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "1",
+        "secciones": 3
+      },
+      {
+        "codigo": "352488",
+        "nombre": "Electivo XII: Pensamiento Sistémico e Inversión de Impacto",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "1",
+        "secciones": 3
+      }
+    ],
+    "electivos_sociales": [
+      {
+        "codigo": "351487",
+        "nombre": "Electivo de Ciencias Sociales II: Fundamentos de Análisis para Economía Dinámica",
+        "nivel": 8,
+        "area": "ECONOMÍA",
+        "sct": null,
+        "tel": null,
+        "electividad": "2",
+        "secciones": 1
+      }
     ]
-   },
-   {
-    "nivel": 3,
-    "ramos": [
-     {
-      "codigo": "352414",
-      "nombre": "Matemáticas para la Administración y Economía III",
-      "nivel": 3,
-      "area": "ECONOMIA",
-      "sct": 7,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352415",
-      "nombre": "Estadísticas para Administración y Economía I",
-      "nivel": 3,
-      "area": "ECONOMIA",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352416",
-      "nombre": "Principios de Macroeconomía",
-      "nivel": 3,
-      "area": "ECONOMIA",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352417",
-      "nombre": "Derecho y Empresa",
-      "nivel": 3,
-      "area": "ADM",
-      "sct": 3,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 5
-     },
-     {
-      "codigo": "352418",
-      "nombre": "Contabilidad Financiera y Toma de Decisiones",
-      "nivel": 3,
-      "area": "CONTABILIDAD",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 3
-     },
-     {
-      "codigo": "352419",
-      "nombre": "Inglés para la Administración y Economía II",
-      "nivel": 3,
-      "area": "INGLES",
-      "sct": 3,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 1
-     }
-    ]
-   },
-   {
-    "nivel": 4,
-    "ramos": [
-     {
-      "codigo": "352420",
-      "nombre": "Inferencia Estadística para Administración",
-      "nivel": 4,
-      "area": "MARKETING",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352421",
-      "nombre": "Organización Industrial",
-      "nivel": 4,
-      "area": "ORG INDUSTRIAL",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 7
-     },
-     {
-      "codigo": "352422",
-      "nombre": "Derecho y Empresa II",
-      "nivel": 4,
-      "area": "CONTABILIDAD",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 5
-     },
-     {
-      "codigo": "352423",
-      "nombre": "Sistema de Costos y Toma de Decisiones",
-      "nivel": 4,
-      "area": "CONTABILIDAD",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 5
-     },
-     {
-      "codigo": "352424",
-      "nombre": "Investigación de Operaciones",
-      "nivel": 4,
-      "area": "OPERACIÓN",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352425",
-      "nombre": "Habilidades para la Organización I",
-      "nivel": 4,
-      "area": "TALLERES",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 7
-     },
-     {
-      "codigo": "352426",
-      "nombre": "Comportamiento Organizacional",
-      "nivel": 4,
-      "area": "TALLERES",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     }
-    ]
-   },
-   {
-    "nivel": 5,
-    "ramos": [
-     {
-      "codigo": "352427",
-      "nombre": "Finanzas I",
-      "nivel": 5,
-      "area": "FIN",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352428",
-      "nombre": "Marketing I",
-      "nivel": 5,
-      "area": "MARKETING",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352429",
-      "nombre": "Gestión de Operaciones",
-      "nivel": 5,
-      "area": "OPERACIÓN",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 3
-     },
-     {
-      "codigo": "352430",
-      "nombre": "Habilidades para la Organización II",
-      "nivel": 5,
-      "area": "TALLERES",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 3
-     },
-     {
-      "codigo": "352431",
-      "nombre": "Inglés para la Administración y Economía III",
-      "nivel": 5,
-      "area": "INGLES",
-      "sct": 3,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 3
-     }
-    ]
-   },
-   {
-    "nivel": 6,
-    "ramos": [
-     {
-      "codigo": "352432",
-      "nombre": "Transformación Digital I",
-      "nivel": 6,
-      "area": "OPERACIÓN",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352433",
-      "nombre": "Gestión de Personas I",
-      "nivel": 6,
-      "area": "RRHH",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352434",
-      "nombre": "Finanzas II",
-      "nivel": 6,
-      "area": "FIN",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352435",
-      "nombre": "Marketing II",
-      "nivel": 6,
-      "area": "MARKETING",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 5
-     },
-     {
-      "codigo": "352436",
-      "nombre": "Comportamiento Social y Toma de Decisiones",
-      "nivel": 6,
-      "area": "OPERACIÓN",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352437",
-      "nombre": "Práctica I: Apresto Organizacional",
-      "nivel": 6,
-      "area": "DIRECCION",
-      "sct": 5,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 1
-     }
-    ]
-   },
-   {
-    "nivel": 7,
-    "ramos": [
-     {
-      "codigo": "352438",
-      "nombre": "Transformación Digital II",
-      "nivel": 7,
-      "area": "OPERACIÓN",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352439",
-      "nombre": "Negocios y Sostenibilidad",
-      "nivel": 7,
-      "area": "ESTRATEGIA",
-      "sct": 4,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352440",
-      "nombre": "Acción y Sostenibilidad",
-      "nivel": 7,
-      "area": "ESTRATEGIA",
-      "sct": 4,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352441",
-      "nombre": "Gestión de Personas II",
-      "nivel": 7,
-      "area": "RRHH",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 1
-     },
-     {
-      "codigo": "352442",
-      "nombre": "Finanzas III",
-      "nivel": 7,
-      "area": "FIN",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352443",
-      "nombre": "Marketing III",
-      "nivel": 7,
-      "area": "MARKETING",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 2
-     },
-     {
-      "codigo": "352444",
-      "nombre": "Inglés para la Administración y Economía IV",
-      "nivel": 7,
-      "area": "INGLES",
-      "sct": 3,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 2
-     }
-    ]
-   },
-   {
-    "nivel": 8,
-    "ramos": [
-     {
-      "codigo": "352445",
-      "nombre": "Transformación Digital III",
-      "nivel": 8,
-      "area": "OPERACIÓN",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352446",
-      "nombre": "Implementación y Control Estratégico",
-      "nivel": 8,
-      "area": "ESTRATEGIA",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352447",
-      "nombre": "Capacidad Emprendedora",
-      "nivel": 8,
-      "area": "ESTRATEGIA",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352448",
-      "nombre": "Estrategia de Negocios",
-      "nivel": 8,
-      "area": "ESTRATEGIA",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "0",
-      "secciones": 4
-     },
-     {
-      "codigo": "352449",
-      "nombre": "Habilidades para la Organización III",
-      "nivel": 8,
-      "area": "TALLERES",
-      "sct": 5,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 6
-     },
-     {
-      "codigo": "352450",
-      "nombre": "Examen de Grado",
-      "nivel": 8,
-      "area": "DIRECCION",
-      "sct": 4,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 6
-     },
-     {
-      "codigo": "352456",
-      "nombre": "Electivo Minor sostenibilidad: Marketing Sostenible",
-      "nivel": 8,
-      "area": "ESTRATEGIA",
-      "sct": 5,
-      "tel": 6,
-      "electividad": "9",
-      "secciones": 3
-     }
-    ]
-   },
-   {
-    "nivel": 9,
-    "ramos": [
-     {
-      "codigo": "352451",
-      "nombre": "Electivo Especialidad I: Simulación de Marketing y Negocios",
-      "nivel": 9,
-      "area": "MARKETING",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "4",
-      "secciones": 9
-     },
-     {
-      "codigo": "352452",
-      "nombre": "Electivo Especialidad II: Evaluación de Proyectos",
-      "nivel": 9,
-      "area": "FINANZAS",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "4",
-      "secciones": 7
-     },
-     {
-      "codigo": "352453",
-      "nombre": "Electivo Especialidad III: Gestión de la Seguridad y Bienestar Laboral",
-      "nivel": 9,
-      "area": "RRHH",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "3",
-      "secciones": 7
-     },
-     {
-      "codigo": "352454",
-      "nombre": "Electivo:  Power Bi Básico e Intermedio",
-      "nivel": 9,
-      "area": "OPERACIÓN",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "5",
-      "secciones": 6
-     },
-     {
-      "codigo": "352457",
-      "nombre": "Electivo Especialidad VII: Gestión Estratégica y Compliance Laboral",
-      "nivel": 9,
-      "area": "RRHH",
-      "sct": 6,
-      "tel": 6,
-      "electividad": "14",
-      "secciones": 1
-     }
-    ]
-   },
-   {
-    "nivel": 10,
-    "ramos": [
-     {
-      "codigo": "352458",
-      "nombre": "Práctica II: Profesional",
-      "nivel": 10,
-      "area": "DIRECCION",
-      "sct": 18,
-      "tel": 4,
-      "electividad": "0",
-      "secciones": 1
-     }
-    ]
-   }
-  ]
- },
- "economia": {
-  "label": "Ingeniería Comercial en Economía",
-  "semestre": "2026-2",
-  "comparte_niveles_con_ingeco": [
-   1,
-   2
-  ],
-  "obligatorios": [
-   {
-    "codigo": "351475",
-    "nombre": "Macroeconomía II",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "351477",
-    "nombre": "Econometría II",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "351478",
-    "nombre": "Economía Financiera",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   },
-   {
-    "codigo": "351483",
-    "nombre": "Evaluación de Proyectos",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   },
-   {
-    "codigo": "351484",
-    "nombre": "Comercio Internacional",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   },
-   {
-    "codigo": "351485",
-    "nombre": "Finanzas Internacionales y Macroeconomía Abierta",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   },
-   {
-    "codigo": "351497",
-    "nombre": "Práctica Profesional",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "351498",
-    "nombre": "Trabajo de Titulación",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   },
-   {
-    "codigo": "352460",
-    "nombre": "Métodos Cuantitativos",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "352461",
-    "nombre": "Estadística para la Economía II",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "352462",
-    "nombre": "Microeconomía I",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "352463",
-    "nombre": "Economía Financiera I",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "352464",
-    "nombre": "Comunicación Efectiva",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 3
-   },
-   {
-    "codigo": "352465",
-    "nombre": "Inglés para la Economía III",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 3
-   },
-   {
-    "codigo": "352467",
-    "nombre": "Econometría I",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   },
-   {
-    "codigo": "352468",
-    "nombre": "Microeconomía II",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   },
-   {
-    "codigo": "352469",
-    "nombre": "Macroeconomía I",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   },
-   {
-    "codigo": "352472",
-    "nombre": "Econometría II",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "352473",
-    "nombre": "Historia Económica",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "352474",
-    "nombre": "Macroeconomía II",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 2
-   },
-   {
-    "codigo": "352477",
-    "nombre": "Taller de Comunicación para Economistas",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 3
-   },
-   {
-    "codigo": "352489",
-    "nombre": "Taller Laboral",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 3
-   },
-   {
-    "codigo": "352490",
-    "nombre": "Práctica Profesional",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "0",
-    "secciones": 1
-   }
-  ],
-  "electivos_especialidad": [
-   {
-    "codigo": "351495",
-    "nombre": "Electivo de Especialidad IV: Macroeconomía y Análisis de Coyuntura",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "1",
-    "secciones": 2
-   },
-   {
-    "codigo": "352475",
-    "nombre": "Electivo I: Política Económica",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "1",
-    "secciones": 3
-   },
-   {
-    "codigo": "352476",
-    "nombre": "Electivo II: Fundamentos de Análisis para Economía Dinámica",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "1",
-    "secciones": 3
-   },
-   {
-    "codigo": "352484",
-    "nombre": "Electivo VIII: Evaluación de Proyectos",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "1",
-    "secciones": 4
-   },
-   {
-    "codigo": "352485",
-    "nombre": "Electivo IX: Comercio Internacional",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "1",
-    "secciones": 3
-   },
-   {
-    "codigo": "352486",
-    "nombre": "Electivo X: Macroeconomía abierta",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "1",
-    "secciones": 4
-   },
-   {
-    "codigo": "352487",
-    "nombre": "Electivo XI: Liderazgo y Trabajo en Equipo",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "1",
-    "secciones": 3
-   },
-   {
-    "codigo": "352488",
-    "nombre": "Electivo XII: Pensamiento Sistémico e Inversión de Impacto",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "1",
-    "secciones": 3
-   }
-  ],
-  "electivos_sociales": [
-   {
-    "codigo": "351487",
-    "nombre": "Electivo de Ciencias Sociales II: Fundamentos de Análisis para Economía Dinámica",
-    "nivel": 3,
-    "area": "ECONOMÍA",
-    "sct": null,
-    "tel": null,
-    "electividad": "2",
-    "secciones": 1
-   }
-  ]
- }
+  }
 }

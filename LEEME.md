@@ -141,15 +141,18 @@ mirando, en cada HTML guardado, qué botón del header queda con la clase de
 - **Malla interactiva**: ya no es un stub — usa los ramos reales de
   Ingeniería Comercial y Economía sacados de BuscaCursos (código, nombre,
   área, créditos SCT), con checkbox de avance guardado en `localStorage`
-  (`ceic-malla-avance-v1`). Ingeco se agrupa por los 10 semestres reales
-  (54 ramos); Economía no trae un campo de semestre confiable en la fuente
-  (todos sus ramos venían marcados "nivel 3" sin importar si eran de primer
-  o último año), así que sus 32 ramos se agrupan por tipo — obligatorios,
-  electivos de especialidad, electivos de ciencias sociales — en vez de
-  inventar una ubicación semestral. Los prerrequisitos entre ramos
-  **todavía no están** — esa info solo existe en el PDF de programa de
-  cada asignatura por separado, no en ninguna fuente consolidada; queda
-  anotado en la página misma y pendiente en la bitácora (ver entrada c11).
+  (`ceic-malla-avance-v1`) y un botón para achicar las tarjetas
+  (`ceic-malla-tamano-v1`) cuando se ven las 10 columnas de semestre juntas.
+  Ingeco se agrupa por los 10 semestres reales (54 ramos). Economía
+  también — sus 32 ramos venían con el campo de semestre roto en
+  BuscaCursos (todos marcados "nivel 3"), así que se cruzó cada uno contra
+  la malla curricular oficial publicada en fae.usach.cl/cice (la vigente
+  desde 2023 y la anterior, porque BuscaCursos trae secciones de ambas
+  corriendo en paralelo este semestre) para asignarle su semestre real —
+  ver bitácora, entrada c19. Los prerrequisitos entre ramos **todavía no
+  están** — esa info no está en esa malla tampoco, solo en el PDF de
+  programa de cada asignatura por separado; queda anotado en la página
+  misma y pendiente en la bitácora (ver entrada c11).
 - **Inicio**: la copia (textos, botones, tarjetas) es la real. Las fotos
   del carrusel y la galería no — el HTML guardado no trajo su carpeta
   `_files` con las imágenes, así que hay un textura de relleno marcada

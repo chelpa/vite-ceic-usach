@@ -214,7 +214,7 @@ function PrototypeStrip() {
             Bitácora del proyecto
           </Link>
           <a
-            href="https://claude.ai/code/artifact/45480f3e-cc3b-4f17-8f9b-8495a48181a7"
+            href="https://chelpa.github.io/ceic-usach/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 font-semibold uppercase tracking-wide opacity-90 hover:opacity-100"
