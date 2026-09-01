@@ -7,6 +7,12 @@ sitio real (React + React Router + Vite + Tailwind — ver bitácora, entrada
 c5). Corre solo (`npm install && npm run dev`) y se puede clonar directo
 adentro del repo real cuando haya acceso.
 
+**Fase actual: Beta** (en test, sin cuentas ni backend — todo vive en el
+navegador de cada persona, en `localStorage`). La siguiente fase planeada
+se llama **MVP-ALPHA**: agregar Supabase (login sin contraseña con correo
+@usach.cl, votos reales en WikiProfes, malla/horario/apuntes guardados por
+persona) — ver bitácora, entrada c22, para el paso a paso completo.
+
 ## Cómo correrlo
 
 ```bash
@@ -126,11 +132,25 @@ mirando, en cada HTML guardado, qué botón del header queda con la clase de
   contenido (fechas, compromisos con su estado, mesa directiva con sus
   funciones) se extrajo tal cual del HTML real guardado — no es de
   relleno.
-- **Documentación, Apuntes, Actas, Transparencia**: las tarjetas "Ver X"
-  (enlaces a Drive, PDF del estatuto) son las reales del sitio.
-- **Preguntas frecuentes, Noticias**: el sitio real mismo las tiene en "En
-  construcción" — el prototipo copia ese mismo estado, no rellenamos con
-  contenido inventado.
+- **Documentación, Apuntes, Actas**: las tarjetas "Ver X" (enlaces a Drive,
+  PDF del estatuto) son las reales del sitio.
+- **Noticias**: el sitio real dice "En construcción" — el prototipo ya
+  tiene el componente de lista funcionando (fecha, categoría, título,
+  resumen) sobre un dataset vacío (`src/data/noticias.json`), mismo patrón
+  que WikiEmpresas/Convenios: en cuanto la mesa redacte 3-5 noticias reales,
+  se agregan al JSON y aparecen solas. Ver bitácora, entrada c23.
+- **Transparencia**: la parte de rendiciones (link a Drive) ya era real.
+  El "Foro de preguntas" que el sitio real marca "En construcción" tiene
+  ahora una versión que funciona sin backend: un formulario que arma un
+  correo real a `ceic@usach.cl` (se abre en el cliente de correo de quien
+  pregunta, nada queda en un servidor), más una lista de preguntas ya
+  respondidas — vacía por ahora (`src/data/preguntas-transparencia.json`).
+  Un foro público de verdad, con hilos visibles para todos, sigue
+  pendiente porque antes hay que decidir cómo se modera. Ver bitácora,
+  entrada c23.
+- **Preguntas frecuentes**: el sitio real la tiene en "En construcción" —
+  el prototipo copia ese mismo estado, no rellenamos con contenido
+  inventado. Falta que la mesa junte las preguntas que más se repiten.
 - **WikiEmpresas, Convenios**: la ESTRUCTURA ya está construida (buscador,
   tarjetas, ficha con reseñas en WikiEmpresas; grilla en Convenios) pero
   sobre datasets vacíos — no hay ninguna fuente de empresas o convenios
@@ -258,11 +278,13 @@ tarjeta simplemente no muestra esa parte.
 1. Reemplazar las variables de color en `src/index.css` por los valores
    reales del tema (cuando tengan el CSS compilado o acceso al repo).
 2. Fotos reales del carrusel de Inicio y de la mesa directiva.
-3. Conectar Preguntas frecuentes y Noticias a contenido real cuando la
-   mesa lo tenga listo (hoy están "en construcción" igual que en el sitio
-   real). WikiEmpresas y Convenios ya tienen la estructura lista — solo
-   falta cargarles datos reales (ver sección de arriba). Para Malla
-   interactiva falta agregar los prerrequisitos entre ramos, cuando
+3. Conectar Noticias, el foro de Transparencia y Preguntas frecuentes a
+   contenido real cuando la mesa lo tenga listo — las tres ya tienen la
+   estructura lista (ver sección de arriba), solo falta cargarles datos
+   reales y, para el foro, decidir si se modera. WikiEmpresas y Convenios
+   ya tienen la estructura lista — solo falta cargarles datos reales (ver
+   sección de arriba). Para Malla interactiva falta agregar los
+   prerrequisitos entre ramos, cuando
    alguien digitalice los PDF de programa.
 4. La Bitácora de este prototipo (`/bitacora`) guarda sus entradas en
    `localStorage` del navegador — es la misma limitación que tenía el
