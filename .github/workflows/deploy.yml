@@ -1,7 +1,10 @@
 name: Deploy a GitHub Pages
 
+<<<<<<< HEAD
 # Se activa solo, cada vez que llega un push a main — no hay que acordarse
 # de correr "npm run build" ni subir la carpeta dist/ a mano.
+=======
+>>>>>>> 24e1a95a7fe00254aab9a1b6d750d5d7a74c2030
 on:
   push:
     branches: [main]
