@@ -15,6 +15,41 @@ npm run dev       # servidor de desarrollo
 npm run build     # build de producción a dist/
 ```
 
+## Cómo publicarlo en GitHub Pages
+
+El repo (`chelpa/vite-ceic-usach`) queda publicado en
+`https://chelpa.github.io/vite-ceic-usach/` — es decir, bajo una carpeta,
+no en la raíz del dominio. Eso rompe una app de Vite si no se configura
+explícitamente, porque por defecto Vite pide los archivos (JS, CSS,
+favicon) desde `/`, y en GitHub Pages ese `/` es el dominio raíz de
+`chelpa.github.io`, no este repo — de ahí la página en blanco. Ya está
+arreglado en el proyecto:
+
+- **`vite.config.js`** tiene `base: '/vite-ceic-usach/'`, así el build
+  arma todas las rutas de assets con ese prefijo.
+- **`src/App.jsx`** le pasa `basename={import.meta.env.BASE_URL}` al
+  `BrowserRouter`, para que las rutas internas (`/wikiprofes`, `/malla`,
+  etc.) también respeten el prefijo.
+- **`public/404.html`** + un script chico en `index.html` (técnica de
+  [rafgraph/spa-github-pages](https://github.com/rafgraph/spa-github-pages))
+  resuelven el otro problema típico de una SPA en GitHub Pages: si alguien
+  entra directo a una ruta (`/vite-ceic-usach/wikiprofes`) o la refresca
+  ahí, GitHub Pages no sabe que esa ruta existe del lado del cliente y
+  sirve un 404 real. El truco redirige ese 404 de vuelta a la app
+  codificando la ruta pedida, y la app la decodifica antes de que React
+  Router monte — así no se pierde la ruta.
+- **`public/.nojekyll`** evita que GitHub Pages procese el sitio con
+  Jekyll (puede ignorar archivos/carpetas que empiezan con `_` o `.`).
+- **`.github/workflows/deploy.yml`** es un GitHub Action que hace
+  `npm ci && npm run build` y publica `dist/` en GitHub Pages
+  automáticamente en cada push a `main` — no hay que acordarse de correr
+  el build ni subir `dist/` a mano. Para activarlo: en el repo,
+  Settings → Pages → Source → "GitHub Actions" (en vez de "Deploy from a
+  branch").
+
+Si el repo cambia de nombre en algún momento, solo hay que actualizar el
+`base` en `vite.config.js` — todo lo demás usa esa misma variable.
+
 ## Qué incluye
 
 Las 14 páginas reales del sitio (las que subiste como HTML guardado), más
@@ -38,8 +73,10 @@ mirando, en cada HTML guardado, qué botón del header queda con la clase de
 ### Contenido real vs. reconstruido
 
 - **WikiProfes**: 280 fichas — cruce de las 202 reales del sitio (rating,
-  ramos, cita, slug) con los 179 profes del Canva histórico por nombre
-  (ver entrada c9 de la bitácora para el detalle del cruce).
+  ramos, slug, y las 613 reseñas completas de cada profesor, no solo la
+  cita de la ficha de listado) con los 179 profes del Canva histórico por
+  nombre (856 reseñas en total, agregando las que Canva tiene y el sitio
+  no; ver entradas c9 y c12 de la bitácora para el detalle del cruce).
 - **Calendario, Conoce nuestro programa, Quiénes somos y directiva**: el
   contenido (fechas, compromisos con su estado, mesa directiva con sus
   funciones) se extrajo tal cual del HTML real guardado — no es de

@@ -2,10 +2,28 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CEIC USACH — Prototipo</title>
     <meta name="lang" content="es" />
+    <!-- Truco de rafgraph/spa-github-pages: GitHub Pages no sabe servir rutas de una SPA
+         (si entras directo a /vite-ceic-usach/wikiprofes o refrescas ahí, 404). public/404.html
+         redirige codificando la ruta real en el query string; este script la decodifica de
+         vuelta ANTES de que React Router monte, para que la app arranque en la ruta correcta. -->
+    <script type="text/javascript">
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>CEIC USACH — Prototipo</title>
+    <!--
+      Truco de rafgraph/spa-github-pages (https://github.com/rafgraph/spa-github-pages).
+      GitHub Pages sirve este archivo para CUALQUIER ruta que no exista como archivo real —
+      que es exactamente lo que pasa cuando alguien entra directo a una ruta de la SPA
+      (por ejemplo /vite-ceic-usach/wikiprofes) o la refresca ahí, en vez de llegar
+      navegando desde "/". Sin esto esas rutas se ven en blanco / 404 real.
+      En vez de servir un 404 de verdad, codificamos la ruta pedida en el query string
+      y redirigimos a la raíz del proyecto; index.html la decodifica de vuelta antes de
+      que React Router monte, así la app igual arranca en la ruta correcta.
+    -->
+    <script type="text/javascript">
+      // pathSegmentsToKeep = 1 porque este es un "project site" (no un user/org page):
+      // la URL es https://chelpa.github.io/vite-ceic-usach/algo, y "vite-ceic-usach" es
+      // el segmento que hay que conservar antes de reescribir el resto como query string.
+      var pathSegmentsToKeep = 1;
+
+      var l = window.location;
+      l.replace(
+        l.protocol +
+          "//" +
+          l.hostname +
+          (l.port ? ":" + l.port : "") +
+          l.pathname.split("/").slice(0, 1 + pathSegmentsToKeep).join("/") +
+          "/?/" +
+          l.pathname.slice(1).split("/").slice(pathSegmentsToKeep).join("/").replace(/&/g, "~and~") +
+          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+          l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>

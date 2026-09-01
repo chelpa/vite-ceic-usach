@@ -33,29 +33,33 @@ function Avatar({ name, size = "h-10 w-10 text-sm" }) {
   );
 }
 
-function Stars({ rating }) {
+function Stars({ rating, size = "h-3.5 w-3.5" }) {
   const r = Math.round(rating);
   return (
     <span className="inline-flex gap-0.5" aria-hidden="true">
       {[1, 2, 3, 4, 5].map((i) => (
-        <Star
-          key={i}
-          className={"h-3.5 w-3.5 " + (i <= r ? "fill-primary text-primary" : "text-muted-foreground/30")}
-        />
+        <Star key={i} className={size + " " + (i <= r ? "fill-primary text-primary" : "text-muted-foreground/30")} />
       ))}
     </span>
   );
 }
 
+// Cada profe trae "resenas": la lista completa (oficial + histórico de Canva cuando
+// aporta algo que el sitio no tiene). "fuente" distingue de dónde salió cada una —
+// no se inventa ninguna, y las del sitio real vienen con su calificación 1-5 propia
+// cuando esa reseña la trae.
 const DATA = profesoresRaw.map((p, idx) => {
-  const comentarios = p.comentarios || [];
-  const haystack = norm([p.nombre, p.ramos, p.cita, comentarios.join(" ")].filter(Boolean).join(" "));
-  return { ...p, _idx: idx, _haystack: haystack, _hasComments: comentarios.length > 0 };
+  const resenas = p.resenas || [];
+  const ramosTxt = (p.ramos || []).join(" · ");
+  const haystack = norm(
+    [p.nombre, ramosTxt, resenas.map((r) => r.texto).join(" ")].filter(Boolean).join(" ")
+  );
+  return { ...p, _idx: idx, _haystack: haystack, _ramosTxt: ramosTxt };
 });
 
 function Card({ p, onOpen }) {
-  const ramos = p.ramos || (p.origen === "canva" ? "Sin ficha oficial aún" : "Ramo no informado");
-  const quote = p.cita || (p._hasComments ? p.comentarios[0] : "");
+  const ramos = p._ramosTxt || (p.origen === "canva" ? "Sin ficha oficial aún" : "Ramo no informado");
+  const quote = p.resenas[0]?.texto || "";
   return (
     <button
       type="button"
@@ -75,7 +79,7 @@ function Card({ p, onOpen }) {
           <Stars rating={p.calificacion} />
           <span className="font-semibold">{p.calificacion.toFixed(1)}</span>
           <span className="text-muted-foreground">
-            · {p.num_resenas} {p.num_resenas === 1 ? "reseña" : "reseñas"}
+            · {p.resenas.length} {p.resenas.length === 1 ? "reseña" : "reseñas"}
           </span>
         </div>
       ) : (
@@ -92,9 +96,9 @@ function Card({ p, onOpen }) {
           <span className="rounded-full bg-accent/15 px-2 py-0.5 font-semibold text-accent">
             Solo históricos
           </span>
-        ) : p._hasComments ? (
+        ) : p.resenas.length > 0 ? (
           <span className="rounded-full bg-primary/15 px-2 py-0.5 font-semibold text-primary">
-            +{p.comentarios.length} comentarios
+            {p.resenas.length} {p.resenas.length === 1 ? "reseña" : "reseñas"}
           </span>
         ) : null}
       </div>
@@ -102,9 +106,31 @@ function Card({ p, onOpen }) {
   );
 }
 
+function ReviewCard({ r }) {
+  const isOficial = r.fuente === "sitio";
+  return (
+    <div
+      className={
+        "p-3 text-sm leading-relaxed " +
+        (isOficial ? "border border-primary/25 bg-primary/8" : "bg-secondary")
+      }
+    >
+      {r.estrellas != null ? (
+        <div className="mb-1.5">
+          <Stars rating={r.estrellas} size="h-3 w-3" />
+        </div>
+      ) : null}
+      <p>{r.texto}</p>
+      <p className="mt-1.5 text-[10px] uppercase tracking-wide text-muted-foreground">
+        {isOficial ? "WikiProfes (sitio oficial)" : "Archivo histórico (Canva)"}
+      </p>
+    </div>
+  );
+}
+
 function Modal({ p, onClose }) {
   if (!p) return null;
-  const comentarios = p.comentarios || [];
+  const resenas = p.resenas || [];
   return (
     <div
       className="fixed inset-0 z-100 flex items-start justify-center overflow-y-auto bg-foreground/55 p-4 py-[6vh]"
@@ -118,7 +144,7 @@ function Modal({ p, onClose }) {
           <div className="flex-1">
             <h2 className="text-lg">{p.nombre}</h2>
             <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
-              {p.ramos || (p.origen === "canva" ? "Sin ficha oficial aún" : "Ramo no informado")}
+              {p._ramosTxt || (p.origen === "canva" ? "Sin ficha oficial aún" : "Ramo no informado")}
             </p>
           </div>
           <button
@@ -136,7 +162,7 @@ function Modal({ p, onClose }) {
               <Stars rating={p.calificacion} />
               <span className="font-semibold">{p.calificacion.toFixed(1)}</span>
               <span className="text-muted-foreground">
-                · {p.num_resenas} {p.num_resenas === 1 ? "reseña" : "reseñas"}
+                · {resenas.length} {resenas.length === 1 ? "reseña" : "reseñas"}
               </span>
             </div>
           ) : (
@@ -148,34 +174,20 @@ function Modal({ p, onClose }) {
             <p className="mb-4 text-xs text-muted-foreground">Actualizado: {p.actualizado}</p>
           ) : null}
 
-          {p.cita ? (
-            <>
-              <h3 className="mb-2 flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground after:h-px after:flex-1 after:bg-border">
-                Cita de la ficha oficial
-              </h3>
-              <div className="mb-4 border border-primary/25 bg-primary/8 p-3 text-sm">
-                “{p.cita}”
-              </div>
-            </>
-          ) : null}
-
-          {comentarios.length ? (
+          {resenas.length ? (
             <>
               <h3 className="mb-2 text-xs uppercase tracking-wide text-muted-foreground">
-                {comentarios.length} {comentarios.length === 1 ? "comentario" : "comentarios"} de
-                WikiProfes
+                {resenas.length} {resenas.length === 1 ? "reseña" : "reseñas"}
               </h3>
               <div className="flex flex-col gap-2">
-                {comentarios.map((c, i) => (
-                  <div key={i} className="bg-secondary p-3 text-sm leading-relaxed">
-                    {c}
-                  </div>
+                {resenas.map((r, i) => (
+                  <ReviewCard key={i} r={r} />
                 ))}
               </div>
             </>
           ) : (
             <p className="text-sm italic text-muted-foreground">
-              Todavía no hay comentarios extendidos de estudiantes para este profesor.
+              Todavía no hay reseñas para este profesor.
             </p>
           )}
         </div>
@@ -205,7 +217,7 @@ export default function WikiProfes() {
       } else if (minRating > 0) {
         if (p.calificacion == null || p.calificacion < minRating) return false;
       }
-      if (commentsOnly && !p._hasComments) return false;
+      if (commentsOnly && p.resenas.length === 0) return false;
       return true;
     });
     out.sort((a, b) => {
@@ -214,11 +226,7 @@ export default function WikiProfes() {
         const br = b.calificacion == null ? -1 : b.calificacion;
         if (br !== ar) return br - ar;
       } else if (sort === "reviews") {
-        if (b.num_resenas !== a.num_resenas) return b.num_resenas - a.num_resenas;
-      } else if (sort === "comments") {
-        const ac = a.comentarios?.length || 0;
-        const bc = b.comentarios?.length || 0;
-        if (bc !== ac) return bc - ac;
+        if (b.resenas.length !== a.resenas.length) return b.resenas.length - a.resenas.length;
       }
       return stripAccents(a.nombre).localeCompare(stripAccents(b.nombre), "es");
     });
@@ -230,8 +238,8 @@ export default function WikiProfes() {
       <div className="mx-auto max-w-6xl px-5 pt-10">
         <h1 className="text-4xl">WikiProfes</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          Fichas de profesores: calificaciones y ramos de la ficha oficial, más comentarios de
-          estudiantes recopilados desde 2023.
+          Fichas de profesores: calificaciones y ramos de la ficha oficial, con todas sus reseñas —
+          más comentarios históricos recopilados desde 2023 que el sitio oficial no tiene.
         </p>
         <p className="mt-2 text-xs text-muted-foreground">
           {DATA.length} fichas · promedio {avgRating} ★
@@ -272,7 +280,6 @@ export default function WikiProfes() {
             <option value="alpha">Orden alfabético</option>
             <option value="rating">Mejor calificados</option>
             <option value="reviews">Más reseñas</option>
-            <option value="comments">Más comentarios WikiProfes</option>
           </select>
           <label className="block-border flex items-center gap-2 bg-muted px-3 py-2 text-sm">
             <input
@@ -281,7 +288,7 @@ export default function WikiProfes() {
               onChange={(e) => setCommentsOnly(e.target.checked)}
               className="accent-primary"
             />
-            Con comentarios de estudiantes
+            Con reseñas
           </label>
         </div>
         <div className="mx-auto max-w-6xl px-5 pb-3 text-xs text-muted-foreground">
