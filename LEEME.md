@@ -83,9 +83,16 @@ mirando, en cada HTML guardado, qué botón del header queda con la clase de
   relleno.
 - **Documentación, Apuntes, Actas, Transparencia**: las tarjetas "Ver X"
   (enlaces a Drive, PDF del estatuto) son las reales del sitio.
-- **Preguntas frecuentes, WikiEmpresas, Convenios, Noticias**: el sitio
-  real mismo las tiene en "En construcción" — el prototipo copia ese mismo
-  estado, no rellenamos con contenido inventado.
+- **Preguntas frecuentes, Noticias**: el sitio real mismo las tiene en "En
+  construcción" — el prototipo copia ese mismo estado, no rellenamos con
+  contenido inventado.
+- **WikiEmpresas, Convenios**: la ESTRUCTURA ya está construida (buscador,
+  tarjetas, ficha con reseñas en WikiEmpresas; grilla en Convenios) pero
+  sobre datasets vacíos — no hay ninguna fuente de empresas o convenios
+  reales todavía, a diferencia de WikiProfes que sí tuvo un Canva
+  histórico de dónde partir. Ver "Cómo cargar datos reales" más abajo:
+  apenas haya contenido, se agrega al JSON correspondiente y aparece solo,
+  sin tocar el componente.
 - **Malla interactiva**: ya no es un stub — usa los ramos reales de
   Ingeniería Comercial y Economía sacados de BuscaCursos (código, nombre,
   área, créditos SCT), con checkbox de avance guardado en `localStorage`
@@ -133,21 +140,64 @@ src/
   components/   Layout (header+footer+nav), PageShell/PageIntro,
                 ResourceLink, UnderConstruction, BrandIcons
   pages/        una por ruta
-  data/         wikiprofes.json, calendario.json, programa.json,
-                nosotros.json, bitacora.json — todo extraído del HTML real
+  data/         wikiprofes.json, wikiempresas.json, convenios.json,
+                calendario.json, programa.json, nosotros.json,
+                bitacora.json, malla.json — todo extraído del HTML real
+                (wikiempresas.json y convenios.json parten vacíos: [])
   lib/nav.js    el mapa de navegación (Comunidad/El CEIC) reconstruido
 ```
+
+## Cómo cargar datos reales en WikiEmpresas y Convenios
+
+Los dos componentes ya están terminados — cargar contenido real es editar
+el JSON, no tocar código.
+
+**`src/data/wikiempresas.json`** — arreglo de objetos con esta forma
+(mismo patrón que `wikiprofes.json`):
+
+```json
+{
+  "nombre": "Nombre de la empresa",
+  "rubro": "Retail",
+  "calificacion": 4.2,
+  "actualizado": "Septiembre 2026",
+  "resenas": [
+    { "texto": "Reseña real de un estudiante...", "estrellas": 4, "fuente": "sitio" }
+  ]
+}
+```
+
+`calificacion` puede ir en `null` si todavía no hay suficientes reseñas
+para promediar — la tarjeta muestra "Sin calificación todavía" en vez de
+inventar un número.
+
+**`src/data/convenios.json`** — arreglo de objetos con esta forma:
+
+```json
+{
+  "nombre": "Nombre del convenio o la empresa",
+  "categoria": "Descuento",
+  "descripcion": "Qué incluye el convenio, en una o dos líneas.",
+  "descuento": "15%",
+  "vigencia": "Diciembre 2026",
+  "link": "https://..."
+}
+```
+
+`descuento`, `vigencia` y `link` son opcionales — si no vienen, la
+tarjeta simplemente no muestra esa parte.
 
 ## Qué falta para que esto sea el sitio real
 
 1. Reemplazar las variables de color en `src/index.css` por los valores
    reales del tema (cuando tengan el CSS compilado o acceso al repo).
 2. Fotos reales del carrusel de Inicio y de la mesa directiva.
-3. Conectar Preguntas frecuentes, WikiEmpresas, Convenios y Noticias a
-   contenido real cuando la mesa lo tenga listo (hoy están "en
-   construcción" igual que en el sitio real). Para Malla interactiva falta
-   agregar los prerrequisitos entre ramos, cuando alguien digitalice los
-   PDF de programa.
+3. Conectar Preguntas frecuentes y Noticias a contenido real cuando la
+   mesa lo tenga listo (hoy están "en construcción" igual que en el sitio
+   real). WikiEmpresas y Convenios ya tienen la estructura lista — solo
+   falta cargarles datos reales (ver sección de arriba). Para Malla
+   interactiva falta agregar los prerrequisitos entre ramos, cuando
+   alguien digitalice los PDF de programa.
 4. La Bitácora de este prototipo guarda sus entradas en `localStorage` del
    navegador — es la misma limitación que tenía el prototipo anterior, no
    es una base de datos compartida.
