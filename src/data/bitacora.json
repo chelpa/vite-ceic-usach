@@ -275,5 +275,17 @@
       "entregable": "src/pages/Noticias.jsx, src/pages/Transparencia.jsx, src/data/noticias.json, src/data/preguntas-transparencia.json del proyecto Vite"
     },
     "confirmada": true
+  },
+  {
+    "id": "c24",
+    "fecha": "2026-09-01",
+    "tipo": "prototipo",
+    "autor": "Claude",
+    "contenido": "Francisco preguntó qué más mejoraría, y pidió un calendario tipo Google Calendar (vistas Mes/Semana/Día) para /calendario, con la semana de PEP resaltada como en el calendario de pruebas de buscacursos.cl. Se revisó ese calendario de pruebas de buscacursos.cl (buildMonthCalendar/renderExamCalendarHTML en el HTML que Francisco subió): ahí cada estudiante ve puntos de color en los días exactos de PEP1/PEP2 de las secciones que ya eligió en 'Mi horario'. Acá esa personalización todavía no existe (necesita cuenta propia + datos de horario que BuscaCursos no trae para Ingeco/Economía — mismo límite ya anotado para MVP-ALPHA), así que se construyó la versión que sí se puede hacer con datos 100% reales ya existentes: se tomaron las 23 fechas de src/data/calendario.json (hasta ahora solo texto libre, ej. 'Del lunes 2 al sábado 14 de noviembre de 2026') y se les agregó fechaInicio/fechaFin en ISO, verificando cada una contra el día de la semana que el propio texto menciona (las 23 calzaron). Con eso se armaron las tres vistas nuevas sobre /calendario (Mes con grilla tipo Google Calendar y navegación con flechas/botón Hoy, Semana con las 7 columnas del día, Día con el detalle completo), manteniendo la vista de Lista de siempre como una pestaña más, no reemplazada. Los días dentro de PEP1/PEP2 quedan con un fondo rojizo — el rango oficial para todo el semestre, aclarado en la página que no es lo mismo que la fecha puntual por ramo de buscacursos.cl. Se encontró y corrigió en el camino un bug de CSS (dos clases de Tailwind escribiendo el mismo background-color se pisaban entre sí, dejando el resaltado de PEP invisible) y una sobre-capitalización del título en la vista Día. Verificado con Playwright en los tres temas (claro/oscuro/amigable): navegación entre meses, click en un día lleva a la vista Día correcta, el resaltado de PEP se ve en noviembre y enero, y las 15 rutas del sitio siguen sin errores de consola.",
+    "extra": {
+      "seccion": "Calendario académico",
+      "entregable": "src/pages/Calendario.jsx, src/data/calendario.json del proyecto Vite"
+    },
+    "confirmada": true
   }
 ]

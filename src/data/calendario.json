@@ -5,19 +5,26 @@
    {
     "fecha": "Del jueves 3 al sábado 5 de septiembre de 2026",
     "titulo": "Postulación de ramos Ingeco (fase 1)",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2026-09-03",
+    "fechaFin": "2026-09-05"
    },
    {
     "fecha": "Del miércoles 10 al viernes 25 de septiembre de 2026",
     "titulo": "Resultado de postulación y revisión de solicitudes (fase 2)",
-    "nota": "Periodo de revisión de solicitudes de toma de ramos."
+    "nota": "Periodo de revisión de solicitudes de toma de ramos.",
+    "fechaInicio": "2026-09-10",
+    "fechaFin": "2026-09-25"
    },
    {
     "fecha": "Del 1 al 30 de septiembre de 2026",
     "titulo": "Matrícula de pregrado antiguos y postergación (prosecución)",
-    "nota": "Estudiantes de prosecución deben tener sus pagos documentados o autorizados por la SDT Usach antes de matricular en serviciosweb.usach.cl."
+    "nota": "Estudiantes de prosecución deben tener sus pagos documentados o autorizados por la SDT Usach antes de matricular en serviciosweb.usach.cl.",
+    "fechaInicio": "2026-09-01",
+    "fechaFin": "2026-09-30"
    }
-  ]
+  ],
+  "categoria": "matricula"
  },
  {
   "titulo": "Período académico",
@@ -25,14 +32,19 @@
    {
     "fecha": "Del 21 de septiembre de 2026 al 16 de enero de 2027",
     "titulo": "Segundo semestre académico 2026",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2026-09-21",
+    "fechaFin": "2027-01-16"
    },
    {
     "fecha": "Del 25 de enero al 28 de febrero de 2027",
     "titulo": "Receso universitario de verano 2027",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2027-01-25",
+    "fechaFin": "2027-02-28"
    }
-  ]
+  ],
+  "categoria": "periodo"
  },
  {
   "titulo": "Evaluaciones",
@@ -40,14 +52,19 @@
    {
     "fecha": "Del lunes 2 al sábado 14 de noviembre de 2026",
     "titulo": "PEP1 – Periodo de pruebas presenciales",
-    "nota": "Suspensión de clases a contar del lunes 9 de noviembre."
+    "nota": "Suspensión de clases a contar del lunes 9 de noviembre.",
+    "fechaInicio": "2026-11-02",
+    "fechaFin": "2026-11-14"
    },
    {
     "fecha": "Del lunes 4 al sábado 16 de enero de 2027",
     "titulo": "PEP2 – Periodo de pruebas presenciales",
-    "nota": "Suspensión de clases a contar del lunes 11 de enero."
+    "nota": "Suspensión de clases a contar del lunes 11 de enero.",
+    "fechaInicio": "2027-01-04",
+    "fechaFin": "2027-01-16"
    }
-  ]
+  ],
+  "categoria": "evaluaciones"
  },
  {
   "titulo": "Trámites académicos",
@@ -55,29 +72,40 @@
    {
     "fecha": "Hasta el 21 de septiembre de 2026",
     "titulo": "Reincorporación de carrera",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2026-09-21",
+    "fechaFin": "2026-09-21"
    },
    {
     "fecha": "Hasta el 16 de octubre de 2026",
     "titulo": "Desinscripción de asignaturas",
-    "nota": "Por solicitud en intranet."
+    "nota": "Por solicitud en intranet.",
+    "fechaInicio": "2026-10-16",
+    "fechaFin": "2026-10-16"
    },
    {
     "fecha": "Hasta el 13 de noviembre de 2026",
     "titulo": "Retiro temporal sin expresión de causa",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2026-11-13",
+    "fechaFin": "2026-11-13"
    },
    {
     "fecha": "Del 14 de noviembre al 11 de diciembre de 2026",
     "titulo": "Retiro temporal con expresión de causa",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2026-11-14",
+    "fechaFin": "2026-12-11"
    },
    {
     "fecha": "Hasta el 13 de diciembre de 2026",
     "titulo": "Eliminación extraordinaria",
-    "nota": "Hasta la semana 12, con registro en hoja de vida."
+    "nota": "Hasta la semana 12, con registro en hoja de vida.",
+    "fechaInicio": "2026-12-13",
+    "fechaFin": "2026-12-13"
    }
-  ]
+  ],
+  "categoria": "tramites"
  },
  {
   "titulo": "Feriados y recesos",
@@ -85,29 +113,40 @@
    {
     "fecha": "Lunes 12 de octubre de 2026",
     "titulo": "Feriado",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2026-10-12",
+    "fechaFin": "2026-10-12"
    },
    {
     "fecha": "Sábado 31 de octubre de 2026",
     "titulo": "Feriado",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2026-10-31",
+    "fechaFin": "2026-10-31"
    },
    {
     "fecha": "Lunes 7 y martes 8 de diciembre de 2026",
     "titulo": "Interferiado y feriado",
-    "nota": "Interferiado lunes 7 de diciembre y feriado martes 8 de diciembre."
+    "nota": "Interferiado lunes 7 de diciembre y feriado martes 8 de diciembre.",
+    "fechaInicio": "2026-12-07",
+    "fechaFin": "2026-12-08"
    },
    {
     "fecha": "Viernes 25 y sábado 26 de diciembre de 2026",
     "titulo": "Feriado e interferiado",
-    "nota": "Feriado viernes 25 de diciembre e interferiado sábado 26 de diciembre."
+    "nota": "Feriado viernes 25 de diciembre e interferiado sábado 26 de diciembre.",
+    "fechaInicio": "2026-12-25",
+    "fechaFin": "2026-12-26"
    },
    {
     "fecha": "Viernes 1 y sábado 2 de enero de 2027",
     "titulo": "Feriado e interferiado",
-    "nota": "Feriado viernes 1 de enero e interferiado sábado 2 de enero."
+    "nota": "Feriado viernes 1 de enero e interferiado sábado 2 de enero.",
+    "fechaInicio": "2027-01-01",
+    "fechaFin": "2027-01-02"
    }
-  ]
+  ],
+  "categoria": "feriados"
  },
  {
   "titulo": "Examen de grado y tesis",
@@ -115,33 +154,46 @@
    {
     "fecha": "Sábado 26 de septiembre de 2026",
     "titulo": "Examen de grado – Prueba de conocimiento (1er semestre 2026)",
-    "nota": "Estrategia 9:00 hrs y Marketing 12:00 hrs. Ingeco Diurno y Prosecución."
+    "nota": "Estrategia 9:00 hrs y Marketing 12:00 hrs. Ingeco Diurno y Prosecución.",
+    "fechaInicio": "2026-09-26",
+    "fechaFin": "2026-09-26"
    },
    {
     "fecha": "Sábado 3 de octubre de 2026",
     "titulo": "Examen de grado – Prueba de conocimiento (1er semestre 2026)",
-    "nota": "RRHH 9:00 hrs y Finanzas 12:00 hrs. Ingeco Diurno y Prosecución."
+    "nota": "RRHH 9:00 hrs y Finanzas 12:00 hrs. Ingeco Diurno y Prosecución.",
+    "fechaInicio": "2026-10-03",
+    "fechaFin": "2026-10-03"
    },
    {
     "fecha": "Hasta el viernes 25 de septiembre de 2026",
     "titulo": "Entrega de tesis – 1er semestre 2026",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2026-09-25",
+    "fechaFin": "2026-09-25"
    },
    {
     "fecha": "Sábado 27 de marzo de 2027",
     "titulo": "Examen de grado – Prueba de conocimiento (2do semestre 2026)",
-    "nota": "Estrategia 9:00 hrs y Marketing 12:00 hrs. Ingeco Diurno y Prosecución."
+    "nota": "Estrategia 9:00 hrs y Marketing 12:00 hrs. Ingeco Diurno y Prosecución.",
+    "fechaInicio": "2027-03-27",
+    "fechaFin": "2027-03-27"
    },
    {
     "fecha": "Sábado 3 de abril de 2027",
     "titulo": "Examen de grado – Prueba de conocimiento (2do semestre 2026)",
-    "nota": "RRHH 9:00 hrs y Finanzas 12:00 hrs. Ingeco Diurno y Prosecución."
+    "nota": "RRHH 9:00 hrs y Finanzas 12:00 hrs. Ingeco Diurno y Prosecución.",
+    "fechaInicio": "2027-04-03",
+    "fechaFin": "2027-04-03"
    },
    {
     "fecha": "Hasta el viernes 26 de marzo de 2027",
     "titulo": "Entrega de tesis – 2do semestre 2026",
-    "nota": null
+    "nota": null,
+    "fechaInicio": "2027-03-26",
+    "fechaFin": "2027-03-26"
    }
-  ]
+  ],
+  "categoria": "examenes"
  }
 ]

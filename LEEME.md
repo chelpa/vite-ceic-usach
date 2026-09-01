@@ -132,6 +132,21 @@ mirando, en cada HTML guardado, qué botón del header queda con la clase de
   contenido (fechas, compromisos con su estado, mesa directiva con sus
   funciones) se extrajo tal cual del HTML real guardado — no es de
   relleno.
+- **Calendario académico — ahora también en formato calendario**: además
+  de la vista de Lista de siempre, `/calendario` tiene vistas Mes / Semana
+  / Día tipo Google Calendar, con botones "Hoy" y navegación con flechas
+  (inspirado en el calendario de pruebas de buscacursos.cl). No se agregó
+  ningún evento nuevo — se tomaron las mismas 23 fechas reales que ya
+  existían como texto ("Del lunes 2 al sábado 14 de noviembre de 2026") y
+  se les agregó `fechaInicio`/`fechaFin` en formato ISO en
+  `src/data/calendario.json`, verificando cada una contra el día de la
+  semana que el propio texto original menciona. Los días dentro de
+  PEP1/PEP2 quedan resaltados con un fondo rojizo — es el período general
+  para todo el semestre, no la fecha puntual de cada ramo (eso sería como
+  el calendario de pruebas de buscacursos.cl, pero personalizado por
+  sección elegida — necesita "mi horario" con cuenta propia, que es parte
+  de MVP-ALPHA y además requiere datos de horario que BuscaCursos no trae
+  todavía para Ingeco/Economía). Ver bitácora, entrada c24.
 - **Documentación, Apuntes, Actas**: las tarjetas "Ver X" (enlaces a Drive,
   PDF del estatuto) son las reales del sitio.
 - **Noticias**: el sitio real dice "En construcción" — el prototipo ya
