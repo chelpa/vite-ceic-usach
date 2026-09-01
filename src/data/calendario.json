@@ -1,0 +1,147 @@
+[
+ {
+  "titulo": "Matrícula y toma de ramos",
+  "eventos": [
+   {
+    "fecha": "Del jueves 3 al sábado 5 de septiembre de 2026",
+    "titulo": "Postulación de ramos Ingeco (fase 1)",
+    "nota": null
+   },
+   {
+    "fecha": "Del miércoles 10 al viernes 25 de septiembre de 2026",
+    "titulo": "Resultado de postulación y revisión de solicitudes (fase 2)",
+    "nota": "Periodo de revisión de solicitudes de toma de ramos."
+   },
+   {
+    "fecha": "Del 1 al 30 de septiembre de 2026",
+    "titulo": "Matrícula de pregrado antiguos y postergación (prosecución)",
+    "nota": "Estudiantes de prosecución deben tener sus pagos documentados o autorizados por la SDT Usach antes de matricular en serviciosweb.usach.cl."
+   }
+  ]
+ },
+ {
+  "titulo": "Período académico",
+  "eventos": [
+   {
+    "fecha": "Del 21 de septiembre de 2026 al 16 de enero de 2027",
+    "titulo": "Segundo semestre académico 2026",
+    "nota": null
+   },
+   {
+    "fecha": "Del 25 de enero al 28 de febrero de 2027",
+    "titulo": "Receso universitario de verano 2027",
+    "nota": null
+   }
+  ]
+ },
+ {
+  "titulo": "Evaluaciones",
+  "eventos": [
+   {
+    "fecha": "Del lunes 2 al sábado 14 de noviembre de 2026",
+    "titulo": "PEP1 – Periodo de pruebas presenciales",
+    "nota": "Suspensión de clases a contar del lunes 9 de noviembre."
+   },
+   {
+    "fecha": "Del lunes 4 al sábado 16 de enero de 2027",
+    "titulo": "PEP2 – Periodo de pruebas presenciales",
+    "nota": "Suspensión de clases a contar del lunes 11 de enero."
+   }
+  ]
+ },
+ {
+  "titulo": "Trámites académicos",
+  "eventos": [
+   {
+    "fecha": "Hasta el 21 de septiembre de 2026",
+    "titulo": "Reincorporación de carrera",
+    "nota": null
+   },
+   {
+    "fecha": "Hasta el 16 de octubre de 2026",
+    "titulo": "Desinscripción de asignaturas",
+    "nota": "Por solicitud en intranet."
+   },
+   {
+    "fecha": "Hasta el 13 de noviembre de 2026",
+    "titulo": "Retiro temporal sin expresión de causa",
+    "nota": null
+   },
+   {
+    "fecha": "Del 14 de noviembre al 11 de diciembre de 2026",
+    "titulo": "Retiro temporal con expresión de causa",
+    "nota": null
+   },
+   {
+    "fecha": "Hasta el 13 de diciembre de 2026",
+    "titulo": "Eliminación extraordinaria",
+    "nota": "Hasta la semana 12, con registro en hoja de vida."
+   }
+  ]
+ },
+ {
+  "titulo": "Feriados y recesos",
+  "eventos": [
+   {
+    "fecha": "Lunes 12 de octubre de 2026",
+    "titulo": "Feriado",
+    "nota": null
+   },
+   {
+    "fecha": "Sábado 31 de octubre de 2026",
+    "titulo": "Feriado",
+    "nota": null
+   },
+   {
+    "fecha": "Lunes 7 y martes 8 de diciembre de 2026",
+    "titulo": "Interferiado y feriado",
+    "nota": "Interferiado lunes 7 de diciembre y feriado martes 8 de diciembre."
+   },
+   {
+    "fecha": "Viernes 25 y sábado 26 de diciembre de 2026",
+    "titulo": "Feriado e interferiado",
+    "nota": "Feriado viernes 25 de diciembre e interferiado sábado 26 de diciembre."
+   },
+   {
+    "fecha": "Viernes 1 y sábado 2 de enero de 2027",
+    "titulo": "Feriado e interferiado",
+    "nota": "Feriado viernes 1 de enero e interferiado sábado 2 de enero."
+   }
+  ]
+ },
+ {
+  "titulo": "Examen de grado y tesis",
+  "eventos": [
+   {
+    "fecha": "Sábado 26 de septiembre de 2026",
+    "titulo": "Examen de grado – Prueba de conocimiento (1er semestre 2026)",
+    "nota": "Estrategia 9:00 hrs y Marketing 12:00 hrs. Ingeco Diurno y Prosecución."
+   },
+   {
+    "fecha": "Sábado 3 de octubre de 2026",
+    "titulo": "Examen de grado – Prueba de conocimiento (1er semestre 2026)",
+    "nota": "RRHH 9:00 hrs y Finanzas 12:00 hrs. Ingeco Diurno y Prosecución."
+   },
+   {
+    "fecha": "Hasta el viernes 25 de septiembre de 2026",
+    "titulo": "Entrega de tesis – 1er semestre 2026",
+    "nota": null
+   },
+   {
+    "fecha": "Sábado 27 de marzo de 2027",
+    "titulo": "Examen de grado – Prueba de conocimiento (2do semestre 2026)",
+    "nota": "Estrategia 9:00 hrs y Marketing 12:00 hrs. Ingeco Diurno y Prosecución."
+   },
+   {
+    "fecha": "Sábado 3 de abril de 2027",
+    "titulo": "Examen de grado – Prueba de conocimiento (2do semestre 2026)",
+    "nota": "RRHH 9:00 hrs y Finanzas 12:00 hrs. Ingeco Diurno y Prosecución."
+   },
+   {
+    "fecha": "Hasta el viernes 26 de marzo de 2027",
+    "titulo": "Entrega de tesis – 2do semestre 2026",
+    "nota": null
+   }
+  ]
+ }
+]

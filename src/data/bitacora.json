@@ -1,0 +1,111 @@
+[
+ {
+  "id": "c1",
+  "fecha": "2026-08-31",
+  "tipo": "incidencia",
+  "autor": "Claude",
+  "contenido": "Cualquier ruta que no sea \"/\" devuelve 404 real del servidor — falta el fallback de SPA en el hosting. Confirmado con los headers reales (server: cloudflare, content-length: 0).",
+  "extra": {
+   "severidad": "Alta",
+   "estado": "Abierta"
+  },
+  "confirmada": true
+ },
+ {
+  "id": "c2",
+  "fecha": "2026-08-31",
+  "tipo": "arquitectura",
+  "autor": "Claude",
+  "contenido": "BuscaCursos ya trae el catálogo de ramos de ambas menciones (PROGRAMS.ingeco y PROGRAMS.economia). Malla Interactiva debería leer ese mismo dataset en vez de duplicarlo.",
+  "extra": {
+   "alcance": "Catálogo de ramos / Malla",
+   "tipo": "Patrón de datos"
+  },
+  "confirmada": true
+ },
+ {
+  "id": "c3",
+  "fecha": "2026-09-01",
+  "tipo": "contenido",
+  "autor": "Francisco",
+  "contenido": "Se subieron las 14 páginas HTML fuente guardadas del sitio (Actas, Calendario, Documentación, Malla, Noticias, Nosotros, Programa, etc.), reemplazando resúmenes por código fuente real.",
+  "extra": {
+   "seccion": "Todo el sitio",
+   "origen": "Mesa CEIC"
+  },
+  "confirmada": true
+ },
+ {
+  "id": "c4",
+  "fecha": "2026-09-01",
+  "tipo": "decision",
+  "autor": "Claude",
+  "contenido": "Se reconstruyó el contenido de los menús \"Comunidad\" y \"El CEIC\" a partir de qué botón del nav queda activo en cada página guardada, en vez de esperar a poder abrirlos directamente.",
+  "extra": {
+   "alcance": "Estructura de navegación",
+   "alternativas": "Esperar acceso al repo para verlo en el código"
+  },
+  "confirmada": true
+ },
+ {
+  "id": "c5",
+  "fecha": "2026-09-01",
+  "tipo": "arquitectura",
+  "autor": "Claude",
+  "contenido": "El nombre del chunk wikiprofes._slug-*.js confirma que el sitio usa React Router en modo de rutas por archivo, sobre un build de Vite.",
+  "extra": {
+   "alcance": "Stack técnico",
+   "tipo": "Stack técnico"
+  },
+  "confirmada": true
+ },
+ {
+  "id": "c6",
+  "fecha": "2026-09-01",
+  "tipo": "implementacion",
+  "autor": "Claude",
+  "contenido": "Primera pieza del prototipo portátil: EntryList.jsx (lista de entradas fechadas) + DocumentLink, con ejemplos de uso para Noticias y Documentación.",
+  "extra": {
+   "modulo": "Componente compartido de contenido",
+   "estado": "Listo para integrar"
+  },
+  "confirmada": false
+ },
+ {
+  "id": "c7",
+  "fecha": "2026-09-01",
+  "tipo": "diseno",
+  "autor": "Francisco",
+  "contenido": "Se adapta el diseño de \"Bitácora Modular\" (sidebar + línea de tiempo + formulario de nueva entrada) a la bitácora del CEIC, como una segunda vista dentro del mismo documento.",
+  "extra": {
+   "elemento": "Componente de UI",
+   "estado": "En revisión"
+  },
+  "confirmada": false
+ },
+ {
+  "id": "c8",
+  "fecha": "2026-09-01",
+  "tipo": "contenido",
+  "autor": "Claude",
+  "contenido": "Se confirmó el origen de WikiProfes: un Canva de 184 diapositivas (una por profesor, orden alfabético), armado a mano con comentarios de estudiantes recopilados antes de que existiera la sección real del sitio. Se extrajo el contenido completo (179 de 184 profesores, con nombre y comentarios) a un JSON estructurado como base de datos para cuando se integre la sección real.",
+  "extra": {
+   "seccion": "WikiProfes",
+   "origen": "Canva original (link de Francisco)"
+  },
+  "confirmada": true
+ },
+ {
+  "id": "c9",
+  "fecha": "2026-09-01",
+  "tipo": "prototipo",
+  "autor": "Claude",
+  "contenido": "Se armó un prototipo navegable de buscador de WikiProfes (estilo BuscaCursos: búsqueda + filtros + orden, sin recarga de página). Cruza las 202 fichas reales del sitio (calificación, ramos, cita, slug) con los 179 profes del Canva histórico por nombre: 101 profes quedaron con ambas fuentes, 101 solo con ficha oficial y 78 solo con comentarios históricos (sin ficha aún). El diseño reutiliza el lenguaje visual real del sitio (tarjetas, avatares, estrellas) y respeta lo genérico de la norma gráfica USACH (escudo/nombre arriba, footer con contacto), sin copiar buscacursos.uc.cl porque no es de la USACH — el buscacursos.cl que mandó Francisco es una herramienta no oficial hecha por otro alumno, se usó solo como referencia de densidad/UX de filtros.",
+  "extra": {
+   "seccion": "WikiProfes",
+   "entregable": "Artifact interactivo",
+   "enlace": "https://claude.ai/code/artifact/47f9d494-1f7e-46d0-804c-d60cd99ac187"
+  },
+  "confirmada": true
+ }
+]

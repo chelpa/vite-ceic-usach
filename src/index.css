@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap");
+@import "tailwindcss";
+
+/*
+  Tokens del tema CEIC USACH.
+  No tenemos el CSS compilado del sitio real (el HTML guardado no incluyó
+  su carpeta _files con index-*.css), así que los valores de color son una
+  aproximación razonada: teal/dorado del isotipo del CEIC + la lógica de
+  nombres que sí pudimos confirmar en el markup real (bg-card, bg-ink,
+  text-ink-foreground, border-border, text-primary, text-accent,
+  text-muted-foreground, chart-3, chart-5, --font-display). Si en algún
+  momento tienen el CSS real, esto se reemplaza por los valores exactos
+  sin tocar los componentes: son solo variables.
+*/
+:root {
+  --color-background: #f6f8f8;
+  --color-foreground: #10201f;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #10201f;
+
+  --color-secondary: #e9f0ef;
+  --color-secondary-foreground: #10201f;
+
+  --color-muted: #eef3f3;
+  --color-muted-foreground: #5b6d6b;
+
+  --color-primary: #0c7c78;
+  --color-primary-foreground: #ffffff;
+
+  --color-accent: #c9791f;
+  --color-accent-foreground: #2a1a00;
+
+  --color-border: #d9e3e2;
+  --color-border-strong: #bfd0cf;
+
+  --color-ink: #0e2726;
+  --color-ink-foreground: #dcece9;
+
+  /* usados por la página de Programa para agrupar secciones de compromisos */
+  --color-chart-1: #0c7c78;
+  --color-chart-2: #2f6fa8;
+  --color-chart-3: #b3432f;
+  --color-chart-4: #6a5a9c;
+  --color-chart-5: #c9791f;
+
+  --font-display: "Sora", "Source Sans 3", sans-serif;
+  --font-sans: "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-card: var(--color-card);
+  --color-card-foreground: var(--color-card-foreground);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-border: var(--color-border);
+  --color-ink: var(--color-ink);
+  --color-ink-foreground: var(--color-ink-foreground);
+  --color-chart-1: var(--color-chart-1);
+  --color-chart-2: var(--color-chart-2);
+  --color-chart-3: var(--color-chart-3);
+  --color-chart-4: var(--color-chart-4);
+  --color-chart-5: var(--color-chart-5);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+/* "block-border": la firma visual del sitio real -- cajas de borde recto
+   (sin radius) en vez de las tarjetas redondeadas típicas de shadcn. */
+@utility block-border {
+  border: 1.5px solid var(--color-border-strong);
+}
+@utility block-border-lg {
+  border: 2px solid var(--color-foreground);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

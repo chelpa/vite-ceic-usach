@@ -1,0 +1,87 @@
+[
+ {
+  "rol": "Presidenta",
+  "nombre": "Sofía Hernández",
+  "funciones": [
+   "Representa al CEIC ante las autoridades universitarias y otros organismos.",
+   "Preside las sesiones del CEIC y firma los documentos oficiales.",
+   "Convoca a elecciones y a la conformación del TRICEL."
+  ]
+ },
+ {
+  "rol": "Vicepresidente",
+  "nombre": "Álvaro Lillo",
+  "funciones": [
+   "Colabora permanentemente con la Presidencia y la reemplaza cuando no puede ejercer sus funciones.",
+   "Puede representar oficialmente al Centro de Estudiantes."
+  ]
+ },
+ {
+  "rol": "Secretario General",
+  "nombre": "Kail O'Brian",
+  "funciones": [
+   "Lleva el libro de actas del CEIC y de las resoluciones de la Asamblea.",
+   "Actúa como ministro de fe en los acuerdos y documentos oficiales.",
+   "Despacha las citaciones a reuniones y mantiene los archivos al día."
+  ]
+ },
+ {
+  "rol": "Secretaria de Finanzas y Bienestar",
+  "nombre": "Valentina Arce",
+  "funciones": [
+   "Lleva la contabilidad del CEIC y presenta el balance cada semestre.",
+   "Coordina becas y ayudas socioeconómicas para los estudiantes.",
+   "Vela por la búsqueda de soluciones a problemas socioeconómicos que afecten a la comunidad."
+  ]
+ },
+ {
+  "rol": "Secretaria de Comunicaciones",
+  "nombre": "Matilde Fuentes",
+  "funciones": [
+   "Redacta y administra los canales oficiales del CEIC (redes sociales, correo).",
+   "Mantiene informado al estudiantado sobre el actuar del CEIC."
+  ]
+ },
+ {
+  "rol": "Secretaria de Bienestar Integral",
+  "nombre": "Francisca Cadena",
+  "funciones": [
+   "Visibiliza temáticas de bienestar personal, emocional y social dentro de la vida universitaria.",
+   "Difunde las redes de apoyo psicológico y de salud disponibles en la universidad.",
+   "Promueve instancias de información, prevención y contención frente a problemáticas que afectan a la comunidad estudiantil."
+  ]
+ },
+ {
+  "rol": "Secretario de Emprendimiento y Sostenibilidad",
+  "nombre": "Diego Salinas",
+  "funciones": [
+   "Acompaña y orienta a estudiantes que desarrollan proyectos de emprendimiento, conectándolos con redes y oportunidades.",
+   "Impulsa iniciativas de sostenibilidad y conciencia ambiental dentro de la facultad.",
+   "Gestiona alianzas con organizaciones externas para ampliar el acceso a formación y financiamiento."
+  ]
+ },
+ {
+  "rol": "Secretaria de Apoyo Estudiantil",
+  "nombre": "Martina Oñate",
+  "funciones": [
+   "Acompaña el desarrollo académico del estudiantado durante toda la trayectoria universitaria.",
+   "Organiza ayudantías solidarias y gestiona la central de apuntes y el repositorio de evaluaciones.",
+   "Canaliza inquietudes y problemáticas académicas que afectan a la comunidad estudiantil."
+  ]
+ },
+ {
+  "rol": "Secretaria de Cultura",
+  "nombre": "Catalina Concha",
+  "funciones": [
+   "Propone y fomenta actividades de reflexión para el estudiantado.",
+   "Coordina y gestiona los certámenes culturales, fomentando la participación."
+  ]
+ },
+ {
+  "rol": "Secretario de Deportes",
+  "nombre": "Diego Nagel",
+  "funciones": [
+   "Coordina y gestiona los certámenes deportivos, fomentando la participación."
+  ]
+ }
+]

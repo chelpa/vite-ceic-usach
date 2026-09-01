@@ -1,0 +1,333 @@
+{
+ "avance_general": "7/72 compromisos cumplidos (10%)",
+ "secciones": [
+  {
+   "titulo": "Mesa Central",
+   "compromisos": [
+    {
+     "titulo": "Comercial Activa",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Mesa de diálogo con Funcionarios",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Reforma Cargo Delegaciones Generacionales",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Red FAE",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Impulsa a Nuestros Consejeros",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Reforma del estatuto",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Delegado Vespertino",
+     "estado": "No realizado"
+    }
+   ]
+  },
+  {
+   "titulo": "Apoyo Estudiantil",
+   "compromisos": [
+    {
+     "titulo": "Ayudantías Solidarias para PEP",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Ayudantías Solidarias para Controles",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Protocolo Ayudantía Solidaria",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Optimización y Actualización de Wiki-Profes",
+     "estado": "Completo"
+    },
+    {
+     "titulo": "Central de Apuntes y Repositorio Digital",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Campaña \"Conoce tu Mención\"",
+     "estado": "Completo"
+    },
+    {
+     "titulo": "Evaluaciones de Desempeño de Ayudantes",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Guía Paso a Paso: ¿Cómo postular a una Ayudantía?",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Soporte para Examen de Grado y Tesis",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "CEIC-Awards",
+     "estado": "No realizado"
+    }
+   ]
+  },
+  {
+   "titulo": "Finanzas y Bienestar",
+   "compromisos": [
+    {
+     "titulo": "Probidad y Transparencia",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Educación Financiera Real",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Conexión Bancaria y Financiera",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Feria de Prácticas Efectiva",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Red de Beneficios y Convenios",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Optimización de Becas",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Becas de Especialización en Datos",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Beca de Impresiones CEIC",
+     "estado": "En progreso"
+    }
+   ]
+  },
+  {
+   "titulo": "Cultura",
+   "compromisos": [
+    {
+     "titulo": "Bienvenida Cachorra",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "La Brújula Cultural",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Trébol",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Fonda FAE",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Las Voces del Calendario",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Impulsa Tu Intercambio",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Día del Niño",
+     "estado": "Completo"
+    },
+    {
+     "titulo": "Día del Ingeniero Comercial",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Comercial En Vivo",
+     "estado": "No realizado"
+    }
+   ]
+  },
+  {
+   "titulo": "Emprendimiento y Sostenibilidad",
+   "compromisos": [
+    {
+     "titulo": "Feria de Emprendedores",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Charlas de Emprendimiento",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Campaña de Difusión de Fondos Concursables",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Alianza con Club de Emprendedores",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Emprende desde Cero (Formación técnica)",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Alianza Dirección de Innovación y Emprendimiento - DINEM",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Puntos de reciclaje en la FAE",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Comercial Sostenible",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Concurso de reciclaje de latas",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Comercial 360°",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Feria del Cambalache",
+     "estado": "Completo"
+    }
+   ]
+  },
+  {
+   "titulo": "Comunicaciones",
+   "compromisos": [
+    {
+     "titulo": "Tutoriales informativos",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Impulsa tu Intercambio",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Reporte CEIC",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "¿Qué hace el CEIC?",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Asamblea en 1 Minuto",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Promoción de Emprendimientos",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "CEIC te Escucha",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Comercial Celebra",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Mejora página web",
+     "estado": "Completo"
+    },
+    {
+     "titulo": "Comercial al Día",
+     "estado": "No realizado"
+    }
+   ]
+  },
+  {
+   "titulo": "Bienestar Integral",
+   "compromisos": [
+    {
+     "titulo": "Protocolo de Acción ante el Acoso",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Punto de Bienestar",
+     "estado": "Completo"
+    },
+    {
+     "titulo": "Conmemoración Día del Orgullo LGBTQ+",
+     "estado": "Completo"
+    },
+    {
+     "titulo": "Agenda de Bienestar",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Concientización Cáncer de Mama",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Encuesta de Salud Mental Estudiantil",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Mayor Difusión del Apoyo Psicológico Universitario",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Relaciones Sanas en Comercial",
+     "estado": "No realizado"
+    }
+   ]
+  },
+  {
+   "titulo": "Deportes",
+   "compromisos": [
+    {
+     "titulo": "Campeonato E-sports",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Videos Informativos",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Copa FAE",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Conoce tus Derechos como Deportista",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Deportistas Destacados en INGECO",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Campeonatos Deportivos",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Salidas Extraprogramáticas",
+     "estado": "En progreso"
+    },
+    {
+     "titulo": "Colaboraciones Deportivas",
+     "estado": "No realizado"
+    },
+    {
+     "titulo": "Semanas del Deporte",
+     "estado": "No realizado"
+    }
+   ]
+  }
+ ]
+}
