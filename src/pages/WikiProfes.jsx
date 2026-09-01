@@ -75,15 +75,23 @@ function Card({ p, onOpen }) {
       </div>
 
       {p.calificacion != null ? (
-        <div className="flex items-center gap-2 text-xs">
+        <div className="flex flex-wrap items-center gap-2 text-xs">
           <Stars rating={p.calificacion} />
           <span className="font-semibold">{p.calificacion.toFixed(1)}</span>
           <span className="text-muted-foreground">
-            · {p.resenas.length} {p.resenas.length === 1 ? "reseña" : "reseñas"}
+            · {p.resenas.length} {p.resenas.length === 1 ? "comentario" : "comentarios"}
           </span>
+          {p.estimado ? (
+            <span
+              title="Estimado a partir del tono de comentarios históricos de Canva, no es un promedio de votos oficiales"
+              className="rounded-full bg-accent/15 px-2 py-0.5 font-semibold text-accent"
+            >
+              Estimado
+            </span>
+          ) : null}
         </div>
       ) : (
-        <p className="text-xs italic text-muted-foreground">Sin calificación oficial</p>
+        <p className="text-xs italic text-muted-foreground">Sin calificación</p>
       )}
 
       <p className="line-clamp-2 flex-1 text-sm text-muted-foreground">
@@ -158,18 +166,27 @@ function Modal({ p, onClose }) {
         </div>
         <div className="p-5">
           {p.calificacion != null ? (
-            <div className="mb-4 flex items-center gap-2 text-sm">
+            <div className="mb-1.5 flex flex-wrap items-center gap-2 text-sm">
               <Stars rating={p.calificacion} />
               <span className="font-semibold">{p.calificacion.toFixed(1)}</span>
               <span className="text-muted-foreground">
-                · {resenas.length} {resenas.length === 1 ? "reseña" : "reseñas"}
+                · {resenas.length} {resenas.length === 1 ? "comentario" : "comentarios"}
               </span>
+              {p.estimado ? (
+                <span className="rounded-full bg-accent/15 px-2 py-0.5 font-semibold text-accent">
+                  Estimado
+                </span>
+              ) : null}
             </div>
           ) : (
-            <p className="mb-4 text-sm italic text-muted-foreground">
-              Sin calificación oficial todavía
-            </p>
+            <p className="mb-4 text-sm italic text-muted-foreground">Sin calificación</p>
           )}
+          {p.estimado ? (
+            <p className="mb-4 text-xs text-muted-foreground">
+              Este puntaje es una estimación a partir del tono de los comentarios históricos
+              recopilados en Canva — no es un promedio de votos oficiales de WikiProfes.
+            </p>
+          ) : null}
           {p.actualizado ? (
             <p className="mb-4 text-xs text-muted-foreground">Actualizado: {p.actualizado}</p>
           ) : null}
@@ -242,7 +259,12 @@ export default function WikiProfes() {
           más comentarios históricos recopilados desde 2023 que el sitio oficial no tiene.
         </p>
         <p className="mt-2 text-xs text-muted-foreground">
-          {DATA.length} fichas · promedio {avgRating} ★
+          {DATA.length} fichas · promedio {avgRating} ★ · las fichas con la etiqueta{" "}
+          <span className="rounded-full bg-accent/15 px-2 py-0.5 font-semibold text-accent">
+            Estimado
+          </span>{" "}
+          no tienen calificación oficial: el puntaje sale del tono de los comentarios históricos
+          de Canva, no de un promedio de votos.
         </p>
       </div>
 

@@ -15,6 +15,31 @@ npm run dev       # servidor de desarrollo
 npm run build     # build de producción a dist/
 ```
 
+## Cómo actualizar el repo cuando hay archivos nuevos
+
+No hace falta git ni terminal — GitHub Actions ya se encarga de "compilar"
+el proyecto (ver sección de abajo). Lo único que hay que hacer cada vez que
+llegan archivos nuevos o modificados es reemplazarlos en el repo, desde la
+web de GitHub:
+
+1. Entrá a `github.com/chelpa/vite-ceic-usach`.
+2. Click en **Add file** (arriba a la derecha) → **Upload files**.
+3. Arrastrá los archivos que cambiaron directo a esa página (podés
+   arrastrar varios a la vez, o incluso una carpeta completa si tu
+   navegador lo permite — Chrome sí). GitHub los va a poner en la misma
+   ruta de la que vengan: si arrastrás la carpeta `src` completa reemplaza
+   todo lo de adentro, no hace falta ir archivo por archivo como con
+   `.github/workflows/deploy.yml` la primera vez (ese caso fue especial
+   porque era una carpeta que no existía todavía en el repo).
+4. Bajá al final y click en **Commit changes...** → **Commit changes**.
+5. Listo — el Action se dispara solo (pestaña **Actions**, un par de
+   minutos) y cuando termina en verde, `https://chelpa.github.io/vite-ceic-usach/`
+   ya tiene lo nuevo. No hace falta tocar nada de Settings de nuevo, eso
+   fue solo la primera vez.
+
+Si un archivo tiene el mismo nombre y ruta que uno que ya existe, GitHub
+lo reemplaza directo al hacer commit — no genera copias duplicadas.
+
 ## Cómo publicarlo en GitHub Pages
 
 El repo (`chelpa/vite-ceic-usach`) queda publicado en
@@ -50,6 +75,16 @@ arreglado en el proyecto:
 Si el repo cambia de nombre en algún momento, solo hay que actualizar el
 `base` en `vite.config.js` — todo lo demás usa esa misma variable.
 
+**Importante:** de estos archivos, `.github/workflows/deploy.yml` es el que
+hace que todo lo demás sirva de algo — sin él, GitHub Pages publica el
+código fuente tal cual (sin "compilar" el proyecto), y eso también da
+pantalla en blanco aunque el resto de los arreglos esté bien subido. Si
+después de subir todo sigue en blanco, lo primero que hay que revisar es:
+(1) que `.github/workflows/deploy.yml` exista en el repo, y (2) que en
+Settings → Pages → Source diga "GitHub Actions" y no "Deploy from a
+branch". Ver entrada c16 de la bitácora — es justo lo que pasó la primera
+vez que se subieron estos cambios.
+
 ## Qué incluye
 
 Las 14 páginas reales del sitio (las que subiste como HTML guardado), más
@@ -76,7 +111,17 @@ mirando, en cada HTML guardado, qué botón del header queda con la clase de
   ramos, slug, y las 613 reseñas completas de cada profesor, no solo la
   cita de la ficha de listado) con los 179 profes del Canva histórico por
   nombre (856 reseñas en total, agregando las que Canva tiene y el sitio
-  no; ver entradas c9 y c12 de la bitácora para el detalle del cruce).
+  no; ver entradas c9 y c12 de la bitácora para el detalle del cruce). De
+  esos 280, 76 no tienen calificación oficial pero sí comentarios
+  históricos de Canva con tono claramente positivo o negativo — a esos se
+  les puso un puntaje **estimado** (1-5, por análisis de tono de palabras
+  clave en español, no un promedio de votos) y se marcan con la etiqueta
+  "Estimado" en la tarjeta y en la ficha, con una nota explicando de dónde
+  sale. Nunca se estima sobre una reseña puramente oficial sin nota — solo
+  cuando hay comentario de Canva detrás. Los otros 43 sin calificación se
+  dejan honestamente en blanco ("Sin calificación") porque no hay señal de
+  tono suficiente ni en Canva ni en el sitio. Ver entrada c15 de la
+  bitácora.
 - **Calendario, Conoce nuestro programa, Quiénes somos y directiva**: el
   contenido (fechas, compromisos con su estado, mesa directiva con sus
   funciones) se extrajo tal cual del HTML real guardado — no es de
@@ -198,6 +243,18 @@ tarjeta simplemente no muestra esa parte.
    falta cargarles datos reales (ver sección de arriba). Para Malla
    interactiva falta agregar los prerrequisitos entre ramos, cuando
    alguien digitalice los PDF de programa.
-4. La Bitácora de este prototipo guarda sus entradas en `localStorage` del
-   navegador — es la misma limitación que tenía el prototipo anterior, no
-   es una base de datos compartida.
+4. La Bitácora de este prototipo (`/bitacora`) guarda sus entradas en
+   `localStorage` del navegador — es la misma limitación que tenía el
+   prototipo anterior, no es una base de datos compartida. Es una vista
+   simplificada (solo línea de tiempo) que arranca con la misma info que
+   `src/data/bitacora.json`; el documento completo de trabajo (con
+   tarjetas por sección, ELI5 e inventario) es otro documento aparte, al
+   que se puede llegar desde la franja gris de arriba ("Bitácora completa
+   (plan + historial)") o desde el link "Ver el prototipo" que tiene ese
+   mismo documento arriba de todo — quedaron linkeados entre sí para
+   poder saltar de uno al otro mientras no estén integrados en un solo
+   lugar. Importante: si alguien ya visitó `/bitacora` antes con una
+   versión más vieja de `bitacora.json`, su navegador va a seguir
+   mostrando esa versión vieja (por el `localStorage`) hasta que la borre
+   a mano o se agregue algún mecanismo de versión — para cualquiera que
+   la abra por primera vez, carga directo la última.

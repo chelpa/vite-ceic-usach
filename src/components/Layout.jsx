@@ -203,15 +203,25 @@ function Footer() {
 function PrototypeStrip() {
   return (
     <div className="bg-foreground text-background">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-5 py-1.5 text-xs">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-1.5 text-xs">
         <span className="opacity-70">Prototipo del sitio — no es ceicusach.cl</span>
-        <Link
-          to="/bitacora"
-          className="inline-flex items-center gap-1.5 font-semibold uppercase tracking-wide opacity-90 hover:opacity-100"
-        >
-          <NotebookPen className="h-3.5 w-3.5" aria-hidden="true" />
-          Bitácora del proyecto
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            to="/bitacora"
+            className="inline-flex items-center gap-1.5 font-semibold uppercase tracking-wide opacity-90 hover:opacity-100"
+          >
+            <NotebookPen className="h-3.5 w-3.5" aria-hidden="true" />
+            Bitácora del proyecto
+          </Link>
+          <a
+            href="https://claude.ai/code/artifact/45480f3e-cc3b-4f17-8f9b-8495a48181a7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-semibold uppercase tracking-wide opacity-90 hover:opacity-100"
+          >
+            Bitácora completa (plan + historial) ↗
+          </a>
+        </div>
       </div>
     </div>
   );
