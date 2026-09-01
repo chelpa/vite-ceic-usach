@@ -13,6 +13,10 @@
   sin tocar los componentes: son solo variables.
 */
 :root {
+  /* Valor de respaldo hasta que Header mida su altura real (ver
+     Layout.jsx) — evita un salto visible en el primer render. */
+  --header-h: 4.3125rem;
+
   --color-background: #f6f8f8;
   --color-foreground: #10201f;
 

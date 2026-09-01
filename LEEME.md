@@ -288,6 +288,43 @@ inventar un número.
 `descuento`, `vigencia` y `link` son opcionales — si no vienen, la
 tarjeta simplemente no muestra esa parte.
 
+## Arreglos de una auditoría (bug de scroll + WikiProfes/Malla)
+
+Francisco pidió revisar WikiProfes y Malla por si faltaba algo, y reportó
+un bug: al hacer clic en un link del footer estando abajo del todo (por
+ejemplo en /nosotros), la página cambiaba pero la vista se quedaba pegada
+abajo, así que parecía que no había pasado nada. Se encontraron y
+arreglaron 4 cosas reales, verificadas con Playwright:
+
+- **Bug de scroll (el que reportó Francisco) — arreglado**: React Router,
+  a diferencia de una navegación de página completa, no mueve el scroll
+  al cambiar de ruta. Se agregó `src/components/ScrollToTop.jsx` (sube el
+  scroll al tope en cada cambio de ruta) montado en `App.jsx`.
+- **Barra de buscador de WikiProfes/WikiEmpresas tapaba la primera fila
+  de tarjetas al hacer scroll — arreglado**: esa barra es sticky y se
+  pega justo debajo del header, pero su posición estaba hardcodeada a
+  2.375rem (38px) cuando el header real mide 69px (81px justo en 768px de
+  ancho, donde el nav se acomoda distinto) — la diferencia hacía que la
+  barra se metiera debajo del header y tapara contenido. Ahora el header
+  mide su propia altura con `ResizeObserver` y la deja en la variable CSS
+  `--header-h` (ver `Layout.jsx`), y ambas páginas usan
+  `top-[var(--header-h)]` en vez de un número fijo — así nunca se
+  desincroniza, en ningún ancho de pantalla.
+- **Las fichas de WikiProfes/WikiEmpresas no se cerraban con Escape, y el
+  fondo se podía seguir scrolleando detrás — arreglado**: se agregó un
+  hook `useModalBehavior` (Escape cierra, bloquea el scroll del body
+  mientras está abierta) a los dos modales.
+- **Malla: las tarjetas de ramo no anunciaban su estado a lectores de
+  pantalla — arreglado**: se agregó `aria-pressed` y `aria-label`
+  descriptivo a los botones de ramo (ya lo tenía el botón Grande/Chica,
+  faltaba en las tarjetas mismas).
+
+De paso, la auditoría de datos encontró un hueco real que **no** se puede
+arreglar sin más información: ningún ramo de Mención Economía en
+`malla.json` tiene créditos SCT cargados (los 54 de Administración sí los
+tienen todos) — BuscaCursos no trajo ese dato para Economía. Queda
+anotado, no es un bug de código.
+
 ## Qué falta para que esto sea el sitio real
 
 1. Reemplazar las variables de color en `src/index.css` por los valores

@@ -99,13 +99,36 @@ function MobileMenu({ open, onClose }) {
   );
 }
 
+// Algunas páginas (WikiProfes, WikiEmpresas) tienen su propia barra
+// sticky (buscador/filtros) que se pega justo debajo del header. Antes
+// tenían un offset fijo a mano (2.375rem) que no coincidía con la altura
+// real del header en todos los anchos de pantalla — a 768px el header
+// mide 81px en vez de 69px por como se acomoda el nav en ese punto exacto
+// del breakpoint — así que la barra terminaba pegada por debajo del
+// header y tapaba la primera fila de tarjetas al hacer scroll. Ahora el
+// header mide su propia altura real (ResizeObserver, se actualiza solo
+// si cambia) y la deja en --header-h para que cualquier barra sticky de
+// una página use var(--header-h) en vez de adivinar un número.
 function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const headerRef = useRef(null);
   useEffect(() => setMobileOpen(false), [location.pathname]);
 
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const setVar = () => {
+      document.documentElement.style.setProperty("--header-h", `${el.getBoundingClientRect().height}px`);
+    };
+    setVar();
+    const ro = new ResizeObserver(setVar);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-card shadow-sm">
+    <header ref={headerRef} className="sticky top-0 z-50 border-b border-border bg-card shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
         <Link to="/" className="flex items-center gap-3">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-primary bg-card font-[family-name:var(--font-display)] font-bold text-primary">

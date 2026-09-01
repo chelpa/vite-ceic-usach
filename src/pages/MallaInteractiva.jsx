@@ -69,6 +69,8 @@ function RamoCard({ ramo, done, onToggle, compact }) {
         type="button"
         onClick={() => onToggle(ramo.codigo)}
         title={ramo.nombre}
+        aria-pressed={done}
+        aria-label={(done ? "Marcar como no aprobado: " : "Marcar como aprobado: ") + ramo.nombre}
         className={
           "block-border flex w-full items-center gap-1.5 px-2 py-1.5 text-left transition-colors " +
           (done ? "bg-primary/10" : "bg-card")
@@ -94,6 +96,8 @@ function RamoCard({ ramo, done, onToggle, compact }) {
     <button
       type="button"
       onClick={() => onToggle(ramo.codigo)}
+      aria-pressed={done}
+      aria-label={(done ? "Marcar como no aprobado: " : "Marcar como aprobado: ") + ramo.nombre}
       className={
         "block-border flex w-full flex-col gap-1.5 p-3 text-left transition-colors " +
         (done ? "bg-primary/10" : "bg-card")

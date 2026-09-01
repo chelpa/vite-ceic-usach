@@ -287,5 +287,17 @@
       "entregable": "src/pages/Calendario.jsx, src/data/calendario.json del proyecto Vite"
     },
     "confirmada": true
+  },
+  {
+    "id": "c25",
+    "fecha": "2026-09-01",
+    "tipo": "incidencia",
+    "autor": "Claude",
+    "contenido": "Francisco pidió revisar WikiProfes y Malla por si faltaba algo, y reportó un bug: al hacer clic en un link del footer estando abajo del todo (por ejemplo parado en /nosotros), la página cambiaba de ruta pero la vista se quedaba pegada abajo, así que parecía que no había pasado nada. Se audiotó el código (no solo se revisó a ojo) y se encontraron y arreglaron 4 problemas reales, cada uno verificado con Playwright reproduciendo el bug antes y confirmando el arreglo después: (1) el bug que reportó Francisco — React Router no mueve el scroll al cambiar de ruta a diferencia de una navegación de página completa; se agregó un componente ScrollToTop que sube el scroll al tope en cada cambio de ruta. (2) La barra de buscador/filtros de WikiProfes y WikiEmpresas (sticky, se pega debajo del header) tenía su posición hardcodeada a 2.375rem (38px) pero el header real mide 69px (81px justo a 768px de ancho, donde el nav se acomoda distinto) — la barra se metía debajo del header y tapaba la primera fila de tarjetas al hacer scroll, confirmado con capturas de pantalla antes/después. Se arregló midiendo la altura real del header con ResizeObserver y exponiéndola como variable CSS (--header-h) en vez de un número fijo. (3) Las fichas (modales) de WikiProfes y WikiEmpresas no se cerraban con la tecla Escape, y el fondo se podía seguir scrolleando detrás mientras estaban abiertas — se agregó un hook compartido que cierra con Escape y bloquea el scroll del body. (4) Las tarjetas de ramo en Malla no tenían aria-pressed ni aria-label, así que un lector de pantalla no anunciaba si un ramo estaba marcado como aprobado o no — se agregó a ambas variantes (grande y chica). De paso la auditoría de datos encontró un hueco real que no es un bug de código: ningún ramo de Mención Economía tiene créditos SCT cargados en malla.json (los 54 de Administración sí), porque BuscaCursos no trajo ese dato para Economía — queda anotado, no se puede arreglar sin más información de origen.",
+    "extra": {
+      "severidad": "media",
+      "estado": "Resuelto"
+    },
+    "confirmada": true
   }
 ]

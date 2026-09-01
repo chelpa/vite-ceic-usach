@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Briefcase, Search, Star } from "lucide-react";
 import empresasRaw from "../data/wikiempresas.json";
 
@@ -95,7 +95,26 @@ function Card({ e, onOpen }) {
   );
 }
 
+// Sin esto, la tecla Escape no cerraba la ficha y el fondo se podía seguir
+// scrolleando detrás del modal — comportamiento estándar que faltaba.
+function useModalBehavior(active, onClose) {
+  useEffect(() => {
+    if (!active) return;
+    function onKey(ev) {
+      if (ev.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [active, onClose]);
+}
+
 function Modal({ e, onClose }) {
+  useModalBehavior(!!e, onClose);
   if (!e) return null;
   const resenas = e.resenas || [];
   return (
@@ -185,7 +204,7 @@ export default function WikiEmpresas() {
         <p className="mt-2 text-xs text-muted-foreground">{DATA.length} fichas cargadas</p>
       </div>
 
-      <div className="sticky top-[calc(2.375rem+0px)] z-40 mt-6 border-y border-border bg-card/95 backdrop-blur">
+      <div className="sticky top-[var(--header-h)] z-40 mt-6 border-y border-border bg-card/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-5 py-3">
           <div className="relative min-w-56 flex-1">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />

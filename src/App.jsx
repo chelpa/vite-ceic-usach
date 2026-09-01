@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import ScrollToTop from "./components/ScrollToTop";
 import Inicio from "./pages/Inicio";
 import WikiProfes from "./pages/WikiProfes";
 import Apuntes from "./pages/Apuntes";
@@ -20,6 +21,7 @@ import NotFound from "./pages/NotFound";
 export default function App() {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Inicio />} />
