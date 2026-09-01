@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { ChevronDown, Menu, X, NotebookPen } from "lucide-react";
 import { Instagram, Linkedin } from "./BrandIcons";
+import ThemeToggle from "./ThemeToggle";
 import { COMUNIDAD_LINKS, EL_CEIC_LINKS, FOOTER_SECCIONES, TOP_LINKS } from "../lib/nav";
 
 function NavDropdown({ label, links }) {
@@ -128,14 +129,17 @@ function Header() {
           <NavDropdown label="El CEIC" links={EL_CEIC_LINKS} />
         </nav>
 
-        <button
-          type="button"
-          aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
-          onClick={() => setMobileOpen((o) => !o)}
-          className="block-border relative flex h-9 w-9 items-center justify-center bg-card md:hidden"
-        >
-          {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Cerrar menú" : "Abrir menú"}
+            onClick={() => setMobileOpen((o) => !o)}
+            className="block-border relative flex h-9 w-9 items-center justify-center bg-card md:hidden"
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </div>
       </div>
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </header>

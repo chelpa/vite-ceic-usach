@@ -153,6 +153,24 @@ mirando, en cada HTML guardado, qué botón del header queda con la clase de
   están** — esa info no está en esa malla tampoco, solo en el PDF de
   programa de cada asignatura por separado; queda anotado en la página
   misma y pendiente en la bitácora (ver entrada c11).
+- **Modo oscuro y modo amigable**: los dos botones arriba a la derecha del
+  header (sol/luna y el lazo 🎀) son un port directo de los mismos botones
+  de buscacursos.cl (la otra herramienta de Francisco) — misma lógica,
+  mismos íconos, mismo comportamiento: el sol/luna cambia entre claro y
+  oscuro y siempre apaga el modo amigable; el lazo prende una paleta
+  cálida rosa/crema que es independiente del ciclo claro/oscuro (se puede
+  prender desde cualquiera de los dos y, al apagarla, vuelve al que tenías
+  antes de prenderla). Colores en `src/index.css`
+  (`:root[data-theme="dark"]` reusa el teal/dorado que ya usa la Bitácora
+  en su propio modo oscuro, para que todo el ecosistema CEIC combine;
+  `:root[data-theme="amigable"]` copia la paleta de buscacursos.cl). Se
+  guarda en `localStorage` con claves propias (`ceic-theme`,
+  `ceic-amigable`, distintas de las de buscacursos.cl para que no choquen
+  si algún día se abren en el mismo navegador) y se aplica antes del
+  primer paint (script en `index.html`) para que no haya flash del tema
+  equivocado al cargar. Por ahora "amigable" solo cambia colores, igual
+  que en buscacursos.cl — no hay ilustraciones ni tipografía distinta
+  todavía. Ver bitácora, entrada c20.
 - **Inicio**: la copia (textos, botones, tarjetas) es la real. Las fotos
   del carrusel y la galería no — el HTML guardado no trajo su carpeta
   `_files` con las imágenes, así que hay un textura de relleno marcada
@@ -256,8 +274,15 @@ tarjeta simplemente no muestra esa parte.
    (plan + historial)") o desde el link "Ver el prototipo" que tiene ese
    mismo documento arriba de todo — quedaron linkeados entre sí para
    poder saltar de uno al otro mientras no estén integrados en un solo
-   lugar. Importante: si alguien ya visitó `/bitacora` antes con una
-   versión más vieja de `bitacora.json`, su navegador va a seguir
-   mostrando esa versión vieja (por el `localStorage`) hasta que la borre
-   a mano o se agregue algún mecanismo de versión — para cualquiera que
-   la abra por primera vez, carga directo la última.
+   lugar. Desde la entrada c21: `/bitacora` ya no se queda pegada en una
+   versión vieja. Cada vez que carga, compara por `id` lo que tiene
+   guardado en `localStorage` contra `src/data/bitacora.json` y agrega
+   automáticamente las entradas que le falten (sin tocar borradores ni
+   confirmaciones que la persona ya haya hecho ahí) — ver
+   `loadEntries()` en `src/pages/Bitacora.jsx`. La única condición es que
+   la persona vuelva a entrar después de que el build nuevo esté
+   publicado en GitHub Pages; el catch-up es automático, no hace falta
+   borrar nada a mano. Como la convención de esta bitácora es no editar
+   entradas viejas (una corrección se registra como entrada nueva), este
+   mecanismo alcanza — nunca hace falta "actualizar" una entrada que ya
+   está guardada, solo agregar las que falten.

@@ -24,6 +24,28 @@
         }
       })(window.location);
     </script>
+    <!-- Mismo truco que buscacursos.cl: aplicar el tema guardado (claro/oscuro
+         u "modo amigable") ANTES del primer paint, para que no se vea un
+         flash del tema equivocado mientras React arranca. Ver
+         src/components/ThemeToggle.jsx para la lógica completa (este script
+         es un resumen mínimo de la misma). -->
+    <script type="text/javascript">
+      (function () {
+        try {
+          var theme = localStorage.getItem("ceic-theme");
+          var amigable = localStorage.getItem("ceic-amigable") === "on";
+          var base =
+            theme === "dark" || theme === "light"
+              ? theme
+              : window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          document.documentElement.setAttribute("data-theme", amigable ? "amigable" : base);
+        } catch (e) {
+          /* localStorage no disponible: se queda con el tema claro por defecto */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

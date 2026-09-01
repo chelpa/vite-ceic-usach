@@ -49,6 +49,77 @@
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 }
 
+/* Modo oscuro — mismos tokens de siempre, invertidos. Usa el mismo teal/dorado
+   claro que ya veníamos usando en modo oscuro en otros documentos del
+   proyecto (Bitácora), para que todo el ecosistema CEIC se sienta consistente. */
+:root[data-theme="dark"] {
+  --color-background: #0b1615;
+  --color-foreground: #dcece9;
+
+  --color-card: #12201f;
+  --color-card-foreground: #dcece9;
+
+  --color-secondary: #16302e;
+  --color-secondary-foreground: #dcece9;
+
+  --color-muted: #14201f;
+  --color-muted-foreground: #8aa19e;
+
+  --color-primary: #2fb3ab;
+  --color-primary-foreground: #06201f;
+
+  --color-accent: #eab161;
+  --color-accent-foreground: #2a1a00;
+
+  --color-border: #234240;
+  --color-border-strong: #2f5350;
+
+  --color-ink: #061312;
+  --color-ink-foreground: #dcece9;
+
+  --color-chart-1: #2fb3ab;
+  --color-chart-2: #6ea3d6;
+  --color-chart-3: #d97a68;
+  --color-chart-4: #9c8bd6;
+  --color-chart-5: #eab161;
+}
+
+/* "Modo amigable" (🎀): paleta cálida rosa/crema, independiente del ciclo
+   claro↔oscuro — se activa con su propio botón, como en buscacursos.cl.
+   Por ahora solo cambia colores, igual que allá; el resto de la UI queda
+   igual. */
+:root[data-theme="amigable"] {
+  --color-background: #fdf1ef;
+  --color-foreground: #55303d;
+
+  --color-card: #fffbfa;
+  --color-card-foreground: #55303d;
+
+  --color-secondary: #fce7ea;
+  --color-secondary-foreground: #55303d;
+
+  --color-muted: #f8d9e0;
+  --color-muted-foreground: #8a5b68;
+
+  --color-primary: #d9587e;
+  --color-primary-foreground: #ffffff;
+
+  --color-accent: #b23e63;
+  --color-accent-foreground: #ffffff;
+
+  --color-border: #f3d3db;
+  --color-border-strong: #eab7c4;
+
+  --color-ink: #55303d;
+  --color-ink-foreground: #fdf1ef;
+
+  --color-chart-1: #d9587e;
+  --color-chart-2: #b23e63;
+  --color-chart-3: #e0888f;
+  --color-chart-4: #c46a9c;
+  --color-chart-5: #eab161;
+}
+
 @theme inline {
   --color-background: var(--color-background);
   --color-foreground: var(--color-foreground);

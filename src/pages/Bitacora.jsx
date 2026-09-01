@@ -23,17 +23,39 @@ const EXTRA_FIELDS = {
 
 const STORE_KEY = "ceic-bitacora-prototipo-vite";
 
+// Cada visitante guarda su propia copia de la bitácora en localStorage (para
+// no perder sus borradores ni sus "Confirmar entrada"). El problema: si esa
+// copia quedó guardada antes de que se agregaran entradas nuevas, se queda
+// pegada ahí para siempre y esa persona nunca ve las entradas nuevas, aunque
+// se suba una versión más reciente del sitio.
+//
+// La solución no reemplaza la copia guardada (eso borraría sus borradores) —
+// compara los ids: cualquier entrada del seed (src/data/bitacora.json) que
+// no esté todavía en su copia guardada, se agrega. Como la convención de esta
+// bitácora es no editar entradas viejas (una corrección se registra como
+// entrada nueva, nunca se reescribe una existente — ver el aviso en el
+// formulario de "Nueva entrada"), comparar por id es suficiente: nunca hace
+// falta "actualizar" una entrada que ya tiene guardada, solo agregar las que
+// le falten. Así cada nueva sesión de trabajo se propaga sola a todos los
+// navegadores la próxima vez que entren, sin que nadie tenga que borrar su
+// localStorage a mano.
 function loadEntries() {
+  let stored = null;
   try {
     const raw = localStorage.getItem(STORE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) return parsed;
+      if (Array.isArray(parsed)) stored = parsed;
     }
   } catch {
     /* localStorage no disponible: seguimos con el seed */
   }
-  return seedEntries;
+
+  if (!stored) return seedEntries;
+
+  const knownIds = new Set(stored.map((e) => e.id));
+  const faltantes = seedEntries.filter((e) => !knownIds.has(e.id));
+  return faltantes.length ? [...stored, ...faltantes] : stored;
 }
 
 function formatDate(iso) {
