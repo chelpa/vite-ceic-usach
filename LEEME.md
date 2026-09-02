@@ -325,6 +325,203 @@ arreglar sin más información: ningún ramo de Mención Economía en
 tienen todos) — BuscaCursos no trajo ese dato para Economía. Queda
 anotado, no es un bug de código.
 
+## Botón moño 🎀 (modo amigable): corregido para copiar ceicusach.cl, no buscacursos.cl
+
+Primera vuelta: Francisco notó que el botón moño no se sentía como una
+copia fiel — colores bien, bordes distintos. En ese momento la única
+fuente con CSS real que teníamos era el HTML guardado de **buscacursos.cl**,
+así que se portó su convención (`.theme-toggle`/`.icon-btn`: círculos de
+34px, `border-radius:999px`).
+
+Segunda vuelta, la correcta: Francisco aclaró que se refería a que el
+moño quedara parecido a **ceicusach.cl** (\"el centro de alumnos\"), no a
+buscacursos.cl. Justo entre los archivos subidos apareció el HTML
+guardado real de la portada de ceicusach.cl — con el DOM ya renderizado,
+algo que antes no teníamos (antes solo había una versión-cascarón sin
+contenido). Ahí se ve que:
+
+- El sitio real **no tiene** botones de tema en su header.
+- Pero sí tiene un botón de ícono equivalente en función (el de abrir el
+  menú en celular), y ese botón usa exactamente
+  `block-border h-9 w-9 bg-card`: cuadrado, sin radius — igual que el
+  resto de los botones y tarjetas del sitio.
+- De paso, esa misma fuente confirmó que todo el lenguaje `block-border`/
+  `block-border-lg` que ya veníamos usando en el resto del sitio (cards,
+  botones, hero, footer) coincide clase por clase con el real — no era
+  una aproximación, ya estaba bien.
+
+Conclusión: la referencia de la primera vuelta (buscacursos.cl) era la
+equivocada. Se revirtió — sol/luna y moño volvieron a `block-border`
+cuadrado de 36×36px (`h-9 w-9`), igual que el resto de los botones-ícono
+del sitio real, y se sacó la utilidad `theme-toggle-btn` que ya no se
+usa. Verificado con Playwright (36×36px, `radius:0px` en las tres
+paletas: claro, oscuro, amigable) y con capturas de pantalla antes/después.
+
+**Decisión final (después de esta vuelta y vuelta):** Francisco prefiere
+el look redondo para estos dos botones puntuales, más allá de qué sitio
+lo usa. Quedaron como círculos otra vez — no con una utilidad nueva, sino
+agregando `rounded-full` al mismo `block-border h-9 w-9` de siempre (mismo
+borde, mismo tamaño, solo las esquinas al máximo). El resto del sitio
+sigue con el `block-border` cuadrado sin cambios.
+
+## "Conoce nuestro programa": 4 vistas sobre el mismo avance real
+
+Francisco pidió poder alternar vistas en Programa, al estilo bitácora/línea
+de tiempo/avance general — como el selector Mes/Semana/Día que ya tiene
+Calendario. El dato real detrás de esta página son 72 compromisos (título +
+estado: Completo / En progreso / No realizado) agrupados en 12 secciones —
+es todo lo que el CEIC publicó, **no hay fecha por compromiso**.
+
+Se agregó un selector con 4 vistas, todas sobre ese mismo dato:
+
+- **Por sección** — la vista original, sin cambios: cada sección con su
+  checklist.
+- **Por estado** — los 72 compromisos en 3 columnas (No realizado → En
+  progreso → Completo), cruzando todas las secciones. Esta es la
+  resolución de "línea de tiempo": como no hay fecha real de cuándo
+  cambió cada compromiso, se le preguntó a Francisco (AskUserQuestion) y
+  se optó por un pipeline por etapa en vez de inventar fechas.
+- **Bitácora** — una fila por sección con el mismo layout de dos columnas
+  (etiqueta + tarjeta) que usa `/bitacora`, cada una con su propia mini
+  barra de avance. No implica entradas fechadas, se aclara en el pie.
+- **Resumen** — solo contadores y una barra por sección, sin listar los
+  72 ítems uno por uno.
+
+Verificado con Playwright: las 4 vistas cargan, alternan bien
+(`aria-pressed` correcto) y los conteos cuadran entre sí (72 en total, 7
+completos / 14 en progreso / 51 no realizado en las cuatro), más capturas
+de pantalla de cada una.
+
+## Bitácora: "área" además de "tipo" (plantilla reusable en otros proyectos)
+
+Francisco pidió que la bitácora se pudiera leer con vocabulario de
+ingeniería de software — de qué área es cada parte — y que quedara como
+plantilla para usar en sus otros proyectos. Además de `tipo` (qué clase de
+entrada es: decisión, incidencia, prototipo, etc. — la misma idea que un
+ADR o un log de incidentes), cada entrada ahora tiene `area`: a qué
+disciplina pertenece.
+
+Las 7 áreas usadas (`src/pages/Bitacora.jsx`, constante `AREAS`):
+**Arquitectura de Software, Frontend / UI, UX / Diseño de Interacción,
+Backend / Datos, DevOps / Despliegue, QA / Verificación, Documentación /
+Producto.** Se ven como una segunda etiqueta en cada tarjeta, hay un
+filtro por área junto al de tipo, y el formulario de "Nueva entrada" pide
+elegirla. Las 29 entradas existentes ya quedaron re-etiquetadas.
+
+De paso se reescribió el texto de las 29 entradas para que quede claro que
+Francisco es quien implementa (con Claude.ai como asistente de desarrollo,
+no al revés) — antes varias usaban voz pasiva ("se agregó", "se corrigió")
+que no dejaba claro quién hizo qué. Ningún dato, cifra ni hecho técnico
+cambió, solo la redacción; se verificó comparando los números de cada
+entrada antes/después (ninguno cambió).
+
+## Malla interactiva 2.0: prerrequisitos, con toggle Clásica / Grilla / Grafo
+
+`/malla` tenía pendiente desde la entrada c11 marcar qué ramo es
+prerrequisito de cuál — no había ninguna fuente consolidada. Francisco
+aportó dos fuentes propias (su webscraping de fae.usach.cl/cice y la matriz
+completa de 10 semestres de su propio visualizador) que, cruzadas por
+nombre exacto contra el dato real de BuscaCursos, resolvieron 26 ramos con
+al menos un prerrequisito confirmado (31 relaciones, 23 de ellas
+confirmadas por las dos fuentes a la vez) — ver bitácora, entradas c30 y
+c31 para el detalle completo, incluido un conflicto de semestre entre las
+dos fuentes que Francisco aclaró (una era la malla antigua de Economía).
+
+Nueva vista **Interactiva 2.0** (`src/pages/MallaPrerrequisitos.jsx`),
+seleccionable con un botón debajo del cuadro de aviso de la malla: una
+**Grilla** (igual a la clásica, pero con un botón "req" por ramo que
+resalta prerrequisitos y ramos que desbloquea) y un **Grafo**
+(`vis-network`, nodos = ramos, flechas = prerrequisito → ramo, con layout
+jerárquico por semestre y reactivo a los tres temas del sitio). Las dos
+comparten el mismo `localStorage` de avance que la malla clásica
+(`ceic-malla-avance-v1`) — marcar un ramo aprobado en cualquiera de las
+tres vistas se refleja al instante en las otras. No todos los ramos tienen
+prerrequisito registrado todavía; el cuadro de aviso de Interactiva 2.0
+dice cuántos sí, por mención.
+
+## WikiProfes: votos reales (backend prototipo local)
+
+Francisco construyó, aparte de este proyecto Vite, un backend ejecutable
+(`wikiprofes-backend/`, dentro de este mismo repo) para validar el diseño
+del **sistema de votos real** de WikiProfes antes de comprometerse a un
+proveedor de hosting — la decisión de usar Supabase ya estaba tomada desde
+el plan de la entrada c22, esto valida el modelo de datos y las reglas de
+negocio corriéndolo de verdad, 100% local, antes de pagar por infraestructura.
+
+**Qué es y qué NO es** (documentado también en `wikiprofes-backend/README.md`,
+que es la fuente autoritativa si esto y ese archivo alguna vez se
+desincronizan):
+
+- El modelo de datos (`wikiprofes-backend/schema.sql`) es el real — migrarlo
+  a Supabase es básicamente correr ese archivo allá. El prototipo local usa
+  SQLite (`db.js`) como equivalente ejecutable del mismo schema.
+- **Moderación (decidida, no está en discusión): las estrellas cuentan al
+  tiro, el texto se pre-modera.** Un voto de 1-5 estrellas cuenta en el
+  promedio en vivo apenas se envía. Si el estudiante deja comentario de
+  texto, ese texto queda oculto (`comentario_moderado = false`) hasta que
+  alguien del CEIC lo aprueba desde la cola de moderación
+  (`GET /api/moderacion/pendientes`) — es texto sobre una persona real con
+  nombre y apellido, ahí sí vale la pena la demora. Cualquiera puede además
+  reportar un voto completo, lo que lo saca del promedio.
+- **Auth es un stand-in a propósito**: el correo `@usach.cl` se usa tal cual
+  como identidad, nadie lo verifica todavía. En Supabase esto lo reemplaza
+  el magic-link de Supabase Auth (retoma el plan de la entrada c22).
+- **Estrategia de transición**: mientras un profesor no tenga ningún voto
+  nuevo, su nota sigue siendo la que ya teníamos (oficial o estimada,
+  ver entrada c15) — no se pierde toda la data actual el día 1. En cuanto
+  cae el primer voto real, ese profesor pasa a mostrar la nota en vivo y
+  deja de decir "Estimado". Esto vive en `profesores_con_rating`
+  (`schema.sql` / `db.js`).
+- Los 3 endpoints de moderación (`aprobar`, `rechazar`, `pendientes`) **no
+  tienen auth propia todavía** en el prototipo — es un gap conocido y
+  documentado, no un descuido: hay que cerrarlo con una policy de RLS antes
+  de exponer esto a internet.
+
+**Cómo se conecta con este proyecto Vite** (la parte que se integró recién):
+`src/pages/WikiProfes.jsx` intenta, al cargar, un `fetch` con timeout de
+900ms a `VITE_WIKIPROFES_API_URL` (default `http://localhost:3001`) contra
+`GET /api/profesores`. Es **puramente aditivo**:
+
+- **Sin el backend corriendo** (el caso normal en producción hoy, y siempre
+  en GitHub Pages salvo que alguien despliegue el backend aparte): el fetch
+  falla o se cae por timeout, el `catch` lo silencia, y la página se ve y se
+  comporta exactamente igual que sin este código — cero fichas nuevas, cero
+  botón "Vota tú". Verificado con Playwright (ver más abajo).
+- **Con el backend corriendo**: las notas de los profesores que matchean se
+  actualizan con las cifras en vivo, y dentro de la ficha de cada profesor
+  matcheado aparece una sección "Vota tú" (estrellas + correo + comentario
+  opcional) que hace `POST /api/profesores/:id/votos` y refresca la ficha
+  (y la tarjeta detrás del modal) con la respuesta — sin recargar la página.
+- **El match es por `slug`** cuando el profesor del frontend tiene uno (202
+  de 280 — los que sí tienen ficha oficial), y cae a **nombre normalizado**
+  para los 78 "solo Canva" (`slug: null` en `wikiprofes.json`), igual que
+  hacía el prototipo `wikiprofes.html` original que Francisco compartió.
+
+Para correrlo localmente: ver `wikiprofes-backend/README.md` — resumen
+rápido, `cd wikiprofes-backend && npm install && npm run seed && npm start`
+(el seed importa `src/data/wikiprofes.json`, la misma data que ya usa
+`/wikiprofes`, como baseline).
+
+**Nota de auditoría (sandbox de esta sesión, no del código):** en este
+entorno no se pudo hacer `npm install` del backend porque `better-sqlite3`
+necesita compilar un módulo nativo y descargar los headers de Node desde
+`nodejs.org`, dominio que el sandbox tiene bloqueado (solo deja pasar el
+registro de npm). No es un problema del código — en la máquina de Francisco,
+o en cualquier entorno con salida a internet normal, `npm install` compila
+sin problema. Por eso la verificación acá se hizo en dos partes: `node
+--check` sobre los tres archivos del backend (sintaxis limpia) y, para el
+flujo completo, Playwright interceptando las rutas `/api/profesores` y
+`/api/profesores/:id/votos` con las mismas respuestas que devuelve
+`formatProfesor()` en `server.js` — confirma que el frontend cumple el
+contrato real del backend sin depender de poder correrlo en este sandbox.
+
+**Qué falta para que esto sea real en producción:** migrar `schema.sql` a
+un proyecto Supabase, apuntar el frontend (`VITE_WIKIPROFES_API_URL`) a la
+Supabase Edge Function o API REST correspondiente en vez de `localhost`,
+reemplazar la validación de dominio por Supabase Auth (magic-link), y cerrar
+el gap de auth en los 3 endpoints de moderación antes de darle esa URL a
+nadie del CEIC.
+
 ## Qué falta para que esto sea el sitio real
 
 1. Reemplazar las variables de color en `src/index.css` por los valores

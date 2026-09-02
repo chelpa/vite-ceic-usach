@@ -1,9 +1,21 @@
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Circle, Info, Maximize2, Minimize2 } from "lucide-react";
+import { CheckCircle2, Circle, Info, LayoutGrid, Maximize2, Minimize2, Waypoints } from "lucide-react";
 import malla from "../data/malla.json";
+import MallaPrerrequisitos from "./MallaPrerrequisitos";
 
 const STORE_KEY = "ceic-malla-avance-v1";
 const SIZE_STORE_KEY = "ceic-malla-tamano-v1";
+const VISTA_STORE_KEY = "ceic-malla-vista-v1";
+
+function loadVista() {
+  try {
+    const raw = localStorage.getItem(VISTA_STORE_KEY);
+    if (raw === "clasica" || raw === "interactiva2") return raw;
+  } catch {
+    /* localStorage no disponible */
+  }
+  return "clasica";
+}
 
 function loadTamano() {
   try {
@@ -160,6 +172,41 @@ function SizeToggle({ tamano, onChange }) {
   );
 }
 
+function VistaToggle({ vista, onChange }) {
+  return (
+    <div
+      className="block-border flex bg-card text-xs font-semibold uppercase"
+      role="group"
+      aria-label="Vista de la malla"
+    >
+      <button
+        type="button"
+        onClick={() => onChange("clasica")}
+        aria-pressed={vista === "clasica"}
+        className={
+          "flex items-center gap-1.5 px-3 py-2 " +
+          (vista === "clasica" ? "bg-primary text-primary-foreground" : "")
+        }
+      >
+        <LayoutGrid className="h-3.5 w-3.5" aria-hidden="true" />
+        Clásica
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange("interactiva2")}
+        aria-pressed={vista === "interactiva2"}
+        className={
+          "flex items-center gap-1.5 border-l border-foreground px-3 py-2 " +
+          (vista === "interactiva2" ? "bg-primary text-primary-foreground" : "")
+        }
+      >
+        <Waypoints className="h-3.5 w-3.5" aria-hidden="true" />
+        Interactiva 2.0
+      </button>
+    </div>
+  );
+}
+
 function ProgressBar({ done, total }) {
   const pct = total ? Math.round((done / total) * 100) : 0;
   return (
@@ -178,6 +225,7 @@ export default function MallaInteractiva() {
   const [mencion, setMencion] = useState("ingeco");
   const [avance, setAvance] = useState(loadAvance);
   const [tamano, setTamano] = useState(loadTamano);
+  const [vista, setVista] = useState(loadVista);
 
   useEffect(() => {
     try {
@@ -194,6 +242,14 @@ export default function MallaInteractiva() {
       /* localStorage no disponible en este navegador */
     }
   }, [tamano]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(VISTA_STORE_KEY, vista);
+    } catch {
+      /* localStorage no disponible en este navegador */
+    }
+  }, [vista]);
 
   function toggle(codigo) {
     setAvance((a) => ({ ...a, [codigo]: !a[codigo] }));
@@ -240,14 +296,21 @@ export default function MallaInteractiva() {
           >
             fae.usach.cl
           </a>
-          ), pero todavía{" "}
+          ), pero esta vista clásica todavía{" "}
           <strong className="text-foreground">no marca qué ramo es prerrequisito de cuál</strong>{" "}
-          — esa información no está en ninguna fuente que tengamos consolidada, solo en el PDF de
-          programa de cada asignatura por separado. Queda anotado como pendiente.
+          — esa información no está en ninguna fuente oficial consolidada, solo en el PDF de programa
+          de cada asignatura por separado. Para eso está{" "}
+          <strong className="text-foreground">Interactiva 2.0</strong> (botón de abajo): muestra los
+          prerrequisitos que sí se pudieron confirmar cruzando dos fuentes propias, aunque todavía no
+          cubre todos los ramos.
         </p>
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-3">
+      <div className="mt-4 flex justify-center sm:justify-start">
+        <VistaToggle vista={vista} onChange={setVista} />
+      </div>
+
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
         <div className="flex gap-2">
           <button
             onClick={() => setMencion("ingeco")}
@@ -281,34 +344,38 @@ export default function MallaInteractiva() {
             <ProgressBar done={ingecoDone} total={allIngecoCodes.length} />
           </div>
 
-          <div
-            className={
-              "grid grid-cols-1 gap-4 sm:grid-cols-2 " +
-              (compact ? "lg:grid-cols-10" : "lg:grid-cols-5")
-            }
-          >
-            {malla.ingeco.niveles.map((n) => (
-              <div key={n.nivel}>
-                <h2 className="mb-2 flex items-baseline gap-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
-                  Sem. {n.nivel}
-                  <span className="font-mono text-[11px] font-normal text-muted-foreground">
-                    {n.ramos.length}
-                  </span>
-                </h2>
-                <div className="flex flex-col gap-2">
-                  {n.ramos.map((r) => (
-                    <RamoCard
-                      key={r.codigo}
-                      ramo={r}
-                      done={!!avance[r.codigo]}
-                      onToggle={toggle}
-                      compact={compact}
-                    />
-                  ))}
+          {vista === "clasica" ? (
+            <div
+              className={
+                "grid grid-cols-1 gap-4 sm:grid-cols-2 " +
+                (compact ? "lg:grid-cols-10" : "lg:grid-cols-5")
+              }
+            >
+              {malla.ingeco.niveles.map((n) => (
+                <div key={n.nivel}>
+                  <h2 className="mb-2 flex items-baseline gap-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
+                    Sem. {n.nivel}
+                    <span className="font-mono text-[11px] font-normal text-muted-foreground">
+                      {n.ramos.length}
+                    </span>
+                  </h2>
+                  <div className="flex flex-col gap-2">
+                    {n.ramos.map((r) => (
+                      <RamoCard
+                        key={r.codigo}
+                        ramo={r}
+                        done={!!avance[r.codigo]}
+                        onToggle={toggle}
+                        compact={compact}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <MallaPrerrequisitos mencion="ingeco" avance={avance} onToggle={toggle} compact={compact} />
+          )}
         </div>
       ) : (
         <div className="mt-6">
@@ -320,50 +387,56 @@ export default function MallaInteractiva() {
             <ProgressBar done={economiaDone} total={economiaCodes.length} />
           </div>
 
-          <p className="mb-6 border-l-4 border-primary bg-secondary p-3 text-sm text-muted-foreground">
-            Los semestres 1 y 2 de Economía son los mismos ramos que Administración (tronco
-            común de la FAE) — revísalos en la pestaña{" "}
-            <button
-              onClick={() => setMencion("ingeco")}
-              className="font-semibold text-primary underline"
-            >
-              Mención Administración
-            </button>
-            . Desde el semestre 3 la malla se separa. Lo que sigue abajo son los ramos propios de
-            Economía que trae BuscaCursos, ya agrupados por su semestre real según la malla
-            oficial — este corte no trajo ningún ramo específico de Economía para el semestre 3
-            (probablemente porque ese semestre todavía comparte secciones con Administración este
-            período).
-          </p>
+          {vista === "clasica" ? (
+            <>
+              <p className="mb-6 border-l-4 border-primary bg-secondary p-3 text-sm text-muted-foreground">
+                Los semestres 1 y 2 de Economía son los mismos ramos que Administración (tronco
+                común de la FAE) — revísalos en la pestaña{" "}
+                <button
+                  onClick={() => setMencion("ingeco")}
+                  className="font-semibold text-primary underline"
+                >
+                  Mención Administración
+                </button>
+                . Desde el semestre 3 la malla se separa. Lo que sigue abajo son los ramos propios de
+                Economía que trae BuscaCursos, ya agrupados por su semestre real según la malla
+                oficial — este corte no trajo ningún ramo específico de Economía para el semestre 3
+                (probablemente porque ese semestre todavía comparte secciones con Administración este
+                período).
+              </p>
 
-          <div
-            className={
-              "grid grid-cols-1 gap-4 sm:grid-cols-2 " +
-              (compact ? "lg:grid-cols-8" : "lg:grid-cols-4")
-            }
-          >
-            {economiaNiveles.map((n) => (
-              <div key={n.nivel}>
-                <h2 className="mb-2 flex items-baseline gap-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
-                  Sem. {n.nivel}
-                  <span className="font-mono text-[11px] font-normal text-muted-foreground">
-                    {n.ramos.length}
-                  </span>
-                </h2>
-                <div className="flex flex-col gap-2">
-                  {n.ramos.map((r, i) => (
-                    <RamoCard
-                      key={r.codigo + "-" + i}
-                      ramo={r}
-                      done={!!avance[r.codigo]}
-                      onToggle={toggle}
-                      compact={compact}
-                    />
-                  ))}
-                </div>
+              <div
+                className={
+                  "grid grid-cols-1 gap-4 sm:grid-cols-2 " +
+                  (compact ? "lg:grid-cols-8" : "lg:grid-cols-4")
+                }
+              >
+                {economiaNiveles.map((n) => (
+                  <div key={n.nivel}>
+                    <h2 className="mb-2 flex items-baseline gap-2 border-b border-foreground pb-2 text-sm font-bold uppercase">
+                      Sem. {n.nivel}
+                      <span className="font-mono text-[11px] font-normal text-muted-foreground">
+                        {n.ramos.length}
+                      </span>
+                    </h2>
+                    <div className="flex flex-col gap-2">
+                      {n.ramos.map((r, i) => (
+                        <RamoCard
+                          key={r.codigo + "-" + i}
+                          ramo={r}
+                          done={!!avance[r.codigo]}
+                          onToggle={toggle}
+                          compact={compact}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <MallaPrerrequisitos mencion="economia" avance={avance} onToggle={toggle} compact={compact} />
+          )}
         </div>
       )}
     </div>

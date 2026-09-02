@@ -131,7 +131,7 @@ export default function ThemeToggle() {
         onClick={toggleThemeButton}
         title={themeLabel}
         aria-label={themeLabel}
-        className="block-border flex h-9 w-9 items-center justify-center bg-card text-foreground transition-colors hover:border-primary hover:text-primary"
+        className="block-border flex h-9 w-9 items-center justify-center rounded-full bg-card text-foreground transition-colors hover:border-primary hover:text-primary"
       >
         {dark ? ICON_MOON : ICON_SUN}
       </button>
@@ -142,7 +142,7 @@ export default function ThemeToggle() {
         aria-label={amigableLabel}
         aria-pressed={amigable}
         className={
-          "block-border flex h-9 w-9 items-center justify-center text-base leading-none transition-colors " +
+          "block-border flex h-9 w-9 items-center justify-center rounded-full text-base leading-none transition-colors " +
           (amigable ? "border-accent bg-accent text-accent-foreground" : "bg-card hover:border-accent")
         }
       >

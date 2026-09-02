@@ -9,6 +9,24 @@ const ENTRY_TYPES = [
   { key: "decision", label: "Decisión", fg: "#5b6b7a", bg: "#e2e8ec" },
   { key: "incidencia", label: "Incidencia", fg: "#a3372f", bg: "#f3e0dd" },
   { key: "prototipo", label: "Prototipo", fg: "#0c7c78", bg: "#dcefee" },
+  { key: "correccion", label: "Corrección", fg: "#8a2432", bg: "#f3e2e0" },
+  { key: "funcionalidad", label: "Funcionalidad", fg: "#3f7554", bg: "#e3ede4" },
+];
+
+// "tipo" dice qué clase de entrada de bitácora es (decisión, incidencia,
+// etc. — la misma idea que un ADR o un log de incidentes). "area" es un eje
+// aparte: a qué disciplina de la ingeniería de software pertenece esa
+// entrada, para poder mirar el proyecto por área igual que se miraría
+// cualquier proyecto real (arquitectura, frontend, backend, UX, DevOps,
+// QA, documentación). Pensado para reusarse tal cual en otros proyectos.
+const AREAS = [
+  "Arquitectura de Software",
+  "Frontend / UI",
+  "UX / Diseño de Interacción",
+  "Backend / Datos",
+  "DevOps / Despliegue",
+  "QA / Verificación",
+  "Documentación / Producto",
 ];
 
 const EXTRA_FIELDS = {
@@ -70,6 +88,7 @@ function typeMeta(key) {
 
 function NewEntryForm({ onSave, onCancel }) {
   const [tipo, setTipo] = useState("contenido");
+  const [area, setArea] = useState(AREAS[0]);
   const [autor, setAutor] = useState("Francisco");
   const [contenido, setContenido] = useState("");
   const [extra, setExtra] = useState({});
@@ -82,6 +101,7 @@ function NewEntryForm({ onSave, onCancel }) {
       id: "e" + Date.now(),
       fecha: new Date().toISOString().slice(0, 10),
       tipo,
+      area,
       autor: autor || "Francisco",
       contenido: contenido.trim(),
       extra,
@@ -113,6 +133,20 @@ function NewEntryForm({ onSave, onCancel }) {
           </select>
         </label>
         <label className="text-sm">
+          Área
+          <select
+            value={area}
+            onChange={(e) => setArea(e.target.value)}
+            className="block-border mt-1 w-full bg-muted px-3 py-2 text-sm"
+          >
+            {AREAS.map((a) => (
+              <option key={a} value={a}>
+                {a}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="text-sm sm:col-span-2">
           Autor
           <input
             value={autor}
@@ -180,6 +214,7 @@ export default function Bitacora() {
   const [entries, setEntries] = useState(loadEntries);
   const [view, setView] = useState("resumen");
   const [typeFilter, setTypeFilter] = useState("todas");
+  const [areaFilter, setAreaFilter] = useState("todas");
   const [stateFilter, setStateFilter] = useState("todas");
   const [showForm, setShowForm] = useState(false);
 
@@ -210,13 +245,14 @@ export default function Bitacora() {
       .sort((a, b) => (a.fecha < b.fecha ? 1 : -1))
       .filter((e) => {
         if (typeFilter !== "todas" && e.tipo !== typeFilter) return false;
+        if (areaFilter !== "todas" && e.area !== areaFilter) return false;
         if (stateFilter === "confirmada" && !e.confirmada) return false;
         if (stateFilter === "borrador" && e.confirmada) return false;
         return true;
       });
     if (view === "resumen") list = list.slice(0, 5);
     return list;
-  }, [entries, view, typeFilter, stateFilter]);
+  }, [entries, view, typeFilter, areaFilter, stateFilter]);
 
   function confirmEntry(id) {
     setEntries((es) => es.map((e) => (e.id === id ? { ...e, confirmada: true } : e)));
@@ -228,7 +264,9 @@ export default function Bitacora() {
         <h1 className="text-3xl">Bitácora CEIC</h1>
         <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
           Registro cronológico de obra: qué realmente va pasando, sección por sección —
-          arquitectura, diseño, implementación, contenido, decisiones e incidencias.
+          arquitectura, diseño, implementación, contenido, decisiones e incidencias — y de qué
+          área de la ingeniería es cada parte (arquitectura, frontend, backend, UX, DevOps, QA,
+          documentación), para poder mirar el proyecto por disciplina.
         </p>
       </div>
 
@@ -300,9 +338,21 @@ export default function Bitacora() {
           </button>
         ))}
         <select
+          value={areaFilter}
+          onChange={(e) => setAreaFilter(e.target.value)}
+          className="block-border ml-auto bg-card px-3 py-1.5 text-xs"
+        >
+          <option value="todas">Todas las áreas</option>
+          {AREAS.map((a) => (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          ))}
+        </select>
+        <select
           value={stateFilter}
           onChange={(e) => setStateFilter(e.target.value)}
-          className="block-border ml-auto bg-card px-3 py-1.5 text-xs"
+          className="block-border bg-card px-3 py-1.5 text-xs"
         >
           <option value="todas">Todas</option>
           <option value="confirmada">Confirmadas</option>
@@ -338,6 +388,11 @@ export default function Bitacora() {
                   >
                     {meta.label}
                   </span>
+                  {e.area ? (
+                    <span className="ml-2 inline-block rounded-full border border-border-strong px-2 py-0.5 text-[11px] font-semibold uppercase text-muted-foreground">
+                      {e.area}
+                    </span>
+                  ) : null}
                   <div className="mt-2 text-xs font-semibold text-muted-foreground">{e.autor}</div>
                   <p className="mt-1 text-sm leading-relaxed">{e.contenido}</p>
                   {fields.length ? (

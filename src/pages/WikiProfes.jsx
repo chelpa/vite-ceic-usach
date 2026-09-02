@@ -8,6 +8,34 @@ function stripAccents(s) {
 function norm(s) {
   return stripAccents(s || "").toLowerCase();
 }
+
+// ---- voto en vivo (backend opcional, ver /wikiprofes-backend) ----
+// Esta página funciona igual con cero backend corriendo: los 280 profes
+// horneados en wikiprofes.json son la base. Si el backend responde a tiempo,
+// se superponen sus notas en vivo y se desbloquea "Vota tú" — nunca al revés.
+const VOTE_API_BASE = import.meta.env.VITE_WIKIPROFES_API_URL || "http://localhost:3001";
+const ALLOWED_EMAIL_DOMAIN = "usach.cl";
+
+function isValidStudentEmail(email) {
+  const m = /^[^\s@]+@([^\s@]+)$/.exec((email || "").trim().toLowerCase());
+  if (!m) return false;
+  return m[1] === ALLOWED_EMAIL_DOMAIN || m[1].endsWith("." + ALLOWED_EMAIL_DOMAIN);
+}
+
+function fetchWithTimeout(url, opts, ms) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms);
+  return fetch(url, { ...opts, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
+// slug cuando el profe tiene ficha oficial (202/280); nombre normalizado para
+// los "solo Canva" (78/280, slug null en wikiprofes.json) — el backend igual
+// les genera un slug propio, pero el frontend no lo conoce de antemano.
+function matchBackend(p, backend) {
+  if (!backend) return null;
+  if (p.slug && backend.bySlug[p.slug]) return backend.bySlug[p.slug];
+  return backend.byNombreNorm[norm(p.nombre)] || null;
+}
 function hashHue(str) {
   let h = 0;
   for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
@@ -154,7 +182,113 @@ function useModalBehavior(active, onClose) {
   }, [active, onClose]);
 }
 
-function Modal({ p, onClose }) {
+function VoteForm({ p, onVoted }) {
+  const [selected, setSelected] = useState(0);
+  const [hovered, setHovered] = useState(0);
+  const [email, setEmail] = useState("");
+  const [comentario, setComentario] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState(null); // { kind: "ok" | "error", text }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!selected) {
+      setFeedback({ kind: "error", text: "Elige de 1 a 5 estrellas." });
+      return;
+    }
+    if (!isValidStudentEmail(email)) {
+      setFeedback({ kind: "error", text: `El correo debe ser de dominio @${ALLOWED_EMAIL_DOMAIN}.` });
+      return;
+    }
+    setSubmitting(true);
+    setFeedback(null);
+    fetch(`${VOTE_API_BASE}/api/profesores/${p._backend.id}/votos`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ estudiante_email: email, estrellas: selected, comentario }),
+    })
+      .then((r) => r.json().then((body) => ({ ok: r.ok, body })))
+      .then(({ ok, body }) => {
+        setSubmitting(false);
+        if (!ok) {
+          setFeedback({ kind: "error", text: body?.error || "No se pudo registrar el voto." });
+          return;
+        }
+        onVoted(body);
+        setFeedback({
+          kind: "ok",
+          text: body.comentario_pendiente_moderacion
+            ? "¡Gracias! Tu estrella ya cuenta en el promedio. Tu comentario se publica apenas el CEIC lo revise."
+            : "¡Gracias! Tu voto quedó registrado.",
+        });
+      })
+      .catch(() => {
+        setSubmitting(false);
+        setFeedback({ kind: "error", text: "No se pudo conectar con el servidor de votos." });
+      });
+  }
+
+  const shown = hovered || selected;
+
+  return (
+    <div className="mt-4 border-t border-dashed border-border pt-4">
+      <h3 className="mb-2 text-xs uppercase tracking-wide text-muted-foreground">Vota tú</h3>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+        <div
+          className="flex gap-1"
+          role="radiogroup"
+          aria-label="Tu calificación"
+          onMouseLeave={() => setHovered(0)}
+        >
+          {[1, 2, 3, 4, 5].map((n) => (
+            <button
+              key={n}
+              type="button"
+              role="radio"
+              aria-checked={selected === n}
+              aria-label={`${n} ${n === 1 ? "estrella" : "estrellas"}`}
+              onClick={() => setSelected(n)}
+              onMouseEnter={() => setHovered(n)}
+              className="p-0.5"
+            >
+              <Star className={"h-6 w-6 " + (n <= shown ? "fill-primary text-primary" : "text-muted-foreground/30")} />
+            </button>
+          ))}
+        </div>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={`tu-correo@${ALLOWED_EMAIL_DOMAIN}`}
+          autoComplete="email"
+          required
+          className="block-border bg-muted px-3 py-2 text-sm focus:bg-card"
+        />
+        <textarea
+          value={comentario}
+          onChange={(e) => setComentario(e.target.value.slice(0, 1000))}
+          placeholder="Comentario opcional (máx. 1000 caracteres) — queda pendiente de revisión del CEIC antes de publicarse"
+          maxLength={1000}
+          className="block-border min-h-14 resize-y bg-muted px-3 py-2 text-sm focus:bg-card"
+        />
+        <button
+          type="submit"
+          disabled={submitting}
+          className="block-border bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground disabled:opacity-60"
+        >
+          {submitting ? "Enviando…" : "Enviar voto"}
+        </button>
+        {feedback ? (
+          <p role="status" className={"text-xs " + (feedback.kind === "error" ? "text-chart-3" : "text-primary")}>
+            {feedback.text}
+          </p>
+        ) : null}
+      </form>
+    </div>
+  );
+}
+
+function Modal({ p, onClose, onVoted }) {
   useModalBehavior(!!p, onClose);
   if (!p) return null;
   const resenas = p.resenas || [];
@@ -226,6 +360,8 @@ function Modal({ p, onClose }) {
               Todavía no hay reseñas para este profesor.
             </p>
           )}
+
+          {p._backend ? <VoteForm p={p} onVoted={(body) => onVoted(p, body)} /> : null}
         </div>
       </div>
     </div>
@@ -237,16 +373,65 @@ export default function WikiProfes() {
   const [minRating, setMinRating] = useState(0);
   const [sort, setSort] = useState("alpha");
   const [commentsOnly, setCommentsOnly] = useState(false);
-  const [active, setActive] = useState(null);
+  const [activeIdx, setActiveIdx] = useState(null);
+  const [backend, setBackend] = useState(null); // null = aún no llega (o no hay backend); { bySlug, byNombreNorm }
 
-  const withRating = DATA.filter((p) => p.calificacion != null);
+  // Se intenta una sola vez al montar, con timeout corto: si no hay backend
+  // corriendo (o tarda), la página queda funcionando exactamente igual que
+  // sin este efecto — es aditivo puro, nunca una dependencia dura.
+  useEffect(() => {
+    let cancelled = false;
+    fetchWithTimeout(`${VOTE_API_BASE}/api/profesores`, {}, 900)
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("bad status"))))
+      .then((rows) => {
+        if (cancelled) return;
+        const bySlug = {};
+        const byNombreNorm = {};
+        rows.forEach((b) => {
+          bySlug[b.slug] = b;
+          byNombreNorm[norm(b.nombre)] = b;
+        });
+        setBackend({ bySlug, byNombreNorm });
+      })
+      .catch(() => {
+        /* sin backend (o inalcanzable a tiempo): sigue todo con la data estática */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const mergedData = useMemo(() => {
+    if (!backend) return DATA;
+    return DATA.map((p) => {
+      const b = matchBackend(p, backend);
+      if (!b) return p;
+      return { ...p, calificacion: b.calificacion, estimado: b.estimado, _backend: b };
+    });
+  }, [backend]);
+
+  function handleVoted(p, body) {
+    // sincroniza el mapa del backend con lo que acaba de responder el server —
+    // eso hace que mergedData (y por lo tanto la card + el modal) se actualicen solos.
+    setBackend((prev) => {
+      const base = prev || { bySlug: {}, byNombreNorm: {} };
+      return {
+        bySlug: { ...base.bySlug, [body.slug]: body },
+        byNombreNorm: { ...base.byNombreNorm, [norm(body.nombre)]: body },
+      };
+    });
+  }
+
+  const active = activeIdx != null ? mergedData[activeIdx] : null;
+
+  const withRating = mergedData.filter((p) => p.calificacion != null);
   const avgRating = withRating.length
     ? (withRating.reduce((s, p) => s + p.calificacion, 0) / withRating.length).toFixed(1)
     : "—";
 
   const list = useMemo(() => {
     const qq = norm(q);
-    let out = DATA.filter((p) => {
+    let out = mergedData.filter((p) => {
       if (qq && p._haystack.indexOf(qq) === -1) return false;
       if (minRating === 2) {
         if (p.calificacion == null || p.calificacion >= 3) return false;
@@ -267,7 +452,7 @@ export default function WikiProfes() {
       return stripAccents(a.nombre).localeCompare(stripAccents(b.nombre), "es");
     });
     return out;
-  }, [q, minRating, sort, commentsOnly]);
+  }, [mergedData, q, minRating, sort, commentsOnly]);
 
   return (
     <div>
@@ -345,13 +530,13 @@ export default function WikiProfes() {
         ) : (
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {list.map((p) => (
-              <Card key={p._idx} p={p} onOpen={setActive} />
+              <Card key={p._idx} p={p} onOpen={(pr) => setActiveIdx(pr._idx)} />
             ))}
           </div>
         )}
       </div>
 
-      <Modal p={active} onClose={() => setActive(null)} />
+      <Modal p={active} onClose={() => setActiveIdx(null)} onVoted={handleVoted} />
     </div>
   );
 }
