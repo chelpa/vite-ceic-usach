@@ -8,6 +8,7 @@ import PreguntasFrecuentes from "./pages/PreguntasFrecuentes";
 import WikiEmpresas from "./pages/WikiEmpresas";
 import Convenios from "./pages/Convenios";
 import MallaInteractiva from "./pages/MallaInteractiva";
+import MallaGridPreview from "./pages/MallaGridPreview";
 import Noticias from "./pages/Noticias";
 import Documentacion from "./pages/Documentacion";
 import Calendario from "./pages/Calendario";
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/wikiempresas" element={<WikiEmpresas />} />
           <Route path="/convenios" element={<Convenios />} />
           <Route path="/malla" element={<MallaInteractiva />} />
+          <Route path="/malla-preview" element={<MallaGridPreview />} />
           <Route path="/noticias" element={<Noticias />} />
 
           <Route path="/documentacion" element={<Documentacion />} />

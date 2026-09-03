@@ -13,7 +13,20 @@ function norm(s) {
 // Esta página funciona igual con cero backend corriendo: los 280 profes
 // horneados en wikiprofes.json son la base. Si el backend responde a tiempo,
 // se superponen sus notas en vivo y se desbloquea "Vota tú" — nunca al revés.
-const VOTE_API_BASE = import.meta.env.VITE_WIKIPROFES_API_URL || "http://localhost:3001";
+//
+// El fallback a localhost:3001 SOLO aplica en modo desarrollo (import.meta.env.DEV,
+// osea corriendo con `npm run dev`). En el build de producción (lo que corre en
+// chelpa.github.io) ese fallback no existe: sin VITE_WIKIPROFES_API_URL definida
+// en el build, VOTE_API_BASE queda null y el fetch ni se intenta. Esto no es solo
+// prolijidad — Chrome en Android (y de a poco en desktop) muestra un permiso del
+// sistema ("... wants to access other apps and services on this device") apenas
+// una página HTTPS pública intenta un fetch a localhost o a una IP de red local
+// (Local Network Access / Private Network Access de Chrome, pensado para que un
+// sitio cualquiera no pueda sondear tu red doméstica en silencio). Con el
+// fallback a localhost siempre puesto, CUALQUIER visita real a /wikiprofes en el
+// sitio publicado disparaba ese permiso — inofensivo, pero visualmente alarmante
+// y contrario a la idea de "puramente aditivo" que tenía este código.
+const VOTE_API_BASE = import.meta.env.VITE_WIKIPROFES_API_URL || (import.meta.env.DEV ? "http://localhost:3001" : null);
 const ALLOWED_EMAIL_DOMAIN = "usach.cl";
 
 function isValidStudentEmail(email) {
@@ -378,8 +391,11 @@ export default function WikiProfes() {
 
   // Se intenta una sola vez al montar, con timeout corto: si no hay backend
   // corriendo (o tarda), la página queda funcionando exactamente igual que
-  // sin este efecto — es aditivo puro, nunca una dependencia dura.
+  // sin este efecto — es aditivo puro, nunca una dependencia dura. Si
+  // VOTE_API_BASE es null (build de producción sin VITE_WIKIPROFES_API_URL),
+  // ni siquiera se intenta el fetch — ver el comentario junto a esa constante.
   useEffect(() => {
+    if (!VOTE_API_BASE) return;
     let cancelled = false;
     fetchWithTimeout(`${VOTE_API_BASE}/api/profesores`, {}, 900)
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("bad status"))))

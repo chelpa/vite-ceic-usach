@@ -479,14 +479,31 @@ desincronizan):
 
 **Cómo se conecta con este proyecto Vite** (la parte que se integró recién):
 `src/pages/WikiProfes.jsx` intenta, al cargar, un `fetch` con timeout de
-900ms a `VITE_WIKIPROFES_API_URL` (default `http://localhost:3001`) contra
-`GET /api/profesores`. Es **puramente aditivo**:
+900ms a `VITE_WIKIPROFES_API_URL` contra `GET /api/profesores`. Es
+**puramente aditivo**:
 
-- **Sin el backend corriendo** (el caso normal en producción hoy, y siempre
-  en GitHub Pages salvo que alguien despliegue el backend aparte): el fetch
-  falla o se cae por timeout, el `catch` lo silencia, y la página se ve y se
-  comporta exactamente igual que sin este código — cero fichas nuevas, cero
-  botón "Vota tú". Verificado con Playwright (ver más abajo).
+- **En el build de producción (GitHub Pages) sin `VITE_WIKIPROFES_API_URL`
+  definida en el build**: el fetch ni se intenta — `VOTE_API_BASE` queda
+  `null` a propósito. Esto no siempre fue así: la primera versión caía por
+  defecto a `http://localhost:3001` en cualquier entorno, y eso hacía que
+  **cualquier visita real al sitio publicado disparara el permiso de Chrome
+  para Android** "... wants to access other apps and services on this
+  device" (Local Network Access / Private Network Access: Chrome pide
+  permiso apenas una página HTTPS pública intenta un fetch a `localhost` o a
+  una IP de red local, para que un sitio cualquiera no pueda sondear tu red
+  doméstica en silencio). Era inofensivo — el fetch solo iba a fallar
+  igual — pero visualmente alarmante para cualquiera que abriera
+  `/wikiprofes` en el celular, y contrario a la idea de "puramente aditivo".
+  Se corrigió: el fallback a `localhost:3001` ahora solo aplica en modo
+  desarrollo (`import.meta.env.DEV`, o sea corriendo `npm run dev`); en
+  producción, sin la variable de entorno puesta explícitamente en el build,
+  no hay fetch, no hay permiso, la página no toca la red local de nadie.
+- **Con el backend corriendo y `VITE_WIKIPROFES_API_URL` apuntándole** (en
+  local, o el día que haya un backend real en Supabase): el fetch sí se
+  intenta, y si no hay nadie escuchando, falla o se cae por timeout, el
+  `catch` lo silencia, y la página se ve y se comporta exactamente igual que
+  sin este código — cero fichas nuevas, cero botón "Vota tú". Verificado con
+  Playwright (ver más abajo).
 - **Con el backend corriendo**: las notas de los profesores que matchean se
   actualizan con las cifras en vivo, y dentro de la ficha de cada profesor
   matcheado aparece una sección "Vota tú" (estrellas + correo + comentario

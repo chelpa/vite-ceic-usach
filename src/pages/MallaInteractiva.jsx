@@ -1,5 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Circle, Info, LayoutGrid, Maximize2, Minimize2, Waypoints } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  CheckCircle2,
+  Circle,
+  GraduationCap,
+  Info,
+  LayoutGrid,
+  Maximize2,
+  Minimize2,
+  Waypoints,
+} from "lucide-react";
 import malla from "../data/malla.json";
 import MallaPrerrequisitos from "./MallaPrerrequisitos";
 
@@ -306,8 +316,16 @@ export default function MallaInteractiva() {
         </p>
       </div>
 
-      <div className="mt-4 flex justify-center sm:justify-start">
+      <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
         <VistaToggle vista={vista} onChange={setVista} />
+        <Link
+          to="/malla-preview"
+          title="Preview aparte, todavía no integrada a los botones de arriba"
+          className="block-border flex items-center gap-1.5 bg-card px-3 py-2 text-xs font-semibold uppercase text-muted-foreground hover:text-foreground"
+        >
+          <GraduationCap className="h-3.5 w-3.5" aria-hidden="true" />
+          Interactiva USACH
+        </Link>
       </div>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
