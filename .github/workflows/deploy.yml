@@ -27,6 +27,18 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+
+      # El smoke test corre ACÁ, entre el build y la subida del artefacto: si
+      # alguna de las 16 rutas quedó rota, el job falla y `deploy` (que declara
+      # `needs: build`) no llega a ejecutarse. Publicar primero y revisar
+      # después es justo lo que dejó el sitio en blanco dos veces (bitácora c1
+      # y c35), las dos detectadas por alguien que entró al sitio, no por
+      # nosotros.
+      - name: Instalar Chromium para el smoke test
+        run: npx playwright install --with-deps chromium
+      - name: Smoke test de las 16 rutas
+        run: npm run test:smoke
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

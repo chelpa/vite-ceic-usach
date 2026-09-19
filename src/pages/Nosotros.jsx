@@ -1,4 +1,5 @@
 import PageShell from "../components/PageShell";
+import PageIntro from "../components/PageIntro";
 import miembros from "../data/nosotros.json";
 
 function hashHue(str) {
@@ -33,7 +34,16 @@ function Avatar({ name }) {
 export default function Nosotros() {
   return (
     <PageShell wide>
-      <h2 className="border-b border-foreground pb-3 text-2xl">Mesa directiva</h2>
+      {/* Esta era la única de las 16 rutas que partía en <h2> y se quedaba sin
+          <h1>: un lector de pantalla anunciaba la página sin título y el salto
+          de nivel quedaba roto. Lo detectó el smoke test de rutas. El resto del
+          sitio usa PageIntro para el encabezado, así que acá se hace igual. */}
+      <PageIntro
+        title="Quiénes somos"
+        subtitle="La mesa directiva del CEIC y las comisiones que sostienen el trabajo de la carrera."
+        wide
+      />
+      <h2 className="mt-10 border-b border-foreground pb-3 text-2xl">Mesa directiva</h2>
       <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {miembros.map((m) => (
           <div className="block-border bg-card p-6" key={m.nombre}>
