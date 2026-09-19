@@ -446,5 +446,18 @@
     "contenido": "chelpa pidió cambiar el link de texto subrayado a /malla-preview (entrada c34) por un botón con el mismo lenguaje visual que Clásica/Interactiva 2.0. Se agregó \"Interactiva USACH\" (ícono GraduationCap de lucide-react) como un botón separado, en el mismo estilo block-border y mayúsculas que el grupo Clásica/Interactiva 2.0 pero fuera de ese grupo — sigue siendo una página aparte, no un tercer estado del mismo toggle, así que se mantuvo visualmente distinguible en vez de meterlo dentro del mismo control segmentado. No se usó el escudo oficial de la USACH: no hay ese archivo en el repo y no correspondía salir a buscarlo o inventarlo sin que chelpa lo suba — el nombre \"USACH\" en el botón describe que el estilo replica el de malla_grid.html (que a su vez imita la malla oficial), no que lleve el logo real de la universidad.",
     "extra": {},
     "confirmada": true
+  },
+  {
+    "id": "c37",
+    "fecha": "2026-09-18",
+    "tipo": "implementacion",
+    "area": "QA / Verificación",
+    "autor": "Claude",
+    "contenido": "Cierre de M0: la verificación de rutas pasa de correrse a mano, por sesión, a vivir en el workflow de despliegue. El test sirve dist/ con un servidor que imita a GitHub Pages (archivo si existe, 404.html con status 404 si no) en vez de usar el dev server de Vite: Vite sirve index.html para cualquier ruta, así que la SPA \"siempre funciona\" en desarrollo y el bug de entrada directa a una ruta — el que nos pilló en c1 y c35, las dos veces reportado por alguien que entró al sitio — nunca se reproduce ahí. Con el servidor que imita a Pages sí se ejercita el truco de rafgraph/spa-github-pages del que depende toda la navegación directa. Por cada una de las 16 rutas comprueba: entrada directa sin pasar por \"/\", que la URL final sea la pedida, que #root tenga contenido real, que exista un <h1>, y que no haya errores de consola ni requests rotos; además, que una ruta inexistente caiga en NotFound y que el header navegue sin recargar. Corre entre el build y la subida del artefacto, así que una ruta rota impide publicar en vez de publicarse. En su primera corrida encontró que Nosotros era la única ruta sin <h1> (partía en <h2> \"Mesa directiva\"): se anunciaba sin título y saltaba un nivel de encabezado; se corrigió usando PageIntro como el resto del sitio. Lo que el test NO valida, a propósito: que un dataset tenga contenido. Noticias, Convenios, WikiEmpresas y el foro de Transparencia siguen vacíos esperando material de la mesa CEIC, y su estado vacío es hoy el comportamiento correcto — un test que exigiera datos se pondría rojo por algo que no depende de quien programa.",
+    "extra": {
+      "modulo": "CI / GitHub Actions + tests/smoke-rutas.mjs",
+      "estado": "Cerrado"
+    },
+    "confirmada": true
   }
 ]
