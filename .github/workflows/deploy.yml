@@ -4,7 +4,7 @@ name: Deploy a GitHub Pages
 # de correr "npm run build" ni subir la carpeta dist/ a mano.
 on:
   push:
-    branches: [main]
+    branches: [main, ceic-m1]
   workflow_dispatch:
 
 permissions:
@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -21,11 +21,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verificar malla.json inmutable respecto de e20a070
+        run: git diff --exit-code e20a070 -- src/data/malla.json
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run lint
       - run: npm run build
 
       # El smoke test corre ACÁ, entre el build y la subida del artefacto: si
@@ -44,6 +49,7 @@ jobs:
           path: dist
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     environment:
