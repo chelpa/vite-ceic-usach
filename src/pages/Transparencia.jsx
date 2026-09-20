@@ -89,10 +89,8 @@ export default function Transparencia() {
         <div className="mt-6 block-border flex flex-col items-center gap-3 bg-secondary p-8 text-center">
           <MessageCircleQuestion className="h-7 w-7 text-primary" aria-hidden="true" />
           <p className="max-w-md text-sm text-muted-foreground">
-            Todavía no hay preguntas respondidas públicamente. En cuanto la Secretaría
-            conteste las primeras, se agregan a{" "}
-            <code className="font-mono text-xs">src/data/preguntas-transparencia.json</code> y
-            aparecen acá solas.
+            Todavía no hay preguntas respondidas públicamente. Cuando la Secretaría responda
+            las primeras consultas, sus respuestas se publicarán aquí.
           </p>
         </div>
       ) : (

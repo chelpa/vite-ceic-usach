@@ -175,10 +175,9 @@ function EmptyState() {
       <Briefcase className="h-8 w-8 text-primary" aria-hidden="true" />
       <h2 className="text-lg">Todavía no hay empresas cargadas</h2>
       <p className="max-w-md text-sm text-muted-foreground">
-        El buscador y las fichas ya funcionan — falta el contenido: reseñas reales de estudiantes
-        sobre empresas donde hicieron práctica o su primer trabajo. En cuanto haya esa data se
-        agrega a <code className="font-mono text-xs">src/data/wikiempresas.json</code> y esta
-        pantalla deja de estar vacía sola, sin tocar el componente.
+        Este espacio se irá llenando con reseñas reales de estudiantes sobre empresas donde
+        hayan hecho práctica o trabajado. Mientras no exista ese contenido, no mostramos fichas
+        de ejemplo como si fueran reales.
       </p>
     </div>
   );

@@ -54,10 +54,9 @@ export default function Noticias() {
           <Megaphone className="h-8 w-8 text-primary" aria-hidden="true" />
           <h2 className="text-lg">Todavía no hay noticias publicadas</h2>
           <p className="max-w-md text-sm text-muted-foreground">
-            La lista ya funciona — falta que la mesa redacte los primeros avisos y comunicados.
-            En cuanto haya texto real se agrega a{" "}
-            <code className="font-mono text-xs">src/data/noticias.json</code> y esta pantalla
-            deja de estar vacía sola, sin tocar el componente.
+            Este espacio se irá llenando con avisos y comunicados cuando la mesa tenga
+            información real para publicar. Mientras tanto, no mostramos contenido de ejemplo
+            como si fuera oficial.
           </p>
         </div>
       ) : (
