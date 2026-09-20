@@ -33,23 +33,45 @@ const dist = join(raiz, "dist");
 // para que agregar una ruta obligue a decidir explícitamente que entra al
 // smoke test, en vez de colarse sin que nadie la mire.
 const RUTAS = [
-  { ruta: "", nombre: "Inicio" },
-  { ruta: "wikiprofes", nombre: "WikiProfes" },
-  { ruta: "apuntes", nombre: "Apuntes" },
-  { ruta: "preguntas-frecuentes", nombre: "Preguntas frecuentes" },
-  { ruta: "wikiempresas", nombre: "WikiEmpresas" },
-  { ruta: "convenios", nombre: "Convenios" },
-  { ruta: "malla", nombre: "Malla interactiva" },
-  { ruta: "malla-preview", nombre: "Malla (preview de grilla)" },
-  { ruta: "noticias", nombre: "Noticias" },
-  { ruta: "documentacion", nombre: "Documentación" },
-  { ruta: "calendario", nombre: "Calendario" },
-  { ruta: "actas", nombre: "Actas" },
-  { ruta: "transparencia", nombre: "Transparencia" },
-  { ruta: "programa", nombre: "Programa" },
-  { ruta: "nosotros", nombre: "Nosotros" },
-  { ruta: "bitacora", nombre: "Bitácora" },
+  { ruta: "", nombre: "Inicio", titulo: "Inicio · CEIC USACH" },
+  { ruta: "wikiprofes", nombre: "WikiProfes", titulo: "WikiProfes · CEIC USACH" },
+  { ruta: "apuntes", nombre: "Apuntes", titulo: "Apuntes · CEIC USACH" },
+  {
+    ruta: "preguntas-frecuentes",
+    nombre: "Preguntas frecuentes",
+    titulo: "Preguntas frecuentes · CEIC USACH",
+  },
+  { ruta: "wikiempresas", nombre: "WikiEmpresas", titulo: "WikiEmpresas · CEIC USACH" },
+  { ruta: "convenios", nombre: "Convenios", titulo: "Convenios · CEIC USACH" },
+  { ruta: "malla", nombre: "Malla interactiva", titulo: "Malla interactiva · CEIC USACH" },
+  {
+    ruta: "malla-preview",
+    nombre: "Malla (preview de grilla)",
+    titulo: "Malla — preview de grilla · CEIC USACH",
+  },
+  { ruta: "noticias", nombre: "Noticias", titulo: "Noticias · CEIC USACH" },
+  {
+    ruta: "documentacion",
+    nombre: "Documentación",
+    titulo: "Documentación · CEIC USACH",
+  },
+  { ruta: "calendario", nombre: "Calendario", titulo: "Calendario · CEIC USACH" },
+  { ruta: "actas", nombre: "Actas", titulo: "Actas · CEIC USACH" },
+  {
+    ruta: "transparencia",
+    nombre: "Transparencia",
+    titulo: "Transparencia · CEIC USACH",
+  },
+  { ruta: "programa", nombre: "Programa", titulo: "Programa · CEIC USACH" },
+  { ruta: "nosotros", nombre: "Nosotros", titulo: "Nosotros · CEIC USACH" },
+  { ruta: "bitacora", nombre: "Bitácora", titulo: "Bitácora · CEIC USACH" },
 ];
+
+const titulosEsperados = RUTAS.map(({ titulo }) => titulo);
+
+if (new Set(titulosEsperados).size !== RUTAS.length) {
+  throw new Error("El smoke test contiene títulos esperados duplicados");
+}
 
 // Ruido de terceros que no es un problema del sitio. Se mantiene corto y
 // explícito a propósito: una lista de ignorados que crece sin control es la
@@ -100,7 +122,7 @@ const contexto = await navegador.newContext();
 
 console.log(`Sirviendo ${dist} en ${servidor.base}\n`);
 
-for (const { ruta, nombre } of RUTAS) {
+for (const { ruta, nombre, titulo } of RUTAS) {
   const pagina = await contexto.newPage();
   const errores = [];
   const requestsRotos = [];
@@ -140,6 +162,14 @@ for (const { ruta, nombre } of RUTAS) {
     const h1 = await pagina.locator("h1").count();
     if (h1 === 0) registrar(ruta, "no hay ningún <h1> en la página");
 
+    const tituloActual = await pagina.title();
+    if (tituloActual !== titulo) {
+      registrar(
+        ruta,
+        `el título quedó en ${JSON.stringify(tituloActual)}, se esperaba ${JSON.stringify(titulo)}`,
+      );
+    }
+
     // 3. Sin errores ni requests rotos.
     for (const e of errores) registrar(ruta, e);
     for (const r of requestsRotos) registrar(ruta, `request fallido: ${r}`);
@@ -160,8 +190,21 @@ for (const { ruta, nombre } of RUTAS) {
   try {
     await pagina.goto(servidor.base + "ruta-que-no-existe-123", { waitUntil: "networkidle", timeout: 30000 });
     const texto = (await pagina.locator("#root").innerText().catch(() => "")).trim();
-    if (texto.length < 20) registrar("404", "una ruta inexistente deja la página en blanco en vez de mostrar NotFound");
-    else console.log(`✓ ${"Ruta inexistente → NotFound".padEnd(28)} ${BASE}ruta-que-no-existe-123`);
+    if (texto.length < 20) {
+      registrar("404", "una ruta inexistente deja la página en blanco en vez de mostrar NotFound");
+    } else {
+      console.log(`✓ ${"Ruta inexistente → NotFound".padEnd(28)} ${BASE}ruta-que-no-existe-123`);
+    }
+
+    const titulo404 = await pagina.title();
+    const titulo404Esperado = "Página no encontrada · CEIC USACH";
+
+    if (titulo404 !== titulo404Esperado) {
+      registrar(
+        "404",
+        `el título quedó en ${JSON.stringify(titulo404)}, se esperaba ${JSON.stringify(titulo404Esperado)}`,
+      );
+    }
   } catch (err) {
     registrar("404", `no cargó: ${err.message}`);
   } finally {
@@ -198,4 +241,6 @@ if (fallos.length) {
   for (const f of fallos) console.error(`  · ${f}`);
   process.exit(1);
 }
-console.log(`✓ ${RUTAS.length} rutas + 404 + navegación interna: sin errores de consola ni requests rotos.`);
+console.log(
+  `✓ ${RUTAS.length} rutas + 404 + navegación interna + títulos propios: sin errores de consola ni requests rotos.`,
+);
