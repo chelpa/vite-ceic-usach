@@ -1,23 +1,33 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
-import Inicio from "./pages/Inicio";
-import WikiProfes from "./pages/WikiProfes";
-import Apuntes from "./pages/Apuntes";
-import PreguntasFrecuentes from "./pages/PreguntasFrecuentes";
-import WikiEmpresas from "./pages/WikiEmpresas";
-import Convenios from "./pages/Convenios";
-import MallaInteractiva from "./pages/MallaInteractiva";
-import MallaGridPreview from "./pages/MallaGridPreview";
-import Noticias from "./pages/Noticias";
-import Documentacion from "./pages/Documentacion";
-import Calendario from "./pages/Calendario";
-import Actas from "./pages/Actas";
-import Transparencia from "./pages/Transparencia";
-import Programa from "./pages/Programa";
-import Nosotros from "./pages/Nosotros";
-import Bitacora from "./pages/Bitacora";
-import NotFound from "./pages/NotFound";
+
+const Inicio = lazy(() => import("./pages/Inicio"));
+const WikiProfes = lazy(() => import("./pages/WikiProfes"));
+const Apuntes = lazy(() => import("./pages/Apuntes"));
+const PreguntasFrecuentes = lazy(() => import("./pages/PreguntasFrecuentes"));
+const WikiEmpresas = lazy(() => import("./pages/WikiEmpresas"));
+const Convenios = lazy(() => import("./pages/Convenios"));
+const MallaInteractiva = lazy(() => import("./pages/MallaInteractiva"));
+const MallaGridPreview = lazy(() => import("./pages/MallaGridPreview"));
+const Noticias = lazy(() => import("./pages/Noticias"));
+const Documentacion = lazy(() => import("./pages/Documentacion"));
+const Calendario = lazy(() => import("./pages/Calendario"));
+const Actas = lazy(() => import("./pages/Actas"));
+const Transparencia = lazy(() => import("./pages/Transparencia"));
+const Programa = lazy(() => import("./pages/Programa"));
+const Nosotros = lazy(() => import("./pages/Nosotros"));
+const Bitacora = lazy(() => import("./pages/Bitacora"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+function lazyPage(Page) {
+  return (
+    <Suspense fallback={<div className="min-h-[50vh]" aria-hidden="true" />}>
+      <Page />
+    </Suspense>
+  );
+}
 
 export default function App() {
   return (
@@ -25,27 +35,27 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/wikiprofes" element={<WikiProfes />} />
-          <Route path="/apuntes" element={<Apuntes />} />
+          <Route path="/" element={lazyPage(Inicio)} />
+          <Route path="/wikiprofes" element={lazyPage(WikiProfes)} />
+          <Route path="/apuntes" element={lazyPage(Apuntes)} />
 
-          <Route path="/preguntas-frecuentes" element={<PreguntasFrecuentes />} />
-          <Route path="/wikiempresas" element={<WikiEmpresas />} />
-          <Route path="/convenios" element={<Convenios />} />
-          <Route path="/malla" element={<MallaInteractiva />} />
-          <Route path="/malla-preview" element={<MallaGridPreview />} />
-          <Route path="/noticias" element={<Noticias />} />
+          <Route path="/preguntas-frecuentes" element={lazyPage(PreguntasFrecuentes)} />
+          <Route path="/wikiempresas" element={lazyPage(WikiEmpresas)} />
+          <Route path="/convenios" element={lazyPage(Convenios)} />
+          <Route path="/malla" element={lazyPage(MallaInteractiva)} />
+          <Route path="/malla-preview" element={lazyPage(MallaGridPreview)} />
+          <Route path="/noticias" element={lazyPage(Noticias)} />
 
-          <Route path="/documentacion" element={<Documentacion />} />
-          <Route path="/calendario" element={<Calendario />} />
-          <Route path="/actas" element={<Actas />} />
-          <Route path="/transparencia" element={<Transparencia />} />
-          <Route path="/programa" element={<Programa />} />
-          <Route path="/nosotros" element={<Nosotros />} />
+          <Route path="/documentacion" element={lazyPage(Documentacion)} />
+          <Route path="/calendario" element={lazyPage(Calendario)} />
+          <Route path="/actas" element={lazyPage(Actas)} />
+          <Route path="/transparencia" element={lazyPage(Transparencia)} />
+          <Route path="/programa" element={lazyPage(Programa)} />
+          <Route path="/nosotros" element={lazyPage(Nosotros)} />
 
-          <Route path="/bitacora" element={<Bitacora />} />
+          <Route path="/bitacora" element={lazyPage(Bitacora)} />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={lazyPage(NotFound)} />
         </Route>
       </Routes>
     </BrowserRouter>
