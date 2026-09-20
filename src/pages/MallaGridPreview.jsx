@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { Info } from "lucide-react";
 import malla from "../data/malla.json";
 import prerrequisitos from "../data/malla_prerrequisitos.json";
+import { parallelSameNameGroupForCode } from "../lib/malla/canon";
 
 // Página de PREVIEW, sin integrar todavía a /malla — pedido explícito de
 // Francisco: "primero visualizar bien" el estilo visual de su prototipo
@@ -59,6 +60,13 @@ function armarMatriz(niveles) {
 }
 
 function RamoCard({ ramo, estado, onClick }) {
+  const parallelGroup = parallelSameNameGroupForCode(ramo.codigo);
+  const parallelCode = parallelGroup
+    ? parallelGroup.codigos.find(
+        (codigo) => codigo !== parallelGroup.codigo_presentacion,
+      )
+    : null;
+
   const estadoClase =
     estado === "seleccionado"
       ? "bg-blue-600 text-white scale-[1.02] shadow-md z-10"
@@ -78,7 +86,14 @@ function RamoCard({ ramo, estado, onClick }) {
         estadoClase
       }
     >
-      {ramo.nombre}
+      <span>
+        <span className="block">{ramo.nombre}</span>
+        {parallelGroup ? (
+          <span className="mt-0.5 block font-mono text-[9px] font-normal">
+            {parallelGroup.codigo_presentacion} · también {parallelCode}
+          </span>
+        ) : null}
+      </span>
     </button>
   );
 }

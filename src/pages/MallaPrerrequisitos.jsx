@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CheckCircle2, Circle, Grid3x3, Share2, Info } from "lucide-react";
 import malla from "../data/malla.json";
-import { canonicalAreaKey } from "../lib/malla/canon";
+import {
+  canonicalAreaKey,
+  parallelSameNameGroupForCode,
+} from "../lib/malla/canon";
 import prerrequisitos from "../data/malla_prerrequisitos.json";
 
 // Vista "Interactiva 2.0": los mismos ramos y el mismo avance guardado de la
@@ -100,6 +103,13 @@ function EstiloToggle({ estilo, onChange }) {
 }
 
 function PrereqCard({ ramo, done, highlight, onToggle, onSelect, compact }) {
+  const parallelGroup = parallelSameNameGroupForCode(ramo.codigo);
+  const parallelCode = parallelGroup
+    ? parallelGroup.codigos.find(
+        (codigo) => codigo !== parallelGroup.codigo_presentacion,
+      )
+    : null;
+
   const highlightClass =
     highlight === "activo"
       ? "border-primary ring-2 ring-primary"
@@ -160,14 +170,21 @@ function PrereqCard({ ramo, done, highlight, onToggle, onSelect, compact }) {
         ) : null}
       </div>
       {!compact ? (
-        <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-1">
+        <>
+          {parallelGroup ? (
+            <p className="font-mono text-[9px] leading-snug text-muted-foreground">
+              Oferta 2026-2: {parallelGroup.codigo_presentacion} / {parallelCode} · avance: 1 vez
+            </p>
+          ) : null}
+          <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-1">
           <span className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase" style={areaStyle(ramo.area)}>
             {ramo.area}
           </span>
           {ramo.sct != null ? (
             <span className="font-mono text-[10px] text-muted-foreground">{ramo.sct} SCT</span>
           ) : null}
-        </div>
+          </div>
+        </>
       ) : null}
     </div>
   );

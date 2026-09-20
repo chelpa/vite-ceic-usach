@@ -56,5 +56,43 @@
       "canon": "TALLERES",
       "label": "Talleres"
     }
-  }
+  },
+  "parallel_same_name_groups": [
+    {
+      "codigos": [
+        "351475",
+        "352474"
+      ],
+      "nombre": "Macroeconomía II",
+      "nivel": 6,
+      "codigo_presentacion": "352474",
+      "official_equivalence": "UNKNOWN",
+      "evidencia": "SOURCE: ambos códigos con secciones en BuscaCursos 2026-2, mismo nombre y nivel (malla.json).",
+      "conteo_avance": "PRODUCT_HEURISTIC: se cuenta una vez en el denominador; no implica equivalencia curricular."
+    },
+    {
+      "codigos": [
+        "351477",
+        "352472"
+      ],
+      "nombre": "Econometría II",
+      "nivel": 6,
+      "codigo_presentacion": "352472",
+      "official_equivalence": "UNKNOWN",
+      "evidencia": "SOURCE: ambos códigos con secciones en BuscaCursos 2026-2, mismo nombre y nivel (malla.json).",
+      "conteo_avance": "PRODUCT_HEURISTIC: se cuenta una vez en el denominador; no implica equivalencia curricular."
+    },
+    {
+      "codigos": [
+        "351497",
+        "352490"
+      ],
+      "nombre": "Práctica Profesional",
+      "nivel": 9,
+      "codigo_presentacion": "352490",
+      "official_equivalence": "UNKNOWN",
+      "evidencia": "SOURCE: ambos códigos con secciones en BuscaCursos 2026-2, mismo nombre y nivel (malla.json).",
+      "conteo_avance": "PRODUCT_HEURISTIC: se cuenta una vez en el denominador; no implica equivalencia curricular."
+    }
+  ]
 }

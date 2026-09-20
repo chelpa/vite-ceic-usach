@@ -11,7 +11,14 @@ import {
   Waypoints,
 } from "lucide-react";
 import malla from "../data/malla.json";
-import { canonicalAreaKey } from "../lib/malla/canon";
+import {
+  canonicalAreaKey,
+  normalizeParallelProgress,
+  parallelSameNameGroupForCode,
+  presentationRamos,
+  progressCodeIsDone,
+  progressUnitCodes,
+} from "../lib/malla/canon";
 import MallaPrerrequisitos from "./MallaPrerrequisitos";
 
 const STORE_KEY = "ceic-malla-avance-v1";
@@ -43,11 +50,11 @@ function loadTamano() {
 // 2023 y la anterior, hasta 2022, porque BuscaCursos trae secciones de ambas
 // mallas corriendo en paralelo este semestre). Ver bitácora, entrada c19.
 function economiaPorSemestre() {
-  const todos = [
+  const todos = presentationRamos([
     ...malla.economia.obligatorios,
     ...malla.economia.electivos_especialidad,
     ...malla.economia.electivos_sociales,
-  ];
+  ]);
   const porNivel = {};
   todos.forEach((r) => {
     const n = r.nivel;
@@ -86,6 +93,13 @@ function loadAvance() {
 }
 
 function RamoCard({ ramo, done, onToggle, compact }) {
+  const parallelGroup = parallelSameNameGroupForCode(ramo.codigo);
+  const parallelCode = parallelGroup
+    ? parallelGroup.codigos.find(
+        (codigo) => codigo !== parallelGroup.codigo_presentacion,
+      )
+    : null;
+
   if (compact) {
     return (
       <button
@@ -104,14 +118,21 @@ function RamoCard({ ramo, done, onToggle, compact }) {
         ) : (
           <Circle className="h-3.5 w-3.5 shrink-0 text-muted-foreground/40" aria-hidden="true" />
         )}
-        <p
-          className={
-            "truncate text-[11.5px] leading-snug " +
-            (done ? "text-muted-foreground line-through" : "")
-          }
-        >
-          {ramo.nombre}
-        </p>
+        <div className="min-w-0 flex-1">
+          <p
+            className={
+              "truncate text-[11.5px] leading-snug " +
+              (done ? "text-muted-foreground line-through" : "")
+            }
+          >
+            {ramo.nombre}
+          </p>
+          {parallelGroup ? (
+            <p className="truncate font-mono text-[9px] text-muted-foreground">
+              {parallelGroup.codigo_presentacion} · también {parallelCode}
+            </p>
+          ) : null}
+        </div>
       </button>
     );
   }
@@ -127,7 +148,9 @@ function RamoCard({ ramo, done, onToggle, compact }) {
       }
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="font-mono text-[11px] text-muted-foreground">{ramo.codigo}</span>
+        <span className="font-mono text-[11px] text-muted-foreground">
+          {parallelGroup ? parallelGroup.codigo_presentacion : ramo.codigo}
+        </span>
         {done ? (
           <CheckCircle2 className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
         ) : (
@@ -137,6 +160,13 @@ function RamoCard({ ramo, done, onToggle, compact }) {
       <p className={"text-sm leading-snug " + (done ? "text-muted-foreground line-through" : "")}>
         {ramo.nombre}
       </p>
+      {parallelGroup ? (
+        <p className="text-[10px] leading-snug text-muted-foreground">
+          Este ramo aparece con dos códigos en la oferta 2026-2 de BuscaCursos:{" "}
+          <span className="font-mono">{parallelGroup.codigo_presentacion}</span> y{" "}
+          <span className="font-mono">{parallelCode}</span>. Para tu avance se cuenta una vez.
+        </p>
+      ) : null}
       <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-1">
         <span
           className="rounded-full px-2 py-0.5 text-[10px] font-bold uppercase"
@@ -263,7 +293,26 @@ export default function MallaInteractiva() {
   }, [vista]);
 
   function toggle(codigo) {
-    setAvance((a) => ({ ...a, [codigo]: !a[codigo] }));
+    setAvance((current) => {
+      const group = parallelSameNameGroupForCode(codigo);
+
+      if (!group) {
+        return { ...current, [codigo]: !current[codigo] };
+      }
+
+      const next = { ...current };
+      const nextDone = !progressCodeIsDone(current, codigo);
+
+      for (const member of group.codigos) {
+        delete next[member];
+      }
+
+      if (nextDone) {
+        next[codigo] = true;
+      }
+
+      return next;
+    });
   }
 
   const compact = tamano === "chica";
@@ -281,10 +330,20 @@ export default function MallaInteractiva() {
       ].map((r) => r.codigo),
     []
   );
+  const economiaProgressCodes = useMemo(
+    () => progressUnitCodes(economiaCodes),
+    [economiaCodes],
+  );
   const economiaNiveles = useMemo(() => economiaPorSemestre(), []);
+  const avanceVista = useMemo(
+    () => normalizeParallelProgress(avance),
+    [avance],
+  );
 
-  const ingecoDone = allIngecoCodes.filter((c) => avance[c]).length;
-  const economiaDone = economiaCodes.filter((c) => avance[c]).length;
+  const ingecoDone = allIngecoCodes.filter((c) => avanceVista[c]).length;
+  const economiaDone = economiaProgressCodes.filter((c) =>
+    progressCodeIsDone(avance, c),
+  ).length;
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-14">
@@ -383,7 +442,7 @@ export default function MallaInteractiva() {
                       <RamoCard
                         key={r.codigo}
                         ramo={r}
-                        done={!!avance[r.codigo]}
+                        done={!!avanceVista[r.codigo]}
                         onToggle={toggle}
                         compact={compact}
                       />
@@ -393,7 +452,7 @@ export default function MallaInteractiva() {
               ))}
             </div>
           ) : (
-            <MallaPrerrequisitos mencion="ingeco" avance={avance} onToggle={toggle} compact={compact} />
+            <MallaPrerrequisitos mencion="ingeco" avance={avanceVista} onToggle={toggle} compact={compact} />
           )}
         </div>
       ) : (
@@ -403,7 +462,7 @@ export default function MallaInteractiva() {
               <span>Tu avance — {malla.economia.label}</span>
               <span>{malla.economia.semestre}</span>
             </div>
-            <ProgressBar done={economiaDone} total={economiaCodes.length} />
+            <ProgressBar done={economiaDone} total={economiaProgressCodes.length} />
           </div>
 
           {vista === "clasica" ? (
@@ -443,7 +502,7 @@ export default function MallaInteractiva() {
                         <RamoCard
                           key={r.codigo + "-" + i}
                           ramo={r}
-                          done={!!avance[r.codigo]}
+                          done={!!avanceVista[r.codigo]}
                           onToggle={toggle}
                           compact={compact}
                         />
@@ -454,7 +513,7 @@ export default function MallaInteractiva() {
               </div>
             </>
           ) : (
-            <MallaPrerrequisitos mencion="economia" avance={avance} onToggle={toggle} compact={compact} />
+            <MallaPrerrequisitos mencion="economia" avance={avanceVista} onToggle={toggle} compact={compact} />
           )}
         </div>
       )}
