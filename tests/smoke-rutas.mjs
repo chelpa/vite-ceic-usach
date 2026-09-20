@@ -1,4 +1,4 @@
-// Smoke test de las 16 rutas del sitio, contra el build real servido como lo
+// Smoke test de las 15 páginas del sitio, contra el build real servido como lo
 // sirve GitHub Pages (ver tests/lib/servidor.mjs).
 //
 // Qué pretende atrapar, y por qué cada cosa:
@@ -29,7 +29,7 @@ import { levantarServidor, BASE } from "./lib/servidor.mjs";
 const raiz = join(dirname(fileURLToPath(import.meta.url)), "..");
 const dist = join(raiz, "dist");
 
-// Las 16 rutas reales de App.jsx. Se listan a mano (y no importando App.jsx)
+// Las 15 páginas con contenido real de App.jsx. Se listan a mano (y no importando App.jsx)
 // para que agregar una ruta obligue a decidir explícitamente que entra al
 // smoke test, en vez de colarse sin que nadie la mire.
 const RUTAS = [
@@ -44,11 +44,6 @@ const RUTAS = [
   { ruta: "wikiempresas", nombre: "WikiEmpresas", titulo: "WikiEmpresas · CEIC USACH" },
   { ruta: "convenios", nombre: "Convenios", titulo: "Convenios · CEIC USACH" },
   { ruta: "malla", nombre: "Malla interactiva", titulo: "Malla interactiva · CEIC USACH" },
-  {
-    ruta: "malla-preview",
-    nombre: "Malla (preview de grilla)",
-    titulo: "Malla — preview de grilla · CEIC USACH",
-  },
   { ruta: "noticias", nombre: "Noticias", titulo: "Noticias · CEIC USACH" },
   {
     ruta: "documentacion",
@@ -184,6 +179,77 @@ for (const { ruta, nombre, titulo } of RUTAS) {
   }
 }
 
+
+// --- Alias legado: /malla-preview ahora integra la vista en /malla ---
+{
+  const pagina = await contexto.newPage();
+
+  try {
+    await pagina.goto(
+      servidor.base + "malla-preview",
+      {
+        waitUntil: "networkidle",
+        timeout: 30000,
+      },
+    );
+
+    const urlFinal =
+      new URL(pagina.url());
+
+    if (
+      urlFinal.pathname !==
+        BASE + "malla" ||
+      urlFinal.searchParams.has(
+        "vista",
+      )
+    ) {
+      registrar(
+        "malla-preview",
+        `el alias no terminó en la URL canónica limpia: ${urlFinal.pathname}${urlFinal.search}`,
+      );
+    }
+
+    const usach =
+      pagina.getByRole(
+        "button",
+        {
+          name:
+            "Interactiva USACH",
+        },
+      );
+
+    if (
+      (await usach.count()) ===
+      0
+    ) {
+      registrar(
+        "malla-preview",
+        "la vista integrada Interactiva USACH no aparece en /malla",
+      );
+    } else if (
+      (await usach.getAttribute(
+        "aria-pressed",
+      )) !== "true"
+    ) {
+      registrar(
+        "malla-preview",
+        "la redirección llegó a /malla pero no activó Interactiva USACH",
+      );
+    } else {
+      console.log(
+        `✓ ${"Alias legado → Malla USACH".padEnd(28)} ${BASE}malla-preview → ${BASE}malla?vista=usach`,
+      );
+    }
+  } catch (err) {
+    registrar(
+      "malla-preview",
+      `redirección legada falló: ${err.message}`,
+    );
+  } finally {
+    await pagina.close();
+  }
+}
+
 // --- Ruta inexistente: tiene que caer en NotFound, no en blanco ---
 {
   const pagina = await contexto.newPage();
@@ -242,5 +308,5 @@ if (fallos.length) {
   process.exit(1);
 }
 console.log(
-  `✓ ${RUTAS.length} rutas + 404 + navegación interna + títulos propios: sin errores de consola ni requests rotos.`,
+  `✓ ${RUTAS.length} páginas + alias legado + 404 + navegación interna + títulos propios: sin errores de consola ni requests rotos.`,
 );

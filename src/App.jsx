@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -10,7 +10,6 @@ const PreguntasFrecuentes = lazy(() => import("./pages/PreguntasFrecuentes"));
 const WikiEmpresas = lazy(() => import("./pages/WikiEmpresas"));
 const Convenios = lazy(() => import("./pages/Convenios"));
 const MallaInteractiva = lazy(() => import("./pages/MallaInteractiva"));
-const MallaGridPreview = lazy(() => import("./pages/MallaGridPreview"));
 const Noticias = lazy(() => import("./pages/Noticias"));
 const Documentacion = lazy(() => import("./pages/Documentacion"));
 const Calendario = lazy(() => import("./pages/Calendario"));
@@ -55,7 +54,10 @@ export default function App() {
           <Route path="/wikiempresas" element={lazyPage(WikiEmpresas, "WikiEmpresas")} />
           <Route path="/convenios" element={lazyPage(Convenios, "Convenios")} />
           <Route path="/malla" element={lazyPage(MallaInteractiva, "Malla interactiva")} />
-          <Route path="/malla-preview" element={lazyPage(MallaGridPreview, "Malla — preview de grilla")} />
+          <Route
+            path="/malla-preview"
+            element={<Navigate to="/malla?vista=usach" replace />}
+          />
           <Route path="/noticias" element={lazyPage(Noticias, "Noticias")} />
 
           <Route path="/documentacion" element={lazyPage(Documentacion, "Documentación")} />

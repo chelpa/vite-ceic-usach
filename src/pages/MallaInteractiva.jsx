@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   CheckCircle2,
   Circle,
@@ -23,6 +22,7 @@ import {
   verifiedPlanNames,
 } from "../lib/malla/canon";
 import MallaPrerrequisitos from "./MallaPrerrequisitos";
+import MallaGridPreview from "./MallaGridPreview";
 import { hashedThemeStyle } from "../lib/theme";
 
 const STORE_KEY = "ceic-malla-avance-v1";
@@ -31,11 +31,31 @@ const VISTA_STORE_KEY = "ceic-malla-vista-v1";
 
 function loadVista() {
   try {
+    const requested = new URLSearchParams(
+      window.location.search,
+    ).get("vista");
+
+    if (
+      requested === "clasica" ||
+      requested === "interactiva2" ||
+      requested === "usach"
+    ) {
+      return requested;
+    }
+
     const raw = localStorage.getItem(VISTA_STORE_KEY);
-    if (raw === "clasica" || raw === "interactiva2") return raw;
+
+    if (
+      raw === "clasica" ||
+      raw === "interactiva2" ||
+      raw === "usach"
+    ) {
+      return raw;
+    }
   } catch {
-    /* localStorage no disponible */
+    /* URL/localStorage no disponible */
   }
+
   return "clasica";
 }
 
@@ -209,7 +229,7 @@ function SizeToggle({ tamano, onChange }) {
 function VistaToggle({ vista, onChange }) {
   return (
     <div
-      className="block-border flex bg-card text-xs font-semibold uppercase"
+      className="block-border flex flex-wrap bg-card text-xs font-semibold uppercase"
       role="group"
       aria-label="Vista de la malla"
     >
@@ -219,23 +239,52 @@ function VistaToggle({ vista, onChange }) {
         aria-pressed={vista === "clasica"}
         className={
           "flex items-center gap-1.5 px-3 py-2 " +
-          (vista === "clasica" ? "bg-primary text-primary-foreground" : "")
+          (vista === "clasica"
+            ? "bg-primary text-primary-foreground"
+            : "")
         }
       >
-        <LayoutGrid className="h-3.5 w-3.5" aria-hidden="true" />
+        <LayoutGrid
+          className="h-3.5 w-3.5"
+          aria-hidden="true"
+        />
         Clásica
       </button>
+
       <button
         type="button"
         onClick={() => onChange("interactiva2")}
         aria-pressed={vista === "interactiva2"}
         className={
           "flex items-center gap-1.5 border-l border-foreground px-3 py-2 " +
-          (vista === "interactiva2" ? "bg-primary text-primary-foreground" : "")
+          (vista === "interactiva2"
+            ? "bg-primary text-primary-foreground"
+            : "")
         }
       >
-        <Waypoints className="h-3.5 w-3.5" aria-hidden="true" />
+        <Waypoints
+          className="h-3.5 w-3.5"
+          aria-hidden="true"
+        />
         Interactiva 2.0
+      </button>
+
+      <button
+        type="button"
+        onClick={() => onChange("usach")}
+        aria-pressed={vista === "usach"}
+        className={
+          "flex items-center gap-1.5 border-l border-foreground px-3 py-2 " +
+          (vista === "usach"
+            ? "bg-primary text-primary-foreground"
+            : "")
+        }
+      >
+        <GraduationCap
+          className="h-3.5 w-3.5"
+          aria-hidden="true"
+        />
+        Interactiva USACH
       </button>
     </div>
   );
@@ -260,6 +309,24 @@ export default function MallaInteractiva() {
   const [avance, setAvance] = useState(loadAvance);
   const [tamano, setTamano] = useState(loadTamano);
   const [vista, setVista] = useState(loadVista);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    if (!params.has("vista")) return;
+
+    params.delete("vista");
+
+    const search = params.toString();
+
+    window.history.replaceState(
+      window.history.state,
+      "",
+      window.location.pathname +
+        (search ? `?${search}` : "") +
+        window.location.hash,
+    );
+  }, []);
 
   useEffect(() => {
     try {
@@ -380,15 +447,10 @@ export default function MallaInteractiva() {
       </div>
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-3 sm:justify-start">
-        <VistaToggle vista={vista} onChange={setVista} />
-        <Link
-          to="/malla-preview"
-          title="Preview aparte, todavía no integrada a los botones de arriba"
-          className="block-border flex items-center gap-1.5 bg-card px-3 py-2 text-xs font-semibold uppercase text-muted-foreground hover:text-foreground"
-        >
-          <GraduationCap className="h-3.5 w-3.5" aria-hidden="true" />
-          Interactiva USACH
-        </Link>
+        <VistaToggle
+          vista={vista}
+          onChange={setVista}
+        />
       </div>
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
@@ -454,8 +516,21 @@ export default function MallaInteractiva() {
                 </div>
               ))}
             </div>
+          ) : vista === "interactiva2" ? (
+            <MallaPrerrequisitos
+              mencion="ingeco"
+              avance={avanceVista}
+              onToggle={toggle}
+              compact={compact}
+            />
           ) : (
-            <MallaPrerrequisitos mencion="ingeco" avance={avanceVista} onToggle={toggle} compact={compact} />
+            <MallaGridPreview
+              key="ingeco"
+              mencion="ingeco"
+              avance={avanceVista}
+              onToggle={toggle}
+              compact={compact}
+            />
           )}
         </div>
       ) : (
@@ -515,8 +590,21 @@ export default function MallaInteractiva() {
                 ))}
               </div>
             </>
+          ) : vista === "interactiva2" ? (
+            <MallaPrerrequisitos
+              mencion="economia"
+              avance={avanceVista}
+              onToggle={toggle}
+              compact={compact}
+            />
           ) : (
-            <MallaPrerrequisitos mencion="economia" avance={avanceVista} onToggle={toggle} compact={compact} />
+            <MallaGridPreview
+              key="economia"
+              mencion="economia"
+              avance={avanceVista}
+              onToggle={toggle}
+              compact={compact}
+            />
           )}
         </div>
       )}
