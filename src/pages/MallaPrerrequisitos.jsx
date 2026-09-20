@@ -3,6 +3,7 @@ import { CheckCircle2, Circle, Grid3x3, Share2, Info } from "lucide-react";
 import malla from "../data/malla.json";
 import {
   canonicalAreaKey,
+  commonTrunkLevels,
   parallelSameNameGroupForCode,
 } from "../lib/malla/canon";
 import prerrequisitos from "../data/malla_prerrequisitos.json";
@@ -44,12 +45,12 @@ function areaStyle(area) {
 }
 
 // Junta, para una mención, la lista de niveles {nivel, ramos:[...]} que
-// corresponde mostrar en esta vista. Economía incluye además los niveles 1-3
-// (tronco común con Administración) para que la cadena de prerrequisitos se
-// pueda seguir completa de principio a fin, no solo desde el nivel 4.
+// corresponde mostrar en esta vista. Economía incorpora los niveles de tronco
+// común definidos por la capa canónica para mantener completa la cadena.
 function nivelesPara(mencion) {
   if (mencion === "ingeco") return malla.ingeco.niveles;
-  const compartidos = malla.ingeco.niveles.filter((n) => n.nivel <= 3);
+  const troncoComun = new Set(commonTrunkLevels());
+  const compartidos = malla.ingeco.niveles.filter((n) => troncoComun.has(n.nivel));
   const propios = [
     ...malla.economia.obligatorios,
     ...malla.economia.electivos_especialidad,

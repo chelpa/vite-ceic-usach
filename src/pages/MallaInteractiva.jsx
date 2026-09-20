@@ -13,11 +13,13 @@ import {
 import malla from "../data/malla.json";
 import {
   canonicalAreaKey,
+  commonTrunkLevels,
   normalizeParallelProgress,
   parallelSameNameGroupForCode,
   presentationRamos,
   progressCodeIsDone,
   progressUnitCodes,
+  verifiedPlanNames,
 } from "../lib/malla/canon";
 import MallaPrerrequisitos from "./MallaPrerrequisitos";
 
@@ -317,6 +319,12 @@ export default function MallaInteractiva() {
 
   const compact = tamano === "chica";
 
+  const troncoComunNiveles = useMemo(() => commonTrunkLevels(), []);
+  const planesVerificados = useMemo(() => verifiedPlanNames(), []);
+  const troncoInicio = Math.min(...troncoComunNiveles);
+  const troncoFin = Math.max(...troncoComunNiveles);
+  const primerNivelPropio = troncoFin + 1;
+
   const allIngecoCodes = useMemo(
     () => malla.ingeco.niveles.flatMap((n) => n.ramos.map((r) => r.codigo)),
     []
@@ -468,19 +476,19 @@ export default function MallaInteractiva() {
           {vista === "clasica" ? (
             <>
               <p className="mb-6 border-l-4 border-primary bg-secondary p-3 text-sm text-muted-foreground">
-                Los semestres 1 y 2 de Economía son los mismos ramos que Administración (tronco
-                común de la FAE) — revísalos en la pestaña{" "}
+                Los semestres {troncoInicio} a {troncoFin} son tronco común con Administración según{" "}
+                <strong className="text-foreground">{planesVerificados[0]}</strong> y{" "}
+                <strong className="text-foreground">{planesVerificados[1]}</strong> (FAE). Desde el{" "}
+                {primerNivelPropio} la malla se separa. Otros planes no están representados aquí. Los
+                ramos propios de Economía que aparecen abajo corresponden a la oferta disponible en
+                BuscaCursos 2026-2. Puedes revisar el tronco común en{" "}
                 <button
                   onClick={() => setMencion("ingeco")}
                   className="font-semibold text-primary underline"
                 >
                   Mención Administración
                 </button>
-                . Desde el semestre 3 la malla se separa. Lo que sigue abajo son los ramos propios de
-                Economía que trae BuscaCursos, ya agrupados por su semestre real según la malla
-                oficial — este corte no trajo ningún ramo específico de Economía para el semestre 3
-                (probablemente porque ese semestre todavía comparte secciones con Administración este
-                período).
+                .
               </p>
 
               <div

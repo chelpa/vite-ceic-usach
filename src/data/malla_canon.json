@@ -94,5 +94,53 @@
       "evidencia": "SOURCE: ambos códigos con secciones en BuscaCursos 2026-2, mismo nombre y nivel (malla.json).",
       "conteo_avance": "PRODUCT_HEURISTIC: se cuenta una vez en el denominador; no implica equivalencia curricular."
     }
+  ],
+  "tronco_comun": {
+    "niveles": [
+      1,
+      2,
+      3
+    ],
+    "alcance": "Solo para los planes listados en planes_verificados.",
+    "verificado": "2026-09-19"
+  },
+  "planes_verificados": [
+    {
+      "mencion": "ingeco",
+      "plan": "Ingeniería Comercial en Administración de Empresas — malla 2024",
+      "fuente": [
+        "https://fae.usach.cl/cica/malla_2024.html",
+        "https://fae.usach.cl/fae/docs/administracion/plan-estudios-ing-com-en-adm-empresas.pdf"
+      ],
+      "tronco_comun_niveles": [
+        1,
+        2,
+        3
+      ],
+      "estado": "SOURCE"
+    },
+    {
+      "mencion": "economia",
+      "plan": "Ingeniería Comercial en Economía — malla vigente para ingresos a partir de 2023",
+      "fuente": [
+        "https://fae.usach.cl/cice/"
+      ],
+      "tronco_comun_niveles": [
+        1,
+        2,
+        3
+      ],
+      "estado": "SOURCE"
+    }
+  ],
+  "planes_no_modelados": [
+    {
+      "plan": "Economía — malla para ingresos hasta 2022 (fae.usach.cl/cice/index_2022.html)",
+      "estado": "FUERA_DE_M1"
+    },
+    {
+      "plan": "Economía — rediseño 2025 (economia.usach.cl, noticia 2025-06-04)",
+      "estado": "SOURCE_RESOLUTION_PENDING"
+    }
   ]
 }

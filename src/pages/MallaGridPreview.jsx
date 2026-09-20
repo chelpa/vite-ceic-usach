@@ -2,7 +2,10 @@ import { useMemo, useState } from "react";
 import { Info } from "lucide-react";
 import malla from "../data/malla.json";
 import prerrequisitos from "../data/malla_prerrequisitos.json";
-import { parallelSameNameGroupForCode } from "../lib/malla/canon";
+import {
+  commonTrunkLevels,
+  parallelSameNameGroupForCode,
+} from "../lib/malla/canon";
 
 // Página de PREVIEW, sin integrar todavía a /malla — pedido explícito de
 // Francisco: "primero visualizar bien" el estilo visual de su prototipo
@@ -22,7 +25,8 @@ import { parallelSameNameGroupForCode } from "../lib/malla/canon";
 
 function nivelesPara(mencion) {
   if (mencion === "ingeco") return malla.ingeco.niveles;
-  const compartidos = malla.ingeco.niveles.filter((n) => n.nivel <= 3);
+  const troncoComun = new Set(commonTrunkLevels());
+  const compartidos = malla.ingeco.niveles.filter((n) => troncoComun.has(n.nivel));
   const propios = [
     ...malla.economia.obligatorios,
     ...malla.economia.electivos_especialidad,

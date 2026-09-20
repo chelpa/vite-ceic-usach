@@ -70,3 +70,23 @@ export function presentationRamos(ramos) {
     return !group || ramo.codigo === group.codigo_presentacion;
   });
 }
+
+export function commonTrunkLevels() {
+  const niveles = mallaCanon.tronco_comun?.niveles;
+
+  if (!Array.isArray(niveles) || niveles.length === 0) {
+    throw new Error("tronco_comun.niveles no está definido en malla_canon.json");
+  }
+
+  return [...niveles];
+}
+
+export function verifiedPlanNames() {
+  const planes = mallaCanon.planes_verificados;
+
+  if (!Array.isArray(planes) || planes.length === 0) {
+    throw new Error("planes_verificados no está definido en malla_canon.json");
+  }
+
+  return planes.map((entry) => entry.plan);
+}

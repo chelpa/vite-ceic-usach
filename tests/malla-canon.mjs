@@ -276,6 +276,96 @@ for (let i = 0; i < PARALLEL_EXPECTED.length; i++) {
   }
 }
 
+
+// ------------------------------------------------------------
+// Commit 7: tronco común y alcance de planes verificados.
+// ------------------------------------------------------------
+const TRONCO_EXPECTED = {
+  niveles: [1, 2, 3],
+  alcance: "Solo para los planes listados en planes_verificados.",
+  verificado: "2026-09-19",
+};
+
+if (JSON.stringify(canon.tronco_comun) !== JSON.stringify(TRONCO_EXPECTED)) {
+  fail("tronco_comun no coincide con el esquema congelado");
+}
+
+const PLANES_VERIFICADOS_EXPECTED = [
+  {
+    mencion: "ingeco",
+    plan: "Ingeniería Comercial en Administración de Empresas — malla 2024",
+    fuente: [
+      "https://fae.usach.cl/cica/malla_2024.html",
+      "https://fae.usach.cl/fae/docs/administracion/plan-estudios-ing-com-en-adm-empresas.pdf",
+    ],
+    tronco_comun_niveles: [1, 2, 3],
+    estado: "SOURCE",
+  },
+  {
+    mencion: "economia",
+    plan: "Ingeniería Comercial en Economía — malla vigente para ingresos a partir de 2023",
+    fuente: ["https://fae.usach.cl/cice/"],
+    tronco_comun_niveles: [1, 2, 3],
+    estado: "SOURCE",
+  },
+];
+
+if (
+  JSON.stringify(canon.planes_verificados) !==
+  JSON.stringify(PLANES_VERIFICADOS_EXPECTED)
+) {
+  fail("planes_verificados no coincide con el esquema congelado");
+}
+
+const PLANES_NO_MODELADOS_EXPECTED = [
+  {
+    plan: "Economía — malla para ingresos hasta 2022 (fae.usach.cl/cice/index_2022.html)",
+    estado: "FUERA_DE_M1",
+  },
+  {
+    plan: "Economía — rediseño 2025 (economia.usach.cl, noticia 2025-06-04)",
+    estado: "SOURCE_RESOLUTION_PENDING",
+  },
+];
+
+if (
+  JSON.stringify(canon.planes_no_modelados) !==
+  JSON.stringify(PLANES_NO_MODELADOS_EXPECTED)
+) {
+  fail("planes_no_modelados no coincide con el esquema congelado");
+}
+
+if (
+  JSON.stringify(malla.economia?.comparte_niveles_con_ingeco) !==
+  JSON.stringify([1, 2])
+) {
+  fail(
+    "el campo histórico comparte_niveles_con_ingeco debe permanecer intacto en [1,2]",
+  );
+}
+
+const READER_FILES = [
+  "src/pages/MallaInteractiva.jsx",
+  "src/pages/MallaPrerrequisitos.jsx",
+  "src/pages/MallaGridPreview.jsx",
+];
+
+for (const relative of READER_FILES) {
+  const source = await readFile(join(raiz, relative), "utf8");
+
+  if (source.includes("comparte_niveles_con_ingeco")) {
+    fail(`${relative} todavía lee o menciona comparte_niveles_con_ingeco`);
+  }
+
+  if (/nivel\s*<=\s*3/.test(source)) {
+    fail(`${relative} todavía contiene el literal nivel <= 3`);
+  }
+
+  if (!source.includes("commonTrunkLevels")) {
+    fail(`${relative} no consume commonTrunkLevels desde la capa canónica`);
+  }
+}
+
 console.log("✓ esquema cerrado de malla_canon.json");
 console.log(`✓ ${rawAreas.size} valores raw de area tienen mapeo`);
 console.log("✓ ECONOMIA / ECONOMÍA comparten canon");
@@ -283,4 +373,7 @@ console.log("✓ FIN / FINANZAS comparten canon");
 console.log("✓ 3 grupos paralelos coinciden con malla.json");
 console.log("✓ official_equivalence = UNKNOWN en los 3 grupos");
 console.log("✓ conteo de avance declarado PRODUCT_HEURISTIC");
+console.log("✓ tronco común [1,2,3] y planes verificados coinciden con REV-B");
+console.log("✓ campo histórico [1,2] preservado sin lectores");
+console.log("✓ vistas consumen commonTrunkLevels sin literal <= 3");
 console.log("MALLA_CANON_TEST=PASS");
