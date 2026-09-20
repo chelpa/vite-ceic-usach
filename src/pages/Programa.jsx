@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Circle, CircleCheck, CircleDot, Layers, Columns3, NotebookText, Gauge } from "lucide-react";
 import PageShell from "../components/PageShell";
 import PageIntro from "../components/PageIntro";
+import FuenteYFecha from "../components/FuenteYFecha";
 import data from "../data/programa.json";
 
 // Cuatro formas de mirar los mismos 72 compromisos reales (título + estado,
@@ -232,7 +233,11 @@ export default function Programa() {
       <PageIntro
         wide
         title="Conoce nuestro programa"
-        subtitle="Los compromisos del programa Impulsa Comercial, con el que fuimos elegidos, y su estado de avance real, actualizado por la misma mesa directiva."
+        subtitle="Los compromisos del programa Impulsa Comercial, con el que fuimos elegidos, y los estados informados por la misma mesa directiva."
+      />
+
+      <FuenteYFecha
+        nota="Fecha de corte no publicada."
       />
 
       <div className="mt-8 block-border bg-card p-6">

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search, Star, X } from "lucide-react";
 import profesoresRaw from "../data/wikiprofes.json";
+import FuenteYFecha from "../components/FuenteYFecha";
 import { hashedThemeStyle } from "../lib/theme";
 
 function stripAccents(s) {
@@ -440,6 +441,17 @@ export default function WikiProfes() {
     ? (withRating.reduce((s, p) => s + p.calificacion, 0) / withRating.length).toFixed(1)
     : "—";
 
+  const staticWithUpdate = DATA.filter((p) => p.actualizado);
+  const staticWithoutUpdate = DATA.length - staticWithUpdate.length;
+  const staticUpdateValues = [
+    ...new Set(staticWithUpdate.map((p) => p.actualizado)),
+  ];
+
+  const staticUpdateLabel =
+    staticUpdateValues.length === 1
+      ? `${staticUpdateValues[0]} (${staticWithUpdate.length} fichas)`
+      : `${staticWithUpdate.length} fichas con fecha registrada`;
+
   const list = useMemo(() => {
     const qq = norm(q);
     let out = mergedData.filter((p) => {
@@ -481,6 +493,16 @@ export default function WikiProfes() {
           no tienen calificación oficial: el puntaje sale del tono de los comentarios históricos
           de Canva, no de un promedio de votos.
         </p>
+
+        <FuenteYFecha
+          fuente="WikiProfes + archivo histórico (Canva)"
+          actualizado={staticUpdateLabel}
+          nota={
+            staticWithoutUpdate
+              ? `${staticWithoutUpdate} fichas sin fecha de actualización.`
+              : undefined
+          }
+        />
       </div>
 
       <div className="sticky top-[var(--header-h)] z-40 mt-6 border-y border-border bg-card/95 backdrop-blur">

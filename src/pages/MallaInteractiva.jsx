@@ -11,6 +11,7 @@ import {
   Waypoints,
 } from "lucide-react";
 import malla from "../data/malla.json";
+import FuenteYFecha from "../components/FuenteYFecha";
 import {
   canonicalAreaKey,
   commonTrunkLevels,
@@ -350,6 +351,10 @@ export default function MallaInteractiva() {
         Los ramos de Ingeniería Comercial por semestre, para las dos menciones. Marca lo que ya
         aprobaste y queda guardado en este navegador — no hay cuenta ni servidor detrás.
       </p>
+
+      <FuenteYFecha
+        fuente={`según oferta BuscaCursos ${malla[mencion].semestre}`}
+      />
 
       <div className="mt-4 flex items-start gap-3 border border-accent/40 bg-accent/10 p-3 text-sm">
         <Info className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />

@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import PageShell from "../components/PageShell";
 import PageIntro from "../components/PageIntro";
+import FuenteYFecha from "../components/FuenteYFecha";
 import calendario from "../data/calendario.json";
 import { tokenSurfaceStyle } from "../lib/theme";
 
@@ -341,6 +342,11 @@ export default function Calendario() {
       <PageIntro
         title="Calendario académico"
         subtitle="Fechas clave del segundo semestre 2026 para Ingeniería Comercial Diurno y Prosecución, recopiladas por el centro de estudiantes."
+      />
+
+      <FuenteYFecha
+        periodo="Segundo semestre 2026"
+        nota="Recopilado por el Centro de Estudiantes de Ingeniería Comercial."
       />
 
       <div className="mt-8 flex flex-wrap items-center gap-3">
