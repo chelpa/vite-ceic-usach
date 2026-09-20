@@ -1,4 +1,11 @@
-import { ArrowRight, BookOpen, Users, ListChecks } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  CalendarDays,
+  GraduationCap,
+  ListChecks,
+  Users,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { Instagram } from "../components/BrandIcons";
 
@@ -24,22 +31,34 @@ function PlaceholderPhoto({ alt, className = "" }) {
 
 const CARDS = [
   {
+    to: "/malla",
+    icon: GraduationCap,
+    title: "Malla interactiva",
+    desc: "Ramos por semestre, prerrequisitos y tu avance.",
+  },
+  {
+    to: "/calendario",
+    icon: CalendarDays,
+    title: "Calendario académico",
+    desc: "Fechas de 2026-2 en lista, mes, semana y día.",
+  },
+  {
     to: "/wikiprofes",
     icon: BookOpen,
     title: "WikiProfes",
     desc: "Fichas de profesores: ramos y reseñas de la comunidad.",
   },
   {
-    to: "/nosotros",
-    icon: Users,
-    title: "Nosotros",
-    desc: "Quiénes componen la mesa y cómo funcionan las comisiones.",
-  },
-  {
     to: "/programa",
     icon: ListChecks,
     title: "Programa",
     desc: "El avance de nuestros compromisos, con seguimiento público.",
+  },
+  {
+    to: "/nosotros",
+    icon: Users,
+    title: "Nosotros",
+    desc: "Quiénes componen la mesa y cómo funcionan las comisiones.",
   },
 ];
 
@@ -64,6 +83,18 @@ export default function Inicio() {
                   >
                     Abrir WikiProfes <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
+                  <Link
+                    to="/malla"
+                    className="block-border-lg inline-flex items-center gap-2 bg-background px-4 py-3 text-sm font-bold uppercase text-foreground"
+                  >
+                    Ver malla
+                  </Link>
+                  <Link
+                    to="/calendario"
+                    className="block-border-lg inline-flex items-center gap-2 bg-background px-4 py-3 text-sm font-bold uppercase text-foreground"
+                  >
+                    Calendario
+                  </Link>
                   <a
                     href="https://www.instagram.com/ceic.usach/?hl=es"
                     target="_blank"
@@ -80,7 +111,7 @@ export default function Inicio() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-14">
-        <div className="grid gap-5 sm:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
           {CARDS.map((c) => (
             <Link
               key={c.to}
@@ -99,24 +130,11 @@ export default function Inicio() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-14">
-        <h2 className="border-b border-foreground pb-3 text-2xl">Galería</h2>
-        <div className="mt-6 grid grid-cols-2 gap-5 lg:grid-cols-4">
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <PlaceholderPhoto
-              key={n}
-              alt={`Actividad ${n} del CEIC`}
-              className="block-border aspect-4/3 w-full"
-            />
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 pb-16">
         <div className="block-border-lg bg-ink p-8 text-ink-foreground">
           <h2 className="text-2xl">¿Con quién tomar el ramo?</h2>
           <p className="mt-2 max-w-xl text-sm opacity-80">
-            WikiProfes reúne 202 fichas de profesores de Ingeniería Comercial, con reseñas,
-            ramos y recomendaciones, todo con buscador.
+            Fichas de profesores de Ingeniería Comercial, con reseñas, ramos y recomendaciones,
+            todo con buscador.
           </p>
           <Link
             to="/wikiprofes"
@@ -125,6 +143,17 @@ export default function Inicio() {
             Buscar un profe <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-16">
+        <h2 className="border-b border-foreground pb-3 text-2xl">Galería</h2>
+        <p className="mt-3 text-sm text-muted-foreground">
+          Fotos de actividades pendientes de la mesa.
+        </p>
+        <PlaceholderPhoto
+          alt="Actividades del CEIC"
+          className="block-border mt-4 h-24 w-full sm:h-28"
+        />
       </section>
     </div>
   );
