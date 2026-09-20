@@ -1,0 +1,60 @@
+{
+  "areas": {
+    "ADM": {
+      "canon": "ADM",
+      "label": "Administración"
+    },
+    "CONTABILIDAD": {
+      "canon": "CONTABILIDAD",
+      "label": "Contabilidad"
+    },
+    "DIRECCION": {
+      "canon": "DIRECCION",
+      "label": "Dirección"
+    },
+    "ECONOMIA": {
+      "canon": "ECONOMIA",
+      "label": "Economía"
+    },
+    "ECONOMÍA": {
+      "canon": "ECONOMIA",
+      "label": "Economía"
+    },
+    "ESTRATEGIA": {
+      "canon": "ESTRATEGIA",
+      "label": "Estrategia"
+    },
+    "FIN": {
+      "canon": "FINANZAS",
+      "label": "Finanzas"
+    },
+    "FINANZAS": {
+      "canon": "FINANZAS",
+      "label": "Finanzas"
+    },
+    "INGLES": {
+      "canon": "INGLES",
+      "label": "Inglés"
+    },
+    "MARKETING": {
+      "canon": "MARKETING",
+      "label": "Marketing"
+    },
+    "OPERACIÓN": {
+      "canon": "OPERACIÓN",
+      "label": "Operación"
+    },
+    "ORG INDUSTRIAL": {
+      "canon": "ORG INDUSTRIAL",
+      "label": "Organización Industrial"
+    },
+    "RRHH": {
+      "canon": "RRHH",
+      "label": "RR.HH."
+    },
+    "TALLERES": {
+      "canon": "TALLERES",
+      "label": "Talleres"
+    }
+  }
+}

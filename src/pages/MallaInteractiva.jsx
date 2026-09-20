@@ -11,6 +11,7 @@ import {
   Waypoints,
 } from "lucide-react";
 import malla from "../data/malla.json";
+import { canonicalAreaKey } from "../lib/malla/canon";
 import MallaPrerrequisitos from "./MallaPrerrequisitos";
 
 const STORE_KEY = "ceic-malla-avance-v1";
@@ -66,7 +67,7 @@ function hashHue(str) {
 }
 
 function areaStyle(area) {
-  const key = (area || "").trim().toUpperCase();
+  const key = canonicalAreaKey(area);
   const hue = hashHue(key);
   return {
     background: `hsl(${hue} 45% 93%)`,

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CheckCircle2, Circle, Grid3x3, Share2, Info } from "lucide-react";
 import malla from "../data/malla.json";
+import { canonicalAreaKey } from "../lib/malla/canon";
 import prerrequisitos from "../data/malla_prerrequisitos.json";
 
 // Vista "Interactiva 2.0": los mismos ramos y el mismo avance guardado de la
@@ -31,7 +32,7 @@ function hashHue(str) {
 }
 
 function areaStyle(area) {
-  const key = (area || "").trim().toUpperCase();
+  const key = canonicalAreaKey(area);
   const hue = hashHue(key);
   return {
     background: `hsl(${hue} 45% 93%)`,

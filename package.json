@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run test:malla && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
     "test:smoke": "node tests/smoke-rutas.mjs",
-    "test": "npm run build && npm run test:smoke"
+    "test": "npm run build && npm run test:smoke",
+    "test:malla": "node tests/malla-canon.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.38.0",
