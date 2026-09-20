@@ -1,12 +1,7 @@
 import PageShell from "../components/PageShell";
 import PageIntro from "../components/PageIntro";
 import miembros from "../data/nosotros.json";
-
-function hashHue(str) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
-  return h % 360;
-}
+import { hashedThemeStyle } from "../lib/theme";
 
 function initials(name) {
   const parts = name.trim().split(/\s+/).filter(Boolean);
@@ -16,14 +11,10 @@ function initials(name) {
 }
 
 function Avatar({ name }) {
-  const hue = hashHue(name);
   return (
     <div
       className="block-border flex aspect-square w-full items-center justify-center font-[family-name:var(--font-display)] text-3xl font-bold"
-      style={{
-        background: `hsl(${hue} 55% 88%)`,
-        color: `hsl(${hue} 45% 28%)`,
-      }}
+      style={hashedThemeStyle(name, 22)}
       aria-hidden="true"
     >
       {initials(name)}

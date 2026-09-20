@@ -11,6 +11,7 @@ import {
 import PageShell from "../components/PageShell";
 import PageIntro from "../components/PageIntro";
 import calendario from "../data/calendario.json";
+import { tokenSurfaceStyle } from "../lib/theme";
 
 // Calendario tipo Google Calendar (Mes / Semana / Día) sobre las mismas
 // fechas reales que ya teníamos en la vista de lista — no se agregó ni un
@@ -41,12 +42,12 @@ const DOW_MON = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 const DOW_FULL = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
 const CATEGORIA_META = {
-  matricula: { label: "Matrícula y toma de ramos", color: "#0c7c78" },
-  periodo: { label: "Período académico", color: "#2f6fa8" },
-  evaluaciones: { label: "Evaluaciones (PEP1/PEP2)", color: "#b3432f" },
-  tramites: { label: "Trámites académicos", color: "#6a5a9c" },
-  feriados: { label: "Feriados y recesos", color: "#1f9d55" },
-  examenes: { label: "Examen de grado y tesis", color: "#c9791f" },
+  matricula: { label: "Matrícula y toma de ramos", token: "--color-primary" },
+  periodo: { label: "Período académico", token: "--color-chart-2" },
+  evaluaciones: { label: "Evaluaciones (PEP1/PEP2)", token: "--color-chart-3" },
+  tramites: { label: "Trámites académicos", token: "--color-chart-4" },
+  feriados: { label: "Feriados y recesos", token: "--color-ink" },
+  examenes: { label: "Examen de grado y tesis", token: "--color-accent" },
 };
 
 const EVENTOS = calendario.flatMap((sec) =>
@@ -97,7 +98,7 @@ function Legend() {
     <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs">
       {Object.entries(CATEGORIA_META).map(([key, m]) => (
         <span key={key} className="inline-flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: m.color }} aria-hidden="true" />
+          <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: `var(${m.token})` }} aria-hidden="true" />
           {m.label}
         </span>
       ))}
@@ -111,7 +112,7 @@ function EventoItem({ e, compact }) {
     <div className={"flex items-start gap-2 " + (compact ? "py-1" : "py-2")}>
       <span
         className="mt-1 h-2 w-2 shrink-0 rounded-full"
-        style={{ background: meta.color }}
+        style={{ background: `var(${meta.token})` }}
         aria-hidden="true"
       />
       <div className="min-w-0 flex-1">
@@ -163,7 +164,11 @@ function VistaMes({ cursor, onPickDay }) {
               type="button"
               key={i}
               onClick={() => onPickDay(iso)}
-              style={{ background: isPep ? "rgba(179,67,47,0.14)" : "var(--color-card)" }}
+              style={{
+                background: isPep
+                  ? "color-mix(in srgb, var(--color-chart-3) 14%, var(--color-card))"
+                  : "var(--color-card)",
+              }}
               className="flex min-h-24 flex-col items-stretch gap-1 p-1.5 text-left transition-shadow hover:ring-1 hover:ring-inset hover:ring-primary sm:p-2"
             >
               <span
@@ -178,8 +183,11 @@ function VistaMes({ cursor, onPickDay }) {
                 {evs.slice(0, 3).map((e, idx) => (
                   <span
                     key={idx}
-                    className="truncate rounded px-1 py-0.5 text-[10px] leading-tight text-white"
-                    style={{ background: CATEGORIA_META[e.categoria].color }}
+                    className="truncate rounded border px-1 py-0.5 text-[10px] leading-tight"
+                    style={{
+                      ...tokenSurfaceStyle(CATEGORIA_META[e.categoria].token),
+                      borderColor: `color-mix(in srgb, var(${CATEGORIA_META[e.categoria].token}) 55%, var(--color-border))`,
+                    }}
                     title={e.titulo}
                   >
                     {e.titulo}
@@ -227,8 +235,11 @@ function VistaSemana({ cursor, onPickDay }) {
                 evs.map((e, idx) => (
                   <span
                     key={idx}
-                    className="truncate rounded px-1 py-0.5 text-[10px] leading-tight text-white"
-                    style={{ background: CATEGORIA_META[e.categoria].color }}
+                    className="truncate rounded border px-1 py-0.5 text-[10px] leading-tight"
+                    style={{
+                      ...tokenSurfaceStyle(CATEGORIA_META[e.categoria].token),
+                      borderColor: `color-mix(in srgb, var(${CATEGORIA_META[e.categoria].token}) 55%, var(--color-border))`,
+                    }}
                     title={e.titulo}
                   >
                     {e.titulo}

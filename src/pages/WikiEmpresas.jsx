@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Briefcase, Search, Star } from "lucide-react";
 import empresasRaw from "../data/wikiempresas.json";
+import { hashedThemeStyle } from "../lib/theme";
 
 // WikiEmpresas todavía no existe en el sitio real (dice "en construcción"), y no
 // tenemos ninguna fuente de datos reales de empresas o reseñas para llenarlo — a
@@ -17,11 +18,6 @@ function stripAccents(s) {
 function norm(s) {
   return stripAccents(s || "").toLowerCase();
 }
-function hashHue(str) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
-  return h % 360;
-}
 function initials(name) {
   const parts = (name || "").trim().split(/\s+/).filter(Boolean);
   if (parts.length === 0) return "?";
@@ -30,11 +26,10 @@ function initials(name) {
 }
 
 function Logo({ name, size = "h-10 w-10 text-sm" }) {
-  const hue = hashHue(name);
   return (
     <div
       className={"flex shrink-0 items-center justify-center rounded-full font-[family-name:var(--font-display)] font-bold " + size}
-      style={{ background: `hsl(${hue} 55% 88%)`, color: `hsl(${hue} 45% 28%)` }}
+      style={hashedThemeStyle(name, 22)}
       aria-hidden="true"
     >
       {initials(name)}

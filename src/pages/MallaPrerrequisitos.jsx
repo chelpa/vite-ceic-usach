@@ -7,6 +7,7 @@ import {
   parallelSameNameGroupForCode,
 } from "../lib/malla/canon";
 import prerrequisitos from "../data/malla_prerrequisitos.json";
+import { hashedThemeStyle, readThemeColors } from "../lib/theme";
 
 // Vista "Interactiva 2.0": los mismos ramos y el mismo avance guardado de la
 // malla clásica (misma localStorage, ceic-malla-avance-v1, recibida por props
@@ -29,19 +30,8 @@ function loadEstilo() {
   return "grid";
 }
 
-function hashHue(str) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
-  return h % 360;
-}
-
 function areaStyle(area) {
-  const key = canonicalAreaKey(area);
-  const hue = hashHue(key);
-  return {
-    background: `hsl(${hue} 45% 93%)`,
-    color: `hsl(${hue} 45% 30%)`,
-  };
+  return hashedThemeStyle(canonicalAreaKey(area));
 }
 
 // Junta, para una mención, la lista de niveles {nivel, ramos:[...]} que
@@ -298,20 +288,6 @@ function GridVista({ niveles, avance, onToggle, compact }) {
       </div>
     </div>
   );
-}
-
-function readThemeColors() {
-  const styles = getComputedStyle(document.documentElement);
-  const get = (name, fallback) => styles.getPropertyValue(name)?.trim() || fallback;
-  return {
-    card: get("--color-card", "#ffffff"),
-    border: get("--color-border-strong", "#bfd0cf"),
-    foreground: get("--color-foreground", "#10201f"),
-    mutedForeground: get("--color-muted-foreground", "#5b6d6b"),
-    primary: get("--color-primary", "#0c7c78"),
-    primaryForeground: get("--color-primary-foreground", "#ffffff"),
-    chart3: get("--color-chart-3", "#b3432f"),
-  };
 }
 
 function GrafoVista({ niveles, avance, onToggle }) {

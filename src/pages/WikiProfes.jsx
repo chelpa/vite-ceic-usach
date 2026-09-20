@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Search, Star, X } from "lucide-react";
 import profesoresRaw from "../data/wikiprofes.json";
+import { hashedThemeStyle } from "../lib/theme";
 
 function stripAccents(s) {
   return (s || "").normalize("NFD").replace(/[̀-ͯ]/g, "");
@@ -49,11 +50,6 @@ function matchBackend(p, backend) {
   if (p.slug && backend.bySlug[p.slug]) return backend.bySlug[p.slug];
   return backend.byNombreNorm[norm(p.nombre)] || null;
 }
-function hashHue(str) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
-  return h % 360;
-}
 function initials(name) {
   const parts = (name || "").trim().split(/\s+/).filter(Boolean);
   if (parts.length === 0) return "?";
@@ -62,11 +58,10 @@ function initials(name) {
 }
 
 function Avatar({ name, size = "h-10 w-10 text-sm" }) {
-  const hue = hashHue(name);
   return (
     <div
       className={"flex shrink-0 items-center justify-center rounded-full font-[family-name:var(--font-display)] font-bold " + size}
-      style={{ background: `hsl(${hue} 55% 88%)`, color: `hsl(${hue} 45% 28%)` }}
+      style={hashedThemeStyle(name, 22)}
       aria-hidden="true"
     >
       {initials(name)}

@@ -22,6 +22,7 @@ import {
   verifiedPlanNames,
 } from "../lib/malla/canon";
 import MallaPrerrequisitos from "./MallaPrerrequisitos";
+import { hashedThemeStyle } from "../lib/theme";
 
 const STORE_KEY = "ceic-malla-avance-v1";
 const SIZE_STORE_KEY = "ceic-malla-tamano-v1";
@@ -69,19 +70,8 @@ function economiaPorSemestre() {
     .map((nivel) => ({ nivel, ramos: porNivel[nivel] }));
 }
 
-function hashHue(str) {
-  let h = 0;
-  for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
-  return h % 360;
-}
-
 function areaStyle(area) {
-  const key = canonicalAreaKey(area);
-  const hue = hashHue(key);
-  return {
-    background: `hsl(${hue} 45% 93%)`,
-    color: `hsl(${hue} 45% 30%)`,
-  };
+  return hashedThemeStyle(canonicalAreaKey(area));
 }
 
 function loadAvance() {
